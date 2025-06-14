@@ -1,5 +1,5 @@
 
-![httpsconfigurator expo app (1)](https://github.com/user-attachments/assets/268e37f4-698d-4720-a662-a946c12019dd)
+![httpsconfigurator expo app (1)](https://github.com/user-attachments/assets/08700ee8-1204-4f00-81c4-b2fa2eedfbf2)
 
 
 
