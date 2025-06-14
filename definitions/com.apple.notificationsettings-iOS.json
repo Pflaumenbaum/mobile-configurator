@@ -1,0 +1,202 @@
+{
+  "pfm_description": "Configures Notification settings for iOS apps",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/notifications/notificationsettingsitem?changes=latest_minor",
+  "pfm_domain": "com.apple.notificationsettings",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "9.3",
+  "pfm_last_modified": "2022-06-07T07:38:53.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subdomain": "iOS",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Notification settings for iOS apps",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Notifications",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.notificationsettings",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.notificationsettings",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Notification settings for iOS apps",
+      "pfm_name": "NotificationSettings",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Notification settings for an app",
+          "pfm_name": "NotificationSetting",
+          "pfm_subkeys": [
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether notifications are allowed for this app.",
+              "pfm_description_reference": "Optional. Whether notifications are allowed for this app. Default is true.",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "NotificationsEnabled",
+              "pfm_title": "Enable Notifications",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_description": "Bundle identifier of the target app",
+              "pfm_description_reference": "Required. Bundle identifier of app to which to apply these notification settings",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "BundleIdentifier",
+              "pfm_require": "always",
+              "pfm_title": "App Bundle Identifier",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "com.domain.app"
+            },
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether notifications can be shown in notification center.",
+              "pfm_description_reference": "Optional. Whether notifications can be shown in notification center. Default is true.",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "ShowInNotificationCenter",
+              "pfm_title": "Show in Notification Center",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether notifications can be shown on the lock screen.",
+              "pfm_description_reference": "Optional. Whether notifications can be shown in the lock screen. Default is true.",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "ShowInLockScreen",
+              "pfm_title": "Show on Lock Screen",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether notifications can be shown on the lock screen.",
+              "pfm_description_reference": "Optional. Whether notifications can be shown in CarPlay. Default is true. Availability: Available in iOS 12 and later",
+              "pfm_documentation_url": "https://developer.apple.com/business/documentation/Configuration-Profile-Reference.pdf",
+              "pfm_ios_min": "12.0",
+              "pfm_name": "ShowInCarPlay",
+              "pfm_title": "Show in Car Play",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether sounds are allowed for this app.",
+              "pfm_description_reference": "Optional. Whether sounds are allowed for this app. Default is true.",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "SoundsEnabled",
+              "pfm_title": "Sounds Enabled",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": true,
+              "pfm_description": "Whether badges are allowed for this app.",
+              "pfm_description_reference": "Optional. Whether badges are allowed for this app. Default is true.",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "BadgesEnabled",
+              "pfm_title": "Badges Enabled",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": 1,
+              "pfm_description": "The type of alert for notifications for this app. None/Banner/Alert",
+              "pfm_description_reference": "Optional. The type of alert for notifications for this app:\n- 0: None\n- 1: Banner (default)\n- 2: Modal Alert",
+              "pfm_ios_min": "9.3",
+              "pfm_name": "AlertType",
+              "pfm_range_list": [0, 1, 2],
+              "pfm_range_list_titles": ["None", "Banners", "Alerts"],
+              "pfm_title": "Alert Type",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The type previews for notifications. Options:\nAlways - Previews will be shown when the device is locked and unlocked\nWhen Unlocked - Previews will only be shown when the device is unlocked\nNever - Previews will never be shown\n\nThis key overrides the value at Settings > Notifications > Show Previews.",
+              "pfm_description_reference": "The type previews for notifications. This key overrides the value at Settings > Notifications > Show Previews.",
+              "pfm_ios_min": "14.0",
+              "pfm_name": "PreviewType",
+              "pfm_range_list": [0, 1, 2],
+              "pfm_range_list_titles": ["Always", "When Unlocked", "Never"],
+              "pfm_title": "Preview Type",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_default": 0,
+              "pfm_description": "",
+              "pfm_description_reference": "Optional. The type of grouping for notifications for this app:\n- 0: Automatic - group notifications into app-specified groups. (Default)\n- 1: By app - group notifications into one group.\n- 2: Off - do not group notifications.\nAvailability: Available in iOS 12 and later.",
+              "pfm_documentation_url": "https://developer.apple.com/business/documentation/Configuration-Profile-Reference.pdf",
+              "pfm_ios_min": "12.0",
+              "pfm_name": "GroupingType",
+              "pfm_range_list": [0, 1, 2],
+              "pfm_range_list_titles": [
+                "Automatic - Group notifications app-specific groups",
+                "By App - Group notifications into one group",
+                "Off - Do not group notifications"
+              ],
+              "pfm_title": "Notification Grouping",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Whether an app can mark notifications as 'critical', bypassing Do Not Disturb and ringer settings.",
+              "pfm_description_reference": "Optional. Whether an app can mark a notification as a critical notification that will ignore Do Not Disturb and ringer settings. Default is false. Availability: Available in iOS 12 and later.",
+              "pfm_documentation_url": "https://developer.apple.com/business/documentation/Configuration-Profile-Reference.pdf",
+              "pfm_ios_min": "12.0",
+              "pfm_name": "CriticalAlertEnabled",
+              "pfm_title": "Enable Critical Alerts",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "Notification Setting",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Notification Settings",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_supervised": true,
+  "pfm_targets": ["system"],
+  "pfm_title": "Notifications",
+  "pfm_unique": true,
+  "pfm_version": 5
+}

@@ -1,0 +1,513 @@
+{
+  "pfm_description": "Use this section to define First Active Ethernet settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/8021xfirstactiveethernet",
+  "pfm_domain": "com.apple.firstactiveethernet.managed",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-03-28T10:22:24.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures First Active Ethernet settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "802.1X Ethernet: First Active",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.firstactiveethernet.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.firstactiveethernet.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Select \"Login Window\" to authenticate the Mac to the network when the user logs in.",
+      "pfm_name": "SetupModes",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "SetupMode",
+          "pfm_range_list": ["System", "Loginwindow"],
+          "pfm_range_list_titles": ["System", "Login Window"],
+          "pfm_title": "Setup Mode",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "EAP Setup Modes",
+      "pfm_type": "array",
+      "pfm_type_input": "boolean"
+    },
+    {
+      "pfm_description": "Specifies 802.1x EAP authentication parameters.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["None"],
+              "pfm_target": "EncryptionType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "Password"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "EAPClientConfiguration",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The EAP types accepted.",
+          "pfm_name": "AcceptEAPTypes",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "An integer representing an EAP type, inside of the Accept EAP Types array.",
+              "pfm_name": "EAPType",
+              "pfm_range_list": [13, 17, 21, 25, 43, 18, 23],
+              "pfm_range_list_titles": [
+                "TLS",
+                "LEAP",
+                "TTLS",
+                "PEAP",
+                "EAP-FAST",
+                "EAP-SIM",
+                "EAP-AKA"
+              ],
+              "pfm_title": "EAP Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Accept EAP Types",
+          "pfm_type": "array",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "Username. If not provided, the user may be prompted during login.",
+          "pfm_name": "UserName",
+          "pfm_title": "Username",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "push",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                },
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.OneTimeUserPassword"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "Password. If not provided, the user may be prompted during login.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.OneTimeUserPassword"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "UserPassword",
+          "pfm_sensitive": true,
+          "pfm_title": "Password",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If set, the user will be prompted for a password each time they connect to the network.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "8.0",
+          "pfm_macos_min": "10.8",
+          "pfm_name": "OneTimeUserPassword",
+          "pfm_title": "Per-Connection Password",
+          "pfm_tvos_min": "7.0",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "Array of UUIDs corresponding to the trusted certificates for this authentication.",
+          "pfm_name": "PayloadCertificateAnchorUUID",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A UUID for a trusted certificate",
+              "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+              "pfm_name": "CertificateAnchorUUID",
+              "pfm_title": "Individual Certificate Anchor UUID",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Certificate Anchor UUID",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "Certificate Common Names expected from authentication server. The wildcard * can be used to match a range of strings.",
+          "pfm_name": "TLSTrustedServerNames",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "An item in the TLS Trusted Server Names array representing a Common Name of a server certificate.",
+              "pfm_name": "TLSTrustedServerName",
+              "pfm_title": "Individual Trusted TLS Server Name",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Trusted Server Certificate Names",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "Allows a dynamic trust decision by the user.",
+          "pfm_ios_deprecated": "7.1.2",
+          "pfm_ios_max": "7.1.2",
+          "pfm_name": "TLSAllowTrustExceptions",
+          "pfm_title": "Allow Trust Exceptions",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [21],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_default": "MSCHAPv2",
+          "pfm_description": "Specifies the inner authentication used by the TTLS module.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "TTLSInnerAuthentication",
+          "pfm_range_list": ["PAP", "EAP", "CHAP", "MSCHAP", "MSCHAPv2"],
+          "pfm_title": "Inner Authentication",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "Externally visible identification (for TTLS, PEAP, and EAP-FAST). This string is used instead of the user's identity outside the encrypted tunnel. This value can be used to mask the true identity of the person using the network.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "OuterIdentity",
+          "pfm_title": "Outer Identity",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "1.0",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "11.0",
+          "pfm_macos_min": "10.13",
+          "pfm_name": "TLSMinimumVersion",
+          "pfm_range_list": ["1.0", "1.1", "1.2", "1.3"],
+          "pfm_title": "TLS Minimum Version",
+          "pfm_tvos_min": "11.0",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "1.2",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "11.0",
+          "pfm_macos_min": "10.13",
+          "pfm_name": "TLSMaximumVersion",
+          "pfm_range_list": ["1.0", "1.1", "1.2", "1.3"],
+          "pfm_title": "TLS Maximum Version",
+          "pfm_tvos_min": "11.0",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If set, the device will use an existing PAC if it's present. Otherwise the server must present its identity using a certificate.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTUsePAC",
+          "pfm_title": "Use PAC",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                },
+                {
+                  "pfm_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTUsePAC"
+                }
+              ]
+            }
+          ],
+          "pfm_default": false,
+          "pfm_description": "If set, allows PAC provisioning.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTUsePAC"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTProvisionPAC",
+          "pfm_title": "Provision PAC",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If set, provisions the device anonymously. Note that there are known man-in-the-middle attacks for anonymous provisioning.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTProvisionPAC"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTProvisionPACAnonymously",
+          "pfm_title": "Provision PAC Anonymously",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": 3,
+          "pfm_description": "The minimum number of RAND values accepted from the server. 3 is the default, and 2 is allowed, but offers less security.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [18],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "8.0",
+          "pfm_name": "EAPSIMNumberOfRANDs",
+          "pfm_range_list": [2, 3],
+          "pfm_title": "Number of RANDs",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "Use an alternate set of credentials when in System mode (AKA not a loginwindow profile). This can be used to tell EAPOLClient to use the computer password in a bound active directory scenario for authentication.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_present": true,
+                  "pfm_target": "EAPClientConfiguration.SystemModeUseOpenDirectoryCredentials"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "SystemModeCredentialsSource",
+          "pfm_range_list": ["ActiveDirectory"],
+          "pfm_title": "System Profile Credentials Source",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "This indicates if the connection should try to use the OpenDirectory machine credentials.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_present": true,
+                  "pfm_target": "EAPClientConfiguration.SystemModeCredentialsSource"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "SystemModeUseOpenDirectoryCredentials",
+          "pfm_title": "Use OpenDirectory System Profile Credentials",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "An array of trusted certificates. Each entry in the array must contain certificate data that represents an anchor certificate used for verifying the server certificate.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [13],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "TLSTrustedCertificates",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A certificate identifier.",
+              "pfm_name": "TLSTrustedCertificatesItem",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "TLS Trusted Certificates",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "If 'true', allows for two-factor authentication for EAP-TTLS, PEAP, or EAP-FAST. If 'false', allows for zero-factor authentication for EAP-TLS.\nIf you don't specify a value, the default is 'true' for EAP-TLS, and 'false' for other EAP types.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [13],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "7.0",
+          "pfm_name": "TLSCertificateIsRequired",
+          "pfm_platforms": ["iOS"],
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_title": "EAP Client Configuration",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "The wired interface to use",
+      "pfm_name": "Interface",
+      "pfm_range_list": ["FirstActiveEthernet"],
+      "pfm_range_list_titles": ["First Active Ethernet"],
+      "pfm_require": "always",
+      "pfm_title": "Interface",
+      "pfm_type": "string"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "802.1X Ethernet: First Active",
+  "pfm_unique": true,
+  "pfm_version": 2
+}

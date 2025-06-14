@@ -1,0 +1,559 @@
+{
+  "pfm_description": "Use this section to define settings for configuration access to SCEP servers.",
+  "pfm_domain": "com.apple.security.scep",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "4.0",
+  "pfm_last_modified": "2025-04-04T13:00:05.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["iOS", "macOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define settings for configuration access to SCEP servers.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "SCEP",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.security.scep",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.security.scep",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A dictionary containing the SCEP information.",
+      "pfm_name": "PayloadContent",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The SCEP URL. See Over-the-Air Profile Delivery and Configuration for more information about SCEP.",
+          "pfm_macos_min": "10.7",
+          "pfm_name": "URL",
+          "pfm_require": "always",
+          "pfm_title": "URL",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "A string that's understood by the SCEP server; for example, a domain name like example.org. If a certificate authority has multiple CA certificates, this field can be used to distinguish which is required.",
+          "pfm_name": "Name",
+          "pfm_title": "Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The representation of an X.500 name as an array of OID and value.\nFor example, '/C=US/O=Apple Inc./CN=foo/1.2.5.3=bar' translates to '[ [ ['C', 'US'] ], [ ['O', 'Apple Inc.'] ], …, [ [ '1.2.5.3', 'bar' ] ] ]'.\nOIDs can be represented as dotted numbers, with shortcuts for country (C), locality (L), state (ST), organization (O), organizational unit (OU), and common name (CN).",
+          "pfm_format": "(,?[^=,]+=[^=,]+(,|$))",
+          "pfm_name": "Subject",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "This array holds another array which holds an OID value pair",
+              "pfm_name": "SCEPSubjectArrayInnerArray",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "An array representing an OID and value pair.",
+                  "pfm_name": "SCEPSubjectArrayPair",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "One item in the array representing a pair of OID and value",
+                      "pfm_name": "SCEPSubjectArrayPairItem",
+                      "pfm_repetition_max": 2,
+                      "pfm_repetition_min": 2,
+                      "pfm_title": "SCEP Subject Array Pair Item",
+                      "pfm_type": "string"
+                    }
+                  ],
+                  "pfm_title": "Subject Array Pair",
+                  "pfm_type": "array"
+                }
+              ],
+              "pfm_title": "Array Inside SCEP Subject Array",
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_substitution_variables": {
+            "%AD_ComputerID%": {
+              "pfm_description": "Active Directory computer ID.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": ""
+            },
+            "%AD_Domain%": {
+              "pfm_description": "Active Directory domain.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": ""
+            },
+            "%AD_DomainForestName%": {
+              "pfm_description": "Active Directory forest name.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": ""
+            },
+            "%AD_DomainGuid%": {
+              "pfm_description": "Active Directory GUID.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "20405B46-877F-4274-ADB8-A1FCAA765998"
+            },
+            "%AD_DomainNameDNS%": {
+              "pfm_description": "Active Directory DNS Name.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": ""
+            },
+            "%AD_KerberosID%": {
+              "pfm_description": "Active Directory Kerberos ID.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": ""
+            },
+            "%ComputerName%": {
+              "pfm_description": "The computer's name, as set in System Preferences > Sharing.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "ProfileCreator's MacBook Pro"
+            },
+            "%HardwareUUID%": {
+              "pfm_description": "The computer's unique identifier.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "7CD8DFF1-70B5-403D-81C2-A41A5F29CFF9"
+            },
+            "%HostName%": {
+              "pfm_description": "The computer's DNS name, such as mac1.example.com.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "ProfileCreators-MBP.domain.com"
+            },
+            "%LocalHostName%": {
+              "pfm_description": "The computer's local network name, such as Mac1.local.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "ProfileCreators-MacBook-Pro"
+            },
+            "%MACAddress%": {
+              "pfm_description": "The computer's Ethernet (en0) MAC address.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "a1:b2:c3:d4:e5:f6"
+            },
+            "%SerialNumber%": {
+              "pfm_description": "The computer's serial number.",
+              "pfm_substitution_source": "local",
+              "pfm_value_placeholder": "C02LZ9Q1CC55"
+            }
+          },
+          "pfm_title": "Subject",
+          "pfm_type": "array",
+          "pfm_type_input": "string",
+          "pfm_value_placeholder": "O=ProfileCreator,CN=ProfileCreator Identity <UUID>",
+          "pfm_value_processor": "x5002subjectArray"
+        },
+        {
+          "pfm_description": "A preshared secret.",
+          "pfm_name": "Challenge",
+          "pfm_title": "Challenge",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 1024,
+          "pfm_description": "The key size, in bits.",
+          "pfm_name": "Keysize",
+          "pfm_range_list": [1024, 2048, 4096],
+          "pfm_title": "Key Size",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "The fingerprint of the Certificate Authority certificate.",
+          "pfm_name": "CAFingerprint",
+          "pfm_title": "Fingerprint",
+          "pfm_type": "data",
+          "pfm_type_input": "string",
+          "pfm_value_processor": "hex2data"
+        },
+        {
+          "pfm_default": "RSA",
+          "pfm_description": "Always 'RSA'.",
+          "pfm_name": "Key Type",
+          "pfm_range_list": ["RSA"],
+          "pfm_title": "Key Type",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "A bitmask indicating the use of the key. Possible values:\n* '1': Signing\n* '4': Encryption\nSome certificate authorities, such as Windows CA, support only encryption or signing, but not both at the same time.",
+          "pfm_ios_min": "4.0",
+          "pfm_macos_min": "10.11",
+          "pfm_name": "Key Usage",
+          "pfm_range_list": [0, 1, 4, 5],
+          "pfm_range_list_titles": [
+            "None",
+            "Signing",
+            "Encryption",
+            "Both signing and encryption"
+          ],
+          "pfm_title": "Key Usage",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'false', the system disables exporting the private key from the keychain.",
+          "pfm_macos_min": "10.13.4",
+          "pfm_name": "KeyIsExtractable",
+          "pfm_title": "Key is Extractable",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The SCEP payload can specify an optional 'SubjectAltName' dictionary that provides values required by the CA for issuing a certificate. You can specify a single string or an array of strings for each key. The values you specify depend on the CA you're using, but might include DNS name, URL, or email values. For an example, see Sample Configuration Profile or Over-the-Air Profile Delivery and Configuration.",
+          "pfm_name": "SubjectAltName",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The RFC 822 (email address) string.",
+              "pfm_name": "rfc822Name",
+              "pfm_substitution_variables": {
+                "%AD_ComputerID%": {
+                  "pfm_description": "Active Directory computer ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_Domain%": {
+                  "pfm_description": "Active Directory domain.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainForestName%": {
+                  "pfm_description": "Active Directory forest name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainGuid%": {
+                  "pfm_description": "Active Directory GUID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "20405B46-877F-4274-ADB8-A1FCAA765998"
+                },
+                "%AD_DomainNameDNS%": {
+                  "pfm_description": "Active Directory DNS Name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_KerberosID%": {
+                  "pfm_description": "Active Directory Kerberos ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%ComputerName%": {
+                  "pfm_description": "The computer's name, as set in System Preferences > Sharing.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreator's MacBook Pro"
+                },
+                "%HardwareUUID%": {
+                  "pfm_description": "The computer's unique identifier.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "7CD8DFF1-70B5-403D-81C2-A41A5F29CFF9"
+                },
+                "%HostName%": {
+                  "pfm_description": "The computer's DNS name, such as mac1.example.com.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MBP.domain.com"
+                },
+                "%LocalHostName%": {
+                  "pfm_description": "The computer's local network name, such as Mac1.local.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MacBook-Pro"
+                },
+                "%MACAddress%": {
+                  "pfm_description": "The computer's Ethernet (en0) MAC address.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "a1:b2:c3:d4:e5:f6"
+                },
+                "%SerialNumber%": {
+                  "pfm_description": "The computer's serial number.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "C02LZ9Q1CC55"
+                }
+              },
+              "pfm_title": "RFC 822 Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The DNS name.",
+              "pfm_name": "dNSName",
+              "pfm_substitution_variables": {
+                "%AD_ComputerID%": {
+                  "pfm_description": "Active Directory computer ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_Domain%": {
+                  "pfm_description": "Active Directory domain.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainForestName%": {
+                  "pfm_description": "Active Directory forest name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainGuid%": {
+                  "pfm_description": "Active Directory GUID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "20405B46-877F-4274-ADB8-A1FCAA765998"
+                },
+                "%AD_DomainNameDNS%": {
+                  "pfm_description": "Active Directory DNS Name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_KerberosID%": {
+                  "pfm_description": "Active Directory Kerberos ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%ComputerName%": {
+                  "pfm_description": "The computer's name, as set in System Preferences > Sharing.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreator's MacBook Pro"
+                },
+                "%HardwareUUID%": {
+                  "pfm_description": "The computer's unique identifier.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "7CD8DFF1-70B5-403D-81C2-A41A5F29CFF9"
+                },
+                "%HostName%": {
+                  "pfm_description": "The computer's DNS name, such as mac1.example.com.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MBP.domain.com"
+                },
+                "%LocalHostName%": {
+                  "pfm_description": "The computer's local network name, such as Mac1.local.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MacBook-Pro"
+                },
+                "%MACAddress%": {
+                  "pfm_description": "The computer's Ethernet (en0) MAC address.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "a1:b2:c3:d4:e5:f6"
+                },
+                "%SerialNumber%": {
+                  "pfm_description": "The computer's serial number.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "C02LZ9Q1CC55"
+                }
+              },
+              "pfm_title": "DNS Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The Uniform Resource Identifier.",
+              "pfm_name": "uniformResourceIdentifier",
+              "pfm_substitution_variables": {
+                "%AD_ComputerID%": {
+                  "pfm_description": "Active Directory computer ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_Domain%": {
+                  "pfm_description": "Active Directory domain.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainForestName%": {
+                  "pfm_description": "Active Directory forest name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainGuid%": {
+                  "pfm_description": "Active Directory GUID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "20405B46-877F-4274-ADB8-A1FCAA765998"
+                },
+                "%AD_DomainNameDNS%": {
+                  "pfm_description": "Active Directory DNS Name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_KerberosID%": {
+                  "pfm_description": "Active Directory Kerberos ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%ComputerName%": {
+                  "pfm_description": "The computer's name, as set in System Preferences > Sharing.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreator's MacBook Pro"
+                },
+                "%HardwareUUID%": {
+                  "pfm_description": "The computer's unique identifier.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "7CD8DFF1-70B5-403D-81C2-A41A5F29CFF9"
+                },
+                "%HostName%": {
+                  "pfm_description": "The computer's DNS name, such as mac1.example.com.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MBP.domain.com"
+                },
+                "%LocalHostName%": {
+                  "pfm_description": "The computer's local network name, such as Mac1.local.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MacBook-Pro"
+                },
+                "%MACAddress%": {
+                  "pfm_description": "The computer's Ethernet (en0) MAC address.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "a1:b2:c3:d4:e5:f6"
+                },
+                "%SerialNumber%": {
+                  "pfm_description": "The computer's serial number.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "C02LZ9Q1CC55"
+                }
+              },
+              "pfm_title": "URI",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The NT principal name.",
+              "pfm_name": "ntPrincipalName",
+              "pfm_substitution_variables": {
+                "%AD_ComputerID%": {
+                  "pfm_description": "Active Directory computer ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_Domain%": {
+                  "pfm_description": "Active Directory domain.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainForestName%": {
+                  "pfm_description": "Active Directory forest name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_DomainGuid%": {
+                  "pfm_description": "Active Directory GUID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "20405B46-877F-4274-ADB8-A1FCAA765998"
+                },
+                "%AD_DomainNameDNS%": {
+                  "pfm_description": "Active Directory DNS Name.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%AD_KerberosID%": {
+                  "pfm_description": "Active Directory Kerberos ID.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": ""
+                },
+                "%ComputerName%": {
+                  "pfm_description": "The computer's name, as set in System Preferences > Sharing.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreator's MacBook Pro"
+                },
+                "%HardwareUUID%": {
+                  "pfm_description": "The computer's unique identifier.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "7CD8DFF1-70B5-403D-81C2-A41A5F29CFF9"
+                },
+                "%HostName%": {
+                  "pfm_description": "The computer's DNS name, such as mac1.example.com.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MBP.domain.com"
+                },
+                "%LocalHostName%": {
+                  "pfm_description": "The computer's local network name, such as Mac1.local.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "ProfileCreators-MacBook-Pro"
+                },
+                "%MACAddress%": {
+                  "pfm_description": "The computer's Ethernet (en0) MAC address.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "a1:b2:c3:d4:e5:f6"
+                },
+                "%SerialNumber%": {
+                  "pfm_description": "The computer's serial number.",
+                  "pfm_substitution_source": "local",
+                  "pfm_value_placeholder": "C02LZ9Q1CC55"
+                }
+              },
+              "pfm_title": "NT Principal Name",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Subject Alt Name",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_default": 3,
+          "pfm_description": "The number of times the device should retry if the server sends a PENDING response.",
+          "pfm_macos_min": "10.10",
+          "pfm_name": "Retries",
+          "pfm_title": "Retries",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 10,
+          "pfm_description": "The number of seconds to wait between subsequent retries. The first retry is attempted without this delay.",
+          "pfm_macos_min": "10.10",
+          "pfm_name": "RetryDelay",
+          "pfm_title": "Retry Delay",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 14,
+          "pfm_description": "The number of days before the certificate expires at which to start showing the expiration notification",
+          "pfm_name": "CertificateRenewalTimeInterval",
+          "pfm_platforms": ["macOS"],
+          "pfm_title": "Certificate Expiration Notification",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', all apps have access to the private key.",
+          "pfm_macos_min": "10.10",
+          "pfm_name": "AllowAllAppsAccess",
+          "pfm_title": "Allow All Apps Access",
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_title": "Payload Content",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "SCEP",
+  "pfm_tvos_min": "9.0",
+  "pfm_unique": false,
+  "pfm_version": 8
+}

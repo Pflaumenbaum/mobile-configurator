@@ -1,0 +1,135 @@
+{
+  "pfm_description": "Xsan settings",
+  "pfm_domain": "com.apple.xsan",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2025-03-03T11:08:08.000Z",
+  "pfm_macos_min": "10.10",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Xsan settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Xsan",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.xsan",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.xsan",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The name of the SAN. This key is required for all Xsan SANs. The name must exactly match the name of the SAN defined in the metadata server.",
+      "pfm_name": "sanName",
+      "pfm_require": "always",
+      "pfm_title": "Xsan name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "This key is required for StorNext SANs. This array contains one string value for each of the SAN's File System Name Server coordinators. The list should contain the same addresses in the same order as the MDC's /Library/Preferences/Xsan/fsnameservers file.",
+      "pfm_name": "fsnameservers",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A name server.",
+          "pfm_name": "fsnameserversItem",
+          "pfm_require": "always",
+          "pfm_title": "File system name server",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "example.com"
+        }
+      ],
+      "pfm_title": "File system name servers",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "sharedSecret"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The authentication method for the SAN. This key is required for all Xsan SANs. It's optional for StorNext SANs but should be set if the StorNext SAN uses an 'auth_secret' file.\nOnly one value is accepted: 'auth_secret'",
+      "pfm_name": "sanAuthMethod",
+      "pfm_range_list": ["auth_secret"],
+      "pfm_range_list_titles": ["Shared Secret"],
+      "pfm_title": "Authentication method",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The shared secret used for Xsan network authentication. This key is required when the 'sanAuthMethod' key is present. The value should equal the content of the MDC's '/Library/Preferences/Xsan/.auth_secret' file.",
+      "pfm_name": "sharedSecret",
+      "pfm_require": "always",
+      "pfm_sensitive": true,
+      "pfm_title": "Authentication secret",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "This key is required for all Xsan SANs. Each string in this array contains an LDAP URL where Xsan systems can obtain SAN configuration updates. There should be one entry for each Xsan MDC.\nExample URL: 'ldaps://mdc1.example.com:389'.",
+      "pfm_name": "sanConfigURLs",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A URL.",
+          "pfm_name": "sanConfigURLsItem",
+          "pfm_require": "always",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Xsan",
+  "pfm_unique": false,
+  "pfm_version": 2
+}

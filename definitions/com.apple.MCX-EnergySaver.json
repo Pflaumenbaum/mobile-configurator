@@ -1,0 +1,442 @@
+{
+  "pfm_description": "Energy Saver settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/energysaver",
+  "pfm_domain": "com.apple.MCX",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-05-16T08:07:50.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subdomain": "EnergySaver",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Energy Saver settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Energy Saver",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_name": "PFC_SegmentedControl_0",
+      "pfm_range_list_titles": ["General", "Desktop", "Portable", "Schedule"],
+      "pfm_require": "always",
+      "pfm_segments": {
+        "Desktop": ["com.apple.EnergySaver.desktop.ACPower"],
+        "General": ["SleepDisabled"],
+        "Portable": [
+          "PFC_SegmentedControl_Portable",
+          "com.apple.EnergySaver.portable.BatteryPower",
+          "com.apple.EnergySaver.portable.ACPower"
+        ],
+        "Schedule": ["com.apple.EnergySaver.desktop.Schedule"]
+      },
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Managed settings for the desktop energy profile.",
+      "pfm_hidden": "container",
+      "pfm_name": "com.apple.EnergySaver.desktop.ACPower",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Minutes of inactivity before the display will be turned off, in an integer value where 0 means never",
+          "pfm_name": "Display Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Display Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Minutes of inactivity before the system will enter sleep mode, in an integer value where 0 means never",
+          "pfm_name": "System Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "System Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_default": 10,
+          "pfm_description": "Minutes of inactivity before the disks(s) will be powered down, in an integer value where 0 means never",
+          "pfm_name": "Disk Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Disk(s) Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Wake the system for network access",
+          "pfm_name": "Wake On LAN",
+          "pfm_title": "Wake on LAN",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Wake On Modem Ring",
+          "pfm_title": "Wake On Modem Ring",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Automatic Restart On Power Loss",
+          "pfm_title": "Start up Automatically After a Power Failure",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Dynamic Power Step",
+          "pfm_title": "Dynamic Power Step",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Reduce Processor Speed",
+          "pfm_title": "Reduce Processor Speed",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        }
+      ],
+      "pfm_title": "Desktop Energy Saver Settings",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_name": "PFC_SegmentedControl_Portable",
+      "pfm_range_list_titles": ["Battery", "Power Adapter"],
+      "pfm_require": "always",
+      "pfm_segments": {
+        "Battery": ["com.apple.EnergySaver.portable.BatteryPower"],
+        "Power Adapter": ["", "com.apple.EnergySaver.portable.ACPower"]
+      },
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Managed settings for the portable battery power energy profile",
+      "pfm_hidden": "container",
+      "pfm_name": "com.apple.EnergySaver.portable.BatteryPower",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Minutes of inactivity before the display will be turned off, in an integer value where 0 means never",
+          "pfm_name": "Display Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Display Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Minutes of inactivity before the system will enter sleep mode, in an integer value where 0 means never",
+          "pfm_name": "System Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "System Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_default": 10,
+          "pfm_description": "Minutes of inactivity before the disks(s) will be powered down, in an integer value where 0 means never",
+          "pfm_name": "Disk Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Disk(s) Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Wake the system for network access",
+          "pfm_name": "Wake On LAN",
+          "pfm_title": "Wake on LAN",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Wake On Modem Ring",
+          "pfm_title": "Wake On Modem Ring",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Automatic Restart On Power Loss",
+          "pfm_title": "Start up Automatically After a Power Failure",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Dynamic Power Step",
+          "pfm_title": "Dynamic Power Step",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Reduce Processor Speed",
+          "pfm_title": "Reduce Processor Speed",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        }
+      ],
+      "pfm_title": "Portable Energy Saver Settings",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "Managed settings for the portable AC power energy profile.",
+      "pfm_hidden": "container",
+      "pfm_name": "com.apple.EnergySaver.portable.ACPower",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Minutes of inactivity before the display will be turned off, in an integer value where 0 means never",
+          "pfm_name": "Display Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Display Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Minutes of inactivity before the system will enter sleep mode, in an integer value where 0 means never",
+          "pfm_name": "System Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "System Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_default": 10,
+          "pfm_description": "Minutes of inactivity before the disks(s) will be powered down, in an integer value where 0 means never",
+          "pfm_name": "Disk Sleep Timer",
+          "pfm_range_max": 180,
+          "pfm_range_min": 0,
+          "pfm_title": "Disk(s) Sleep Timer",
+          "pfm_type": "integer",
+          "pfm_value_unit": "minutes"
+        },
+        {
+          "pfm_description": "Wake the system for network access",
+          "pfm_name": "Wake On LAN",
+          "pfm_title": "Wake on LAN",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Wake On Modem Ring",
+          "pfm_title": "Wake On Modem Ring",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "Automatic Restart On Power Loss",
+          "pfm_title": "Start up Automatically After a Power Failure",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Dynamic Power Step",
+          "pfm_title": "Dynamic Power Step",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "May not be available on all systems",
+          "pfm_name": "Reduce Processor Speed",
+          "pfm_title": "Reduce Processor Speed",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        }
+      ],
+      "pfm_title": "Portable Energy Saver Settings",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "Use this key to manage scheduled power on and power off events.",
+      "pfm_hidden": "container",
+      "pfm_name": "com.apple.EnergySaver.desktop.Schedule",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Use this key to describe a repeating start up/wake time.",
+          "pfm_name": "RepeatingPowerOn",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "wakepoweron",
+              "pfm_description": "The type of action to take at the scheduled time.",
+              "pfm_name": "eventtype",
+              "pfm_range_list": ["wake", "wakepoweron"],
+              "pfm_range_list_titles": ["Wake", "Start Up/Wake"],
+              "pfm_require": "always",
+              "pfm_title": "Action",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": 31,
+              "pfm_description": "The days on which the scheduled event occurs.",
+              "pfm_name": "weekdays",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "",
+                  "pfm_name": "weekday",
+                  "pfm_range_list": [1, 2, 4, 8, 16, 32, 64],
+                  "pfm_range_list_titles": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "pfm_title": "Weekday",
+                  "pfm_type": "integer"
+                }
+              ],
+              "pfm_title": "Days to execute",
+              "pfm_type": "integer",
+              "pfm_type_input": "array",
+              "pfm_value_processor": "weekdaysBitmask2Int"
+            },
+            {
+              "pfm_date_style": "time",
+              "pfm_default": 0,
+              "pfm_description": "The time of day to perform the action.",
+              "pfm_name": "time",
+              "pfm_require": "always",
+              "pfm_title": "Time of day",
+              "pfm_type": "integer",
+              "pfm_type_input": "date",
+              "pfm_value_processor": "time2minutes"
+            }
+          ],
+          "pfm_title": "Start up or wake",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_description": "Use this key to describe a repeating shut down, sleep or restart.",
+          "pfm_name": "RepeatingPowerOff",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The type of action to take at the scheduled time.",
+              "pfm_name": "eventtype",
+              "pfm_range_list": ["sleep", "restart", "shutdown"],
+              "pfm_range_list_titles": ["Sleep", "Restart", "Shut Down"],
+              "pfm_require": "always",
+              "pfm_title": "Action",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": 31,
+              "pfm_description": "The days on which the scheduled event occurs.",
+              "pfm_name": "weekdays",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "",
+                  "pfm_name": "weekday",
+                  "pfm_range_list": [1, 2, 4, 8, 16, 32, 64],
+                  "pfm_range_list_titles": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "pfm_title": "Weekday",
+                  "pfm_type": "integer"
+                }
+              ],
+              "pfm_title": "Days to execute",
+              "pfm_type": "integer",
+              "pfm_type_input": "array",
+              "pfm_value_processor": "weekdaysBitmask2Int"
+            },
+            {
+              "pfm_date_style": "time",
+              "pfm_default": 0,
+              "pfm_description": "The time of day to perform the action.",
+              "pfm_name": "time",
+              "pfm_require": "always",
+              "pfm_title": "Time of day",
+              "pfm_type": "integer",
+              "pfm_type_input": "date",
+              "pfm_value_processor": "time2minutes"
+            }
+          ],
+          "pfm_title": "Shut down, sleep or restart",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Power Schedule",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "",
+      "pfm_name": "SleepDisabled",
+      "pfm_title": "Sleep Disabled",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Energy Saver",
+  "pfm_unique": true,
+  "pfm_version": 2
+}

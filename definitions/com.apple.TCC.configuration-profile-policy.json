@@ -1,0 +1,1637 @@
+{
+  "pfm_description": "Configures Privacy Preferences Policy Control settings",
+  "pfm_domain": "com.apple.TCC.configuration-profile-policy",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-05-02T12:40:46.000Z",
+  "pfm_macos_min": "10.14",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Privacy Preferences Policy Control settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Privacy Preferences Policy Control",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.TCC.configuration-profile-policy",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.TCC.configuration-profile-policy",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+      "pfm_name": "Services",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description_reference": "Specifies the policies for the app via the Accessibility subsystem.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Accessibility",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Accessibility",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Specifies the policies for the app sending restricted AppleEvents to another process.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "AppleEvents",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "The identifier of the process receiving an ApplEvent sent by the Identifier process.",
+                  "pfm_name": "AEReceiverIdentifier",
+                  "pfm_require": "always",
+                  "pfm_title": "AEReceiverIdentifier",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The type of AEReceiverIdentifier value.",
+                  "pfm_name": "AEReceiverIdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "AEReceiverIdentifierType",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Code requirement for the receiving binary.",
+                  "pfm_name": "AEReceiverCodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "AEReceiverCodeRequirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "AppleEvents",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services.AppleEvents"
+        },
+        {
+          "pfm_description": "Specifies the policies for the app to access Bluetooth devices.",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "BluetoothAlways",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "The 'Authorization' key is an optional replacement for the 'Allowed' key. Every payload must specify either 'Authorization' or 'Allowed', but not both.\n'Allow': Equivalent to a 'true' value for the 'Allowed' key.\n'Deny': Equivalent to a 'false' value for the 'Allowed' key.",
+                  "pfm_name": "Authorization",
+                  "pfm_range_list": ["Allow", "Deny"],
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Bluetooth Always",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description_reference": "Specifies the policies for calendar information managed by the Calendar.app.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Calendar",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Calendar",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "A system camera. Access to the camera cannot be given in a profile; it can only be denied.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Camera",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false],
+                  "pfm_range_list_titles": ["Deny"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Camera",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Specifies the policies for contact information managed by the Contacts.app.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "AddressBook",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Contacts",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows a File Provider application to know when the user is using files managed by the File Provider.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "FileProviderPresence",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to use CoreGraphics and HID APIs to listen to (receive) CGEvents and HID events from all processes. Access to these events cannot be given in a profile; it can only be denied.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "ListenEvent",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false],
+                  "pfm_range_list_titles": ["Deny"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access Apple Music, music and video activity, and the media library.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "MediaLibrary",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "A system microphone. Access to the microphone cannot be given in a profile; it can only be denied.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Microphone",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false],
+                  "pfm_range_list_titles": ["Deny"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Microphone",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Pictures managed by Photos.app in ~/Pictures/.photoslibrary.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Photos",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Photos",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description": "Specifies the policies for the application to use CoreGraphics APIs to send CGEvents to the system event stream.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "PostEvent",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "PostEvent",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Specifies the policies for reminders information managed by the Reminders app.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "Reminders",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Reminders",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application access to all protected files.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "SystemPolicyAllFiles",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "SystemPolicyAllFiles",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to capture (read) the contents of the system display. Access to the contents cannot be given in a profile; it can only be denied.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "ScreenCapture",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false],
+                  "pfm_range_list_titles": ["Deny"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to use the system Speech Recognition facility and to send speech data to Apple.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SpeechRecognition",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access files in the user's Desktop folder.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SystemPolicyDesktopFolder",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access files in the user's Documents folder.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SystemPolicyDocumentsFolder",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access files in the user's Downloads folder.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SystemPolicyDownloadsFolder",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access files on network volumes.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SystemPolicyNetworkVolumes",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application to access files on removable volumes.",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "SystemPolicyRemovableVolumes",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description_reference": "Allows the application access to some files used in system administration.",
+          "pfm_macos_min": "10.14",
+          "pfm_name": "SystemPolicySysAdminFiles",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "System Policy Sys Admin Files",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        },
+        {
+          "pfm_description": "Allows the application to access data of other apps.",
+          "pfm_macos_min": "14.0",
+          "pfm_name": "SystemPolicyAppData",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "IdentityDict",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The type of identifier value. Application bundles must be identified by bundle ID. Nonbundled binaries must be identified by installation path. Helper tools embedded within an application bundle automatically inherit the permissions of their enclosing app bundle.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_require": "always",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Obtained via the command ''codesign -display -r -''.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If 'true', statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If 'true', access is granted; otherwise, the process doesn't have access. The user isn't prompted and can't change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_require": "always",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "The 'Authorization' key is an optional replacement for the 'Allowed' key. Every payload must specify either 'Authorization' or 'Allowed', but not both.\n'Allow': Equivalent to a 'true' value for the 'Allowed' key.\n'Deny': Equivalent to a 'false' value for the 'Allowed' key.\n'AllowStandardUserToSetSystemService:' allows a standard (non-admin) user to configure the permissions for the specified app in the Privacy preferences for services that otherwise require admin authorization. 'AllowStandardUserToSetSystemService' is only valid for the 'ListenEvent' and 'ScreenCapture' services.\nAvailable in macOS 11 and later.",
+                  "pfm_macos_min": "11.0",
+                  "pfm_name": "Authorization",
+                  "pfm_range_list": [
+                    "Allow",
+                    "Deny",
+                    "AllowStandardUserToSetSystemService"
+                  ],
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Not used.",
+                  "pfm_name": "Comment",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The identifier of the process receiving an AppleEvent sent by the Identifier process. This identifier is required for AppleEvents service; not valid for other services.",
+                  "pfm_name": "AEReceiverIdentifier",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The type of AEReceiverIdentifier value, either 'bundleID' or 'path'. This setting is required for AppleEvents service; not valid for other services.",
+                  "pfm_name": "AEReceiverIdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The code requirement for the receiving binary. This code requirement is required for AppleEvents service; not valid for other services.",
+                  "pfm_name": "AEReceiverCodeRequirement",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_macos_min": "13.0",
+          "pfm_name": "SystemPolicyAppBundles",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Keys are limited to the privacy service names listed below. Each key is an array of dictionaries describing the app or process to which access is given. In the case of conflicting specifications, the most restrictive setting (deny) will be used.",
+              "pfm_name": "Services",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The bundle ID or installation path of the binary.",
+                  "pfm_name": "Identifier",
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier",
+                  "pfm_type": "string",
+                  "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+                },
+                {
+                  "pfm_description": "The type of Identifier value.",
+                  "pfm_name": "IdentifierType",
+                  "pfm_range_list": ["bundleID", "path"],
+                  "pfm_range_list_titles": ["Bundle ID", "Path"],
+                  "pfm_require": "always",
+                  "pfm_title": "Identifier Type",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_name": "CodeRequirement",
+                  "pfm_require": "always",
+                  "pfm_title": "Code Requirement",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "If set to true, statically validate the code requirement. Used only if the process invalidates its dynamic code signature.",
+                  "pfm_name": "StaticCode",
+                  "pfm_title": "StaticCode",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "If set to true, access is granted. Otherwise the process does not have access. The user is not prompted and cannot change this value.",
+                  "pfm_name": "Allowed",
+                  "pfm_range_list": [false, true],
+                  "pfm_range_list_titles": ["Deny", "Allow"],
+                  "pfm_title": "Allowed",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Not Used",
+                  "pfm_hidden": "all",
+                  "pfm_name": "Comment",
+                  "pfm_title": "Comment",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Services",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "App Management",
+          "pfm_type": "array",
+          "pfm_value_import_processor": "com.apple.TCC.configuration-profile-policy.services"
+        }
+      ],
+      "pfm_title": "Services",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["user", "system"],
+  "pfm_title": "Privacy Preferences Policy Control",
+  "pfm_unique": false,
+  "pfm_user_approved": true,
+  "pfm_version": 8
+}

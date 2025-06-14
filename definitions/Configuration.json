@@ -1,0 +1,193 @@
+{
+  "pfm_description": "Use this section to define general settings",
+  "pfm_domain": "Configuration",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "4.0",
+  "pfm_last_modified": "2024-09-03T14:06:32.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["iOS", "macOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A description of the profile, shown on the Detail screen for the profile. This should be descriptive enough to help the user decide whether to install the profile.",
+      "pfm_enabled": true,
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "Optional. A human-readable name for the profile. This value is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS style identifier (com.example.myprofile, for example) that identifies the profile. This string is used to determine whether a new profile should replace an existing one or should be added.",
+      "pfm_hidden": "all",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Configuration",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The only supported value is Configuration.",
+      "pfm_hidden": "all",
+      "pfm_name": "PayloadType",
+      "pfm_range_list": ["Configuration"],
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the profile. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_hidden": "all",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the profile format. This describes the version of the configuration profile as a whole, not of the individual profiles within it.\nCurrently, this value should be 1.",
+      "pfm_hidden": "all",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.",
+      "pfm_enabled": true,
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If present and set to 'true', the user can't delete the profile unless the profile has a removal password and the user provides it.\nOn macOS 10.15 and later, this key only affects removal of manually installed profiles. If set to 'true' and no profile removal payload is present, removing the profile requires admin auth.\nOn macOS versions prior to 10.15, this key prevents admins from removing MDM installed profiles. However, as of macOS 10.15, users can never remove MDM profiles, not even the admin.\nOn iOS users can't remove a MDM profile.\nRequires a supervised device.",
+      "pfm_name": "PayloadRemovalDisallowed",
+      "pfm_supervised": true,
+      "pfm_title": "Prevent users from removing this profile",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The date when the system automatically removes the profile.",
+      "pfm_description_reference": "Optional. Supervised only. If present and set to true, the user cannot delete the profile (unless the profile has a removal password and the user provides it).",
+      "pfm_name": "RemovalDate",
+      "pfm_title": "Removal Date",
+      "pfm_type": "date"
+    },
+    {
+      "pfm_description": "The number of seconds until the profile is automatically removed. If the 'RemovalDate' key is present, the system uses whichever field yields the earliest date.",
+      "pfm_description_reference": "Optional. Number of seconds until the profile is automatically removed. If the RemovalDate keys is present, whichever field yields the earliest date will be used.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "RemovalDate"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "DurationUntilRemoval",
+      "pfm_title": "Duration Until Removal (in seconds)",
+      "pfm_type": "integer",
+      "pfm_value_unit": "Seconds"
+    },
+    {
+      "pfm_description": "A dictionary that includes:\n* A key that contains the IETF BCP 47 identifier for a language, such as en or jp\n* A value that contains the agreement localized to language specified by the key\nThe dictionary can also contain an optional key, 'default', with its value consisting of the unlocalized (usually in en) agreement.\nThe system always displays the agreement in a dialog, and the user needs to agree before the system can install the profile.\nThe system chooses a localized version in the order of preference that the user specifies in macOS, or based on the user's current language setting in iOS. If there's no exact match, the system uses the default localization. If there's no default localization, the system uses the en localization. If there's no en localization, the system uses the first available localization.\nProvide a default value, if possible. The system won't display a warning if the user's locale doesn't match any localization in the 'ConsentText' dictionary.",
+      "pfm_description_reference": "Optional. A dictionary containing these keys and values:\n• For each language in which a consent or license agreement is available, a key consisting of the IETF BCP 47 identifier for that language (for example, en or jp) and a value consisting of the agreement localized to that language. The agreement is displayed in a dialog to which the user must agree before installing the profile.\n• The optional key default with its value consisting of the unlocalized agreement (usually in en).\nThe system chooses a localized version in the order of preference specified by the user (macOS) or based on the user's current language setting (iOS). If no exact match is found, the default localization is used. If there is no default localization, the en localization is used. If there is no en localization, then the first available localization is used.\nYou should provide a default value if possible. No warning will be displayed if the user's locale does not match any localization in the ConsentText dictionary.",
+      "pfm_name": "ConsentText",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The IETF BCP 47 identifier for that language (for example, en or jp).",
+          "pfm_description_reference": "",
+          "pfm_name": "{{key}}",
+          "pfm_title": "Language ID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "en"
+        },
+        {
+          "pfm_description": "The agreement localized to that language.",
+          "pfm_description_reference": "",
+          "pfm_name": "{{value}}",
+          "pfm_title": "Localized License Agreement",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The system chooses a localized version in the order of preference specified by the user (macOS) or based on the user's current language setting (iOS). If no exact match is found, the default localization is used. If there is no default localization, the en localization is used. If there is no en localization, then the first available localization is used.",
+          "pfm_description_reference": "",
+          "pfm_name": "default",
+          "pfm_title": "Default License Agreement",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Consent Text",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Set to 'true' if there's a removal passcode.",
+      "pfm_description_reference": "",
+      "pfm_hidden": "all",
+      "pfm_name": "HasRemovalPasscode",
+      "pfm_title": "Has removal passcode",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The date when a profile is no longer valid and the system presents an update button to the user.",
+      "pfm_description_reference": "Optional. A date on which a profile is considered to have expired and can be updated over the air. This key is only used if the profile is delivered via over-the-air profile delivery.",
+      "pfm_hidden": "all",
+      "pfm_name": "PayloadExpirationDate",
+      "pfm_title": "Expiration Date",
+      "pfm_type": "date"
+    },
+    {
+      "pfm_default": "User",
+      "pfm_description": "A string that defines whether to install the profile for the system or the user. In many cases, it determines the location of certificate items, such as keychains. Though it's not possible to declare different payload scopes, payloads like VPN can automatically install their items in both scopes, if needed.",
+      "pfm_macos_min": "10.8",
+      "pfm_name": "PayloadScope",
+      "pfm_platforms": ["macOS"],
+      "pfm_range_list": ["System", "User"],
+      "pfm_title": "Payload Scope",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "The type of platform of the target device for this profile",
+      "pfm_ios_min": "12.2",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "TargetDeviceType",
+      "pfm_range_list": [0, 1, 2, 3, 4, 5, 6],
+      "pfm_range_list_titles": [
+        "Any or Unspecified",
+        "iPhone/iPad/iPod Touch",
+        "Apple Watch",
+        "HomePod",
+        "Apple TV",
+        "Mac",
+        "Vision Pro"
+      ],
+      "pfm_title": "Target Device Type",
+      "pfm_tvos_min": "12.2",
+      "pfm_type": "integer"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "General",
+  "pfm_tvos_min": "9.0",
+  "pfm_unique": true,
+  "pfm_version": 8
+}

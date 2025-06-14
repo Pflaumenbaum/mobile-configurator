@@ -1,0 +1,136 @@
+{
+  "pfm_description": "Kernel Extension Policy settings",
+  "pfm_domain": "com.apple.syspolicy.kernel-extension-policy",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2021-12-18T19:55:17.000Z",
+  "pfm_macos_min": "10.13.2",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Kernel Extension Policy settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Kernel Extension Policy",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.syspolicy.kernel-extension-policy",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.syspolicy.kernel-extension-policy",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Users can approve kernel extensions not explicitly allowed by configuration profiles.",
+      "pfm_name": "AllowUserOverrides",
+      "pfm_title": "Allow users to approve kernel extensions",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Non-admin users can approve kernel extensions not explicitly allowed by configuration profiles.",
+      "pfm_macos_min": "11",
+      "pfm_name": "AllowNonAdminUserApprovals",
+      "pfm_title": "Allow non-admin users to approve kernel extensions",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_allowed_file_types": ["com.apple.package"],
+      "pfm_description": "List of team identifiers that define which validly signed kernel extensions will be allowed to load.",
+      "pfm_name": "AllowedTeamIdentifiers",
+      "pfm_note": "Team Identifiers defined in this key will be ignored if specific Bundle Identifiers are defined for that Team Identifier in \"Allowed Kernel Extensions\".",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "TeamIdentifier",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "Y7QFC8672N"
+        }
+      ],
+      "pfm_title": "Allowed Team Identifiers",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "com.apple.syspolicy.kernel-extension-policy.AllowedTeamIdentifiers"
+    },
+    {
+      "pfm_allowed_file_types": ["com.apple.package"],
+      "pfm_description": "Bundle identifier and team identifier of kernel extensions that will be allowed. Use an empty team identifier for unsigned legacy kernel extensions.",
+      "pfm_name": "AllowedKernelExtensions",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "",
+              "pfm_name": "BundleIdentifier",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "com.github.erikberglund.ProfileCreator"
+            }
+          ],
+          "pfm_title": "Bundle Identifier",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "",
+          "pfm_name": "{{key}}",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "Y7QFC8672N"
+        }
+      ],
+      "pfm_title": "Allowed Kernel Extensions",
+      "pfm_type": "dictionary",
+      "pfm_value_import_processor": "com.apple.syspolicy.kernel-extension-policy.AllowedKernelExtensions"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Kernel Extension Policy",
+  "pfm_unique": false,
+  "pfm_user_approved": true,
+  "pfm_version": 4
+}

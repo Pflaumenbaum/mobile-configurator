@@ -1,0 +1,476 @@
+{
+  "pfm_description": "Use this section to define restrictions settings",
+  "pfm_description_reference": "The Restrictions payload is designated by specifying com.apple.applicationaccess as the PayloadType value. A Restrictions payload allows the administrator to restrict the user from doing certain things with the device, such as using the camera. The Restrictions payload is supported in iOS; some keys are also supported in macOS, as noted below.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/restrictions",
+  "pfm_domain": "com.apple.applicationaccess",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2025-04-04T13:24:55.000Z",
+  "pfm_platforms": ["tvOS"],
+  "pfm_subdomain": "tvOS",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define restrictions settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Restrictions",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_name": "PFC_SegmentedControl_0",
+      "pfm_range_list_titles": [
+        "General",
+        "AirPlay",
+        "Apps",
+        "Media",
+        "Passwords / Unlock",
+        "Siri",
+        "Updates"
+      ],
+      "pfm_require": "always",
+      "pfm_segments": {
+        "AirPlay": [
+          "allowAirPlayIncomingRequests",
+          "forceAirPlayIncomingRequestsPairingPassword"
+        ],
+        "Apps": [
+          "allowListedAppBundleIDs",
+          "blacklistedAppBundleIDs",
+          "blockedAppBundleIDs",
+          "whitelistedAppBundleIDs"
+        ],
+        "General": [
+          "allowAutomaticScreenSaver",
+          "allowCamera",
+          "allowCloudPrivateRelay",
+          "allowDeviceNameModification",
+          "allowInAppPurchases",
+          "allowRemoteAppPairing",
+          "forceAutomaticDateAndTime",
+          "allowDeviceSleep"
+        ],
+        "Media": [
+          "allowBookstoreErotica",
+          "allowExplicitContent",
+          "ratingApps",
+          "ratingMovies",
+          "ratingRegion",
+          "ratingTVShows"
+        ],
+        "Passwords / Unlock": ["allowPasswordProximityRequests"],
+        "Siri": ["forceAssistantProfanityFilter"],
+        "Updates": [
+          "enforcedSoftwareUpdateDelay",
+          "forceDelayedSoftwareUpdates"
+        ]
+      },
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the device name. Available in iOS 9 and later, macOS 14 and later, and tvOS 11.0 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_name": "allowDeviceNameModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Modifying Device Name",
+      "pfm_tvos_min": "11.0",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables the Set Automatically feature in Date & Time and the user can't disable it. The system updates the device's time zone only when the device can determine its location using a cellular connection or Wi-Fi with location services enabled. Requires a supervised device. Available in iOS 12 and later, and tvOS 12.2 and later.",
+      "pfm_name": "forceAutomaticDateAndTime",
+      "pfm_supervised": true,
+      "pfm_title": "Force automatic date and time",
+      "pfm_tvos_min": "12.2",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Apple TV's automatic screen saver. Available in tvOS 15.4 and later.",
+      "pfm_name": "allowAutomaticScreenSaver",
+      "pfm_title": "Allow Automatic Screen Saver",
+      "pfm_tvos_min": "15.4",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the camera and removes its icon from the Home screen, and users are unable to take photographs. Available in iOS 4 and later, macOS 10.11 and later, and tvOS 17 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_name": "allowCamera",
+      "pfm_title": "Allow Camera Use",
+      "pfm_tvos_min": "17.0",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If set to false, prevents the use of iCloud Private Relay.",
+      "pfm_name": "allowCloudPrivateRelay",
+      "pfm_title": "Allow iCloud Private Relay",
+      "pfm_tvos_min": "15.0",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "If present, the system prevents showing or launching apps with bundle IDs in the array. Include the value 'com.apple.webapp' to restrict all webclips. This applies to App Store apps, marketplace apps, and locally installed apps (using Configurator, Xcode, etc).\nRequires a supervised device. Available in iOS 15 and later, and tvOS 15 and later.\nDenying system apps may disable other functionality. For example, denying the App Store app may prevent users from accepting the terms and conditions for the user-based Volume Purchase Program (VPP).",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "allowListedAppBundleIDs"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "blockedAppBundleIDs",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "appBlockedBundleID",
+          "pfm_title": "Bundle ID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.domainname.applicationname"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Blocked Apps",
+      "pfm_tvos_min": "15.0",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "Use 'blockedAppBundleIDs' instead.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "whitelistedAppBundleIDs"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "blacklistedAppBundleIDs",
+      "pfm_note": "Use blockedAppBundleIDs instead of this deprecated key.",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "appBlacklistedBundleID",
+          "pfm_title": "iOS / tvOS Bundle ID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.apple.tv"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Blacklisted Apps",
+      "pfm_tvos_deprecated": "15.0",
+      "pfm_tvos_min": "11.0",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "If present, the system only shows or can launch apps with bundle IDs in the array. Include the value 'com.apple.webapp' to allow all webclips. This applies to App Store apps, marketplace apps, and locally installed apps (using Configurator, Xcode, etc).\nRequires a supervised device. Available in iOS 15 and later, and tvOS 15 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "blockedAppBundleIDs"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "allowListedAppBundleIDs",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "appAllowlistedBundleID",
+          "pfm_title": "Bundle ID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.domainname.applicationname"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Allow Listed Apps",
+      "pfm_tvos_min": "15.0",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "Use 'allowListedAppBundleIDs' instead.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "blacklistedAppBundleIDs"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "whitelistedAppBundleIDs",
+      "pfm_note": "Use allowListedAppBundleIDs instead of this deprecated key.",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "appWhitelistedBundleID",
+          "pfm_title": "iOS / tvOS Bundle ID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.apple.tv"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Whitelisted Apps",
+      "pfm_tvos_deprecated": "15.0",
+      "pfm_tvos_min": "11.0",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "When true, forces the use of the profanity filter assistant.",
+      "pfm_description_reference": "Optional. Supervised only. When true, forces the use of the profanity filter assistant.",
+      "pfm_name": "forceAssistantProfanityFilter",
+      "pfm_supervised": true,
+      "pfm_title": "Enable Siri profanity filter",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "When false, prohibits in-app purchasing.",
+      "pfm_description_reference": "Optional. When false, prohibits in-app purchasing.",
+      "pfm_name": "allowInAppPurchases",
+      "pfm_title": "Allow in app purchases",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": "us",
+      "pfm_description": "The two-letter key that profile tools use to display the proper ratings for the given region. The client doesn't recognize or report this data. Available in iOS 4.0 and later, macOS 10.7 and later, and tvOS 9 and later.",
+      "pfm_name": "ratingRegion",
+      "pfm_range_list": ["us", "au", "ca", "de", "fr", "ie", "jp", "nz", "gb"],
+      "pfm_range_list_titles": [
+        "United States",
+        "Australia",
+        "Canada",
+        "Germany",
+        "France",
+        "Ireland",
+        "Japan",
+        "New Zealand",
+        "United Kingdom"
+      ],
+      "pfm_title": "Region Code",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of app content allowed on the device. Preinstalled (first party) apps ignore this restriction. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later.  Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '600': 17+\n* '300': 12+\n* '200': 9+\n* '100': 4+\n* '0': None",
+      "pfm_name": "ratingApps",
+      "pfm_range_list": [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 0],
+      "pfm_range_list_titles": [
+        "1000: Allow All Apps",
+        "900",
+        "800",
+        "700",
+        "600: 17+",
+        "500",
+        "400",
+        "300: 12+",
+        "200: 9+",
+        "100: 4+",
+        "Don't Allow Apps"
+      ],
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "Allowed content ratings - Apps",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of movie content allowed on the device. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later.  Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '500': NC-17\n* '400': R\n* '300': PG-13\n* '200': PG\n* '100': G\n* '0': None",
+      "pfm_name": "ratingMovies",
+      "pfm_range_list": [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 0],
+      "pfm_range_list_titles": [
+        "1000: Allow All Movies",
+        "900",
+        "800",
+        "700",
+        "600",
+        "500: NC-17",
+        "400: R",
+        "300: PG-13",
+        "200: PG",
+        "100: G",
+        "0: Don't Allow Movies"
+      ],
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "Allowed content ratings - Movies",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of TV content allowed on the device. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later. Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '600': TV-MA\n* '500': TV-14\n* '400': TV-PG\n* '300': TV-G\n* '200': TV-Y7\n* '100': TV-Y\n* '0': None",
+      "pfm_name": "ratingTVShows",
+      "pfm_range_list": [1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 0],
+      "pfm_range_list_titles": [
+        "1000: Allow All TV Shows",
+        "900",
+        "800",
+        "700",
+        "600: TV-MA",
+        "500: TV-14",
+        "400: TV-PG",
+        "300: TV-G",
+        "200: TV-Y7",
+        "100: TV-Y",
+        "0: Don't Allow TV Shows"
+      ],
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "Allowed content ratings - TV Shows",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system hides explicit music or video content purchased from the iTunes Store. The system marks explicit content as such by content providers, such as record labels, when sold through the iTunes Store. Explicit content in the News and Podcast apps is also hidden.\nAvailable in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later. Requires a supervised device in iOS 13 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_name": "allowExplicitContent",
+      "pfm_supervised": true,
+      "pfm_title": "Allow playback of explicit music, podcasts, and iTunes U",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from downloading Apple Books media that's tagged as erotica. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 17 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_name": "allowBookstoreErotica",
+      "pfm_title": "Allow explicit sexual content in iBooks Store",
+      "pfm_tvos_deprecated": "17.0",
+      "pfm_tvos_min": "11.3",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables incoming AirPlay requests. Available in macOS 12.3 and later, and tvOS 10.2 and later. Requires a supervised device in tvOS.",
+      "pfm_name": "allowAirPlayIncomingRequests",
+      "pfm_supervised": true,
+      "pfm_title": "Allow incoming AirPlay requests",
+      "pfm_tvos_min": "10.2",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system forces all devices sending AirPlay requests to this device to use a pairing password. Available in tvOS 6.2 and later. This key isn't supported in tvOS 10.2 and later. Use the AirPlay Security Payload instead.",
+      "pfm_name": "forceAirPlayIncomingRequestsPairingPassword",
+      "pfm_note": "",
+      "pfm_title": "Require passcode on first AirPlay pairing",
+      "pfm_tvos_deprecated": "10.2",
+      "pfm_tvos_min": "9.0",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables pairing Apple TV for use with the Control Center widget. Requires a supervised device. Available in tvOS 10.2 and later.",
+      "pfm_name": "allowRemoteAppPairing",
+      "pfm_title": "Allow pairing with Remote app",
+      "pfm_tvos_min": "10.2",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables requesting passwords from nearby devices. Available in iOS 12 and later, macOS 10.14 and later, and tvOS 12 and later. Requires a supervised device in iOS and tvOS. Deprecated on tvOS 17.4 or later as guest password sharing is no longer supported.",
+      "pfm_name": "allowPasswordProximityRequests",
+      "pfm_supervised": true,
+      "pfm_title": "Allow proximity based password sharing requests",
+      "pfm_tvos_deprecated": "17.4",
+      "pfm_tvos_min": "12.0",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system delays user visibility of software updates. In macOS, the system allows seed build updates without delay. The delay is 30 days unless you set 'enforcedSoftwareUpdateDelay' to another value. Available in iOS 11.3 and later, macOS 10.13 and later, and tvOS 12.2 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_name": "forceDelayedSoftwareUpdates",
+      "pfm_supervised": true,
+      "pfm_title": "Defer Software Updates",
+      "pfm_tvos_min": "12.2",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 30,
+      "pfm_description": "How many days to delay a software update on the device. With this restriction in place, the user doesn't see a software update until the specified number of days after the software update release date. The restrictions 'forceDelayedAppSoftwareUpdates' and 'forceDelayedSoftwareUpdates' use this value. Available in iOS 11.3 and later, macOS 10.13.4 and later, and tvOS 12.2 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "enforcedSoftwareUpdateDelay",
+      "pfm_range_max": 90,
+      "pfm_range_min": 1,
+      "pfm_supervised": true,
+      "pfm_title": "Deferred Software Updates Delay",
+      "pfm_tvos_min": "12.2",
+      "pfm_type": "integer",
+      "pfm_value_unit": "Days"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the device from automatically sleeping. Requires a supervised device. Available in tvOS 13 and later.",
+      "pfm_name": "allowDeviceSleep",
+      "pfm_title": "Allow Device Sleep",
+      "pfm_tvos_min": "13.0",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Restrictions (tvOS)",
+  "pfm_tvos_min": "9.0",
+  "pfm_unique": false,
+  "pfm_version": 7
+}

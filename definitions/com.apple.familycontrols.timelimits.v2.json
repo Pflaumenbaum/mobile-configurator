@@ -1,0 +1,318 @@
+{
+  "pfm_description": "Parental Controls: Time Limit settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/parentalcontrolstimelimits",
+  "pfm_domain": "com.apple.familycontrols.timelimits.v2",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2021-11-29T03:07:17.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Parental Controls: Time Limit settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Parental Controls: Time Limits",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.familycontrols.timelimits.v2",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.familycontrols.timelimits.v2",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Set to true to enable family control time limits",
+      "pfm_name": "familyControlsEnabled",
+      "pfm_require": "always",
+      "pfm_title": "Enable Time Limits",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "familyControlsEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "time-limits",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Weekday allowance settings",
+          "pfm_name": "weekday-allowance",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "enabled",
+              "pfm_require": "always",
+              "pfm_title": "Enable Weekday Allowance",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekday-allowance.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "secondsPerDay",
+              "pfm_title": "Allowance Seconds per Day",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_default": 0,
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekday-allowance.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "rangeType",
+              "pfm_range_list": [0],
+              "pfm_range_list_titles": ["Weekday"],
+              "pfm_require": "always",
+              "pfm_title": "Range Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Weekday Allowance",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_name": "weekday-curfew",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "enabled",
+              "pfm_require": "always",
+              "pfm_title": "Enable Weekday Curfew",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_description": "The start time for the curfew in 'hours:minutes:seconds' format.",
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekday-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "start",
+              "pfm_title": "Curfew Start Time",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The end time for the curfew in 'hours:minutes:seconds' format.",
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekday-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "end",
+              "pfm_title": "Curfew End Time",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": 0,
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekday-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "rangeType",
+              "pfm_range_list": [0],
+              "pfm_range_list_titles": ["Weekday"],
+              "pfm_require": "always",
+              "pfm_title": "Range Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Weekday Curfew",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_name": "weekend-allowance",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "enabled",
+              "pfm_require": "always",
+              "pfm_title": "Enable Weekend Allowance",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekend-allowance.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "secondsPerDay",
+              "pfm_title": "Allowance Seconds per Day",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_default": 1,
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekend-allowance.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "rangeType",
+              "pfm_range_list": [1],
+              "pfm_range_list_titles": ["Weekend"],
+              "pfm_require": "always",
+              "pfm_title": "Range Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Weekend Allowance",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_name": "weekend-curfew",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "enabled",
+              "pfm_require": "always",
+              "pfm_title": "Enable Weekend Curfew",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_description": "The start time for the curfew in 'hours:minutes:seconds' format.",
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekend-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "start",
+              "pfm_title": "Curfew Start Time",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The end time for the curfew in 'hours:minutes:seconds' format.",
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekend-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "end",
+              "pfm_title": "Curfew End Time",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": 1,
+              "pfm_exclude": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_n_range_list": [true],
+                      "pfm_target": "time-limits.weekend-curfew.enabled"
+                    }
+                  ]
+                }
+              ],
+              "pfm_name": "rangeType",
+              "pfm_range_list": [1],
+              "pfm_range_list_titles": ["Weekend"],
+              "pfm_require": "always",
+              "pfm_title": "Range Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Weekend Curfew",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Time Limits",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["user", "system"],
+  "pfm_title": "Parental Controls: Time Limits",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

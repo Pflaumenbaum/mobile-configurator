@@ -1,0 +1,199 @@
+{
+  "pfm_description": "AirPlay settings",
+  "pfm_description_reference": "The AirPlay payload is designated by specifying com.apple.airplay as the PayloadType value. This payload is supported on iOS 7.0 and later and on macOS 10.10 and later.",
+  "pfm_domain": "com.apple.airplay",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "7.0",
+  "pfm_last_modified": "2024-12-13T08:12:33.000Z",
+  "pfm_macos_min": "10.10",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "AirPlay settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "AirPlay",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.airplay",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.airplay",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_allowed_file_types": ["public.plain-text"],
+      "pfm_description": "If present, only AirPlay destinations in this list are available to the device. This allow list applies to supervised devices.",
+      "pfm_ios_min": "14.5",
+      "pfm_macos_min": "11.3",
+      "pfm_name": "AllowList",
+      "pfm_subkeys": [
+        {
+          "pfm_ios_min": "7.0",
+          "pfm_macos_min": "10.10",
+          "pfm_name": "AllowListItem",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The device ID of the AirPlay destination in the format 'xx:xx:xx:xx:xx:xx'. This field isn't case-sensitive.\nThe system limits the list of visible AirPlay destinations to devices that are present in the 'AllowList' field of all installed AirPlay payloads.\nSpecifying the same MACAddress more than once, whether in the same payload across different payloads, results in undefined behavior.\nAs of tvOS 18, 'DeviceID' isn't supported.",
+              "pfm_format": "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$",
+              "pfm_ios_deprecated": "18.0",
+              "pfm_macos_deprecated": "15.0",
+              "pfm_name": "DeviceID",
+              "pfm_title": "Device ID",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "xx:xx:xx:xx:xx:xx"
+            },
+            {
+              "pfm_description": "The name of the AirPlay device.\nThe system limits the list of visible AirPlay destinations to devices that are present in the 'AllowList' field of all installed AirPlay payloads.",
+              "pfm_ios_min": "18.0",
+              "pfm_macos_min": "15.0",
+              "pfm_name": "DeviceName",
+              "pfm_title": "Device Name",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_supervised": true,
+          "pfm_title": "Allow List Content Item",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Allow List",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "lineValueForFormat"
+    },
+    {
+      "pfm_allowed_file_types": ["public.plain-text"],
+      "pfm_description": "Use 'AllowList' instead. This key is deprecated in iOS 14.5 and macOS 11.3.",
+      "pfm_ios_deprecated": "14.5",
+      "pfm_macos_deprecated": "11.3",
+      "pfm_name": "Whitelist",
+      "pfm_subkeys": [
+        {
+          "pfm_ios_min": "7.0",
+          "pfm_macos_min": "10.10",
+          "pfm_name": "AllowListItem",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The device ID of the AirPlay destination in the format 'xx:xx:xx:xx:xx:xx'. This field isn't case-sensitive.\nThe system limits the list of visible AirPlay destinations to devices that are present in the 'AllowList' field of all installed AirPlay payloads.\nSpecifying the same MACAddress more than once, whether in the same payload across different payloads, results in undefined behavior.\nAs of tvOS 18, 'DeviceID' isn't supported.",
+              "pfm_format": "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$",
+              "pfm_ios_deprecated": "18.0",
+              "pfm_macos_deprecated": "15.0",
+              "pfm_name": "DeviceID",
+              "pfm_title": "Device ID",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "xx:xx:xx:xx:xx:xx"
+            },
+            {
+              "pfm_description": "The name of the AirPlay device.\nThe system limits the list of visible AirPlay destinations to devices that are present in the 'AllowList' field of all installed AirPlay payloads.",
+              "pfm_ios_min": "18.0",
+              "pfm_macos_min": "15.0",
+              "pfm_name": "DeviceName",
+              "pfm_title": "Device Name",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_supervised": true,
+          "pfm_title": "AllowList Content Item",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Allow List (legacy)",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "lineValueForFormat"
+    },
+    {
+      "pfm_description": "If present, sets passwords for known AirPlay destinations. Using multiple entries for the same destination, whether within the same payload or across multiple installed payloads, is an error and results in undefined behavior.",
+      "pfm_name": "Passwords",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "An item in the passwords",
+          "pfm_name": "PasswordsItem",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The name of the AirPlay destination; used in iOS, and available in macOS 15 and later.",
+              "pfm_macos_min": "15.0",
+              "pfm_name": "DeviceName",
+              "pfm_require": "always",
+              "pfm_title": "Device Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The device ID of the AirPlay destination; used in macOS.\nIn macOS 15 and later, 'DeviceID' is deprecated as tvOS 18 AirPlay destinations do not support it; use 'DeviceName' instead.",
+              "pfm_format": "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$",
+              "pfm_macos_deprecated": "15.0",
+              "pfm_name": "DeviceID",
+              "pfm_platforms": ["macOS"],
+              "pfm_require": "always",
+              "pfm_title": "Device ID",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "xx:xx:xx:xx:xx:xx"
+            },
+            {
+              "pfm_description": "The password for the AirPlay destination.",
+              "pfm_name": "Password",
+              "pfm_require": "always",
+              "pfm_title": "Password",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Password Content Item",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Passwords",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "AirPlay",
+  "pfm_unique": false,
+  "pfm_version": 5
+}

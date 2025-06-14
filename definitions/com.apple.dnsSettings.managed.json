@@ -1,0 +1,306 @@
+{
+  "pfm_description": "Use this section to configure DNS settings.",
+  "pfm_description_reference": "The DNS Settings payload is designated by specifying com.apple.dnsSettings.managed as the PayloadType.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/dnssettings",
+  "pfm_domain": "com.apple.dnsSettings.managed",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "14.0",
+  "pfm_last_modified": "2025-04-04T13:00:05.000Z",
+  "pfm_macos_min": "11.0",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to configure DNS settings.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "DNS Settings",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dnsSettings.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dnsSettings.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A dictionary that defines a configuration for an encrypted DNS server.",
+      "pfm_name": "DNSSettings",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The encrypted transport protocol used to communicate with the DNS server.",
+          "pfm_name": "DNSProtocol",
+          "pfm_range_list": ["HTTPS", "TLS"],
+          "pfm_require": "always-nested",
+          "pfm_title": "DNS Protocol",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "An unordered list of DNS server IP address strings. These IP addresses can be a mixture of IPv4 and IPv6 addresses.",
+          "pfm_name": "ServerAddresses",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "ServerAddressesElement",
+              "pfm_title": "Server Address Element",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "DNS Server Addresses",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": ["TLS"],
+                  "pfm_target": "DNSSettings.DNSProtocol"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "The hostname of a DNS-over-TLS server used to validate the server certificate, as defined in RFC 7858. If no 'ServerAddresses' are provided, the system uses the hostname to determine the server addresses. This key must be present only if the DNSProtocol is 'TLS'.",
+          "pfm_name": "ServerName",
+          "pfm_note": "This key must be present only if the DNSProtocol is TLS.",
+          "pfm_title": "Server Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": ["HTTPS"],
+                  "pfm_target": "DNSSettings.DNSProtocol"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "The URI template of a DNS-over-HTTPS server, as defined in RFC 8484. This URL needs to use the 'https://' scheme, and the system uses the hostname or address in the URL to validate the server certificate. If no 'ServerAddresses' are provided, the system uses the hostname or address in the URL to determine the server addresses. Required if 'DNSProtocol' is 'HTTPS'.",
+          "pfm_format": "^https://.*",
+          "pfm_name": "ServerURL",
+          "pfm_note": "This key must be present only if the DNSProtocol is HTTPS.",
+          "pfm_title": "Server URL",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "https://example.com"
+        },
+        {
+          "pfm_description": "A list of domain strings used to determine which DNS queries use the DNS server. If not set, all domains use the DNS server.\nThe system supports a single wildcard ('*') prefix, but it's not required. For example, both '*.example.com' and 'example.com' match against 'mydomain.example.com' and 'your.domain.example.com', but don't match against 'mydomain-example.com'.",
+          "pfm_name": "SupplementalMatchDomains",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "SupplementalMatchDomainsElement",
+              "pfm_title": "Supplemental Match Domains Element",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "*.example.com"
+            }
+          ],
+          "pfm_title": "Supplemental Match Domains",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "DNS Settings",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "An array of rules that define the DNS settings. If not set, the system always applies the DNS settings. These rules are identical to the 'OnDemandRules' array in VPN payloads.",
+      "pfm_name": "OnDemandRules",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "OnDemandRulesElement",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The action to take if this dictionary matches the current network. Allowed values:\n* 'Connect': Apply DNS Settings when the dictionary matches.\n* 'Disconnect': Don't apply DNS Settings when the dictionary matches.\n* 'EvaluateConnection': Apply DNS Settings with per-domain exceptions when the dictionary matches.",
+              "pfm_name": "Action",
+              "pfm_range_list": ["Connect", "Disconnect", "EvaluateConnection"],
+              "pfm_range_list_titles": [
+                "Connect",
+                "Disconnect",
+                "Evaluate Connection"
+              ],
+              "pfm_require": "always-nested",
+              "pfm_title": "On Demand Action",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_conditionals": [
+                {
+                  "pfm_target_conditions": [
+                    {
+                      "pfm_range_list": ["EvaluateConnection"],
+                      "pfm_target": "OnDemandRulesElement.Action"
+                    }
+                  ]
+                }
+              ],
+              "pfm_description": "An array of dictionaries that provide per-connection rules. The system uses this array only for settings where the 'Action' value is 'EvaluateConnection'.",
+              "pfm_name": "ActionParameters",
+              "pfm_note": "This array is used only for settings where the Action value is EvaluateConnection.",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A dictionary that provides per-connection rules.\nThe keys allowed in each dictionary are described below. Note: This array is used only for dictionaries in which EvaluateConnection is the Action value.",
+                  "pfm_name": "ActionParameter",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "The DNS settings behavior for the specified domains. Allowed values:\n\n* 'NeverConnect': Don't use the DNS Settings for the specified domains.\n* 'ConnectIfNeeded': Allow using the DNS Settings for the specified domains.",
+                      "pfm_name": "DomainAction",
+                      "pfm_range_list": ["NeverConnect", "ConnectIfNeeded"],
+                      "pfm_range_list_titles": [
+                        "Never Connect",
+                        "Connect if Needed"
+                      ],
+                      "pfm_require": "always-nested",
+                      "pfm_title": "Domain Action",
+                      "pfm_type": "string"
+                    },
+                    {
+                      "pfm_description": "The domains for which this evaluation applies.",
+                      "pfm_name": "Domains",
+                      "pfm_require": "always-nested",
+                      "pfm_subkeys": [
+                        {
+                          "pfm_name": "DomainsElement",
+                          "pfm_title": "Domains Element",
+                          "pfm_type": "string"
+                        }
+                      ],
+                      "pfm_title": "Domains",
+                      "pfm_type": "array"
+                    }
+                  ],
+                  "pfm_title": "Action Parameter",
+                  "pfm_type": "dictionary"
+                }
+              ],
+              "pfm_title": "Action Parameters",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "An array of domain names. This rule matches if any of the domain names in the specified list matches any domain in the device's search domains list.\nThe system supports a single wildcard ('*') prefix, but it's not required. For example, both '*.example.com' and 'example.com' match against 'mydomain.example.com' and 'your.domain.example.com', but don't match against 'mydomain-example.com'.",
+              "pfm_name": "DNSDomainMatch",
+              "pfm_subkeys": [
+                {
+                  "pfm_name": "DNSDomainMatchElement",
+                  "pfm_title": "DNS Domain Match Element",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "DNS Domain Match",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "An array of IP addresses. This rule matches if any of the network's specified DNS servers match any entry in the array.\nThe system supports matching with a single wildcard. For example, '17.*' matches any DNS server in the 17.0.0.0/8 subnet.",
+              "pfm_name": "DNSServerAddressMatch",
+              "pfm_subkeys": [
+                {
+                  "pfm_name": "DNSServerAddressMatchElement",
+                  "pfm_title": "DNS Server Address Match Element",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "DNS Server Address Match",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "An interface type. If specified, this rule matches only if the primary network interface hardware matches the specified type.",
+              "pfm_name": "InterfaceTypeMatch",
+              "pfm_range_list": ["Ethernet", "WiFi", "Cellular"],
+              "pfm_title": "Interface Type Match",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "An array of SSIDs to match against the current network. If the network isn't a Wi-Fi network or if the SSID doesn't appear in this array, the match fails. Omit this key and the corresponding array to match against any SSID.",
+              "pfm_name": "SSIDMatch",
+              "pfm_subkeys": [
+                {
+                  "pfm_name": "SSIDMatchElement",
+                  "pfm_title": "SSID Match Element",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "SSID Match",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "A URL to probe. This rule matches if this URL is successfully fetched and returns a 200 HTTP status code without redirection.",
+              "pfm_name": "URLStringProbe",
+              "pfm_title": "URL String Probe",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "On Demand Rules Element",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "On Demand Rules",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system prohibits users from disabling DNS settings. This key is only available on supervised devices.",
+      "pfm_name": "ProhibitDisablement",
+      "pfm_supervised": true,
+      "pfm_title": "Prohibit Disablement",
+      "pfm_type": "boolean",
+      "pfm_user_approved": true
+    },
+    {
+      "pfm_description": "The UUID that points to an identity certificate payload. The system uses this identity to authenticate the user to the DNS resolver.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_ios_min": "16.0",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Certificate UUID",
+      "pfm_type": "string"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "DNS Settings",
+  "pfm_unique": false,
+  "pfm_version": 3
+}

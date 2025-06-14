@@ -1,0 +1,124 @@
+{
+  "pfm_description": "Parental Controls: Dashboard settings",
+  "pfm_description_reference": "The Parental Control Dashboard payload is designated by specifying com.apple.dashboard as the PayloadType value.\nIt is used to define a white list of dashboard widgets.",
+  "pfm_domain": "com.apple.dashboard",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2023-11-23T13:57:28.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Parental Controls: Dashboard settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Parental Controls: Dashboard",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dashboard",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dashboard",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Set to true to enable the widget white list items.",
+      "pfm_description_reference": "Required. Set to true to enable the widget white list items.",
+      "pfm_name": "whiteListEnabled",
+      "pfm_require": "always",
+      "pfm_title": "Enable dashboard widget allowlist",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_allowed_file_types": ["com.apple.dashboard-widget"],
+      "pfm_description": "List that defines Dashboard widgets.",
+      "pfm_description_reference": "Required. List that defines Dashboard widgets.",
+      "pfm_name": "WhiteList",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "WhiteListItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "bundleID",
+              "pfm_description": "Set to \"bundleID\" to use a widget's bundle ID as its ID.",
+              "pfm_description_reference": "Required. Set to bundleID to use a widget's bundle ID as its ID.",
+              "pfm_hidden": "all",
+              "pfm_name": "Type",
+              "pfm_range_list": ["bundleID"],
+              "pfm_range_list_titles": ["Bundle ID"],
+              "pfm_require": "always",
+              "pfm_title": "Entry Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The bundle ID of a widget.",
+              "pfm_description_reference": "Required. The bundle ID of a widget.",
+              "pfm_name": "ID",
+              "pfm_require": "always",
+              "pfm_title": "Bundle ID",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "com.apple.widget.name"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Dashboard widget allowlist",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "com.apple.dashboard.whiteList"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Parental Controls: Dashboard",
+  "pfm_unique": true,
+  "pfm_version": 9
+}

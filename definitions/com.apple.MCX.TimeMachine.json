@@ -1,0 +1,128 @@
+{
+  "pfm_description": "Time Machine settings",
+  "pfm_domain": "com.apple.MCX.TimeMachine",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2019-11-07T15:29:16.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Time Machine settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Time Machine",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX.TimeMachine",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX.TimeMachine",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "URL of the backup destination. (e.g., smb://server.example.com/backups/)",
+      "pfm_name": "BackupDestURL",
+      "pfm_require": "always",
+      "pfm_title": "Backup Destination",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Only startup volume is backed up by default.",
+      "pfm_name": "BackupAllVolumes",
+      "pfm_title": "Backup all volumes",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "System files and folders are skipped by default.",
+      "pfm_name": "BackupSkipSys",
+      "pfm_title": "Back up system files and folders",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Automatically backup at regulard intervals.",
+      "pfm_name": "AutoBackup",
+      "pfm_title": "Enable automatic backups",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Creates local backup snapshots if the backup destination is offline.",
+      "pfm_macos_min": "10.8",
+      "pfm_name": "MobileBackups",
+      "pfm_title": "Enable local snapshots",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Enter a limit in MB for the size of the backup. Set to 0 for unlimited.",
+      "pfm_name": "BackupSizeMB",
+      "pfm_title": "Backup size limit",
+      "pfm_type": "integer",
+      "pfm_value_unit": "MB"
+    },
+    {
+      "pfm_description": "Enter additional volumes and locations to exclude from the backup.",
+      "pfm_name": "SkipPaths",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "SkipPath",
+          "pfm_title": "Path to skip",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Paths to skip",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Time Machine",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

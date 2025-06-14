@@ -1,0 +1,103 @@
+{
+  "pfm_description": "File Provider settings",
+  "pfm_description_reference": "The File Provider payload is designated by specifying com.apple.fileproviderd as the PayloadType.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/fileprovider",
+  "pfm_domain": "com.apple.fileproviderd",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2024-12-04T09:54:09.000Z",
+  "pfm_macos_min": "11.0",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures File Provider settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "File Provider",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.fileproviderd",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.fileproviderd",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables file providers access to the path of the requesting process.",
+      "pfm_name": "AllowManagedFileProvidersToRequestAttribution",
+      "pfm_title": "Allow Managed File Providers to Request Attribution",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the device prevents the File Provider extension using desktop and documents synchronization in any app. If 'true', the device allows File Provider extension desktop and documents synchronization. This does not impact the ability for apps to utilize the File Provider extension for file and folder syncing with remote storage.",
+      "pfm_macos_min": "15.2",
+      "pfm_name": "ManagementAllowsKnownFolderSyncing",
+      "pfm_targets": ["system"],
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array of app identifiers for apps that are allowed to utilize File Provider extension desktop and documents synchronization. If present, and `ManagementAllowsKnownFolderSyncing` is set to `true`, the device allows only the apps in this list to use desktop and documents synchronization. This key is ignored if `ManagementAllowsKnownFolderSyncing` is set to `false`. This setting does not impact the ability for apps to utilize File Provider extension for volume access. The format of the app identifiers is \"Bundle.Identifier (TeamIdentifier)\".",
+      "pfm_macos_min": "15.2",
+      "pfm_name": "ManagementKnownFolderSyncingAllowList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A composed app identifier. The format is \"Bundle.Identifier (TeamIdentifier)\".",
+          "pfm_name": "AllowListItem",
+          "pfm_require": "always",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_targets": ["system"],
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "File Provider",
+  "pfm_unique": false,
+  "pfm_user_approved": true,
+  "pfm_version": 2
+}

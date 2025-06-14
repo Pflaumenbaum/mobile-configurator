@@ -1,0 +1,133 @@
+{
+  "pfm_description": "Mobile Accounts settings",
+  "pfm_description_reference": "The Mobile Accounts payload is designated by specifying com.apple.MCX as the PayloadType value.\nThis payload allows controls the authentication UI during mobile account creation. It must be installed as a device profile.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/mobileaccounts",
+  "pfm_domain": "com.apple.MCX",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2023-08-15T08:00:00.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subdomain": "MobileAccounts",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Mobile Accounts settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Mobile Accounts",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Hides the authentication UI when a mobile account is created.",
+      "pfm_description_reference": "If set to true, the authentication UI is not displayed when a mobile account is created. Suppressing the UI may prevent mobile accounts from being able to unlock a FileVault volume. Default is false. Availability: Available in macOS 10.13.5 and later.",
+      "pfm_macos_min": "10.13.5",
+      "pfm_name": "cachedaccounts.askForSecureTokenAuthBypass",
+      "pfm_title": "Ask for Secure Token Auth Bypass",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": -1,
+      "pfm_description": "Mobile account lifetime before automatic removal in an integer value representing seconds, where -1 means never and 0 means at next login",
+      "pfm_description_reference": "The minimum number of seconds a mobile account can exist before an automatic attempt is made to remove the mobile account.",
+      "pfm_name": "cachedaccounts.expiry.delete.disusedSeconds",
+      "pfm_range_min": -1,
+      "pfm_title": "Cached Accounts Expiry",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "",
+      "pfm_description_reference": "If true, allows the user to stop the prompts about mobile account creation every time the user logs in. This key is only valid if com.apple.cachedaccounts.WarnOnCreate is set to true.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_range_list": [false],
+              "pfm_target": "com.apple.cachedaccounts.WarnOnCreate"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "cachedaccounts.WarnOnCreate.allowNever",
+      "pfm_title": "Allow Users to Stop Mobile Account Creation Prompts",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "",
+      "pfm_description_reference": "If true, creates the mobile account at login time.",
+      "pfm_name": "com.apple.cachedaccounts.CreateAtLogin",
+      "pfm_title": "Create Mobile Account at Login Time",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "",
+      "pfm_description_reference": "If true, asks the user if the mobile account should be created and allow the user to not create it.",
+      "pfm_name": "com.apple.cachedaccounts.WarnOnCreate",
+      "pfm_title": "Prompt for Mobile Account Creation",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Mobile Accounts",
+  "pfm_unique": true,
+  "pfm_version": 2
+}

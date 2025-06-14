@@ -1,0 +1,285 @@
+{
+  "pfm_description": "Proxies settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/networkproxyconfiguration",
+  "pfm_domain": "com.apple.SystemConfiguration",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2021-01-15T14:45:32.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Proxies settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Proxies",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.SystemConfiguration",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.SystemConfiguration",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "macOS System Proxy Configuration",
+      "pfm_name": "Proxies",
+      "pfm_subkeys": [
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "HTTPEnable",
+          "pfm_title": "Enable HTTP Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the http proxy server.",
+          "pfm_name": "HTTPProxy",
+          "pfm_title": "HTTP Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the http proxy server.",
+          "pfm_name": "HTTPPort",
+          "pfm_title": "HTTP Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "HTTPSEnable",
+          "pfm_title": "Enable HTTPS Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the https proxy server.",
+          "pfm_name": "HTTPSProxy",
+          "pfm_title": "HTTPS Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the https proxy server.",
+          "pfm_name": "HTTPSPort",
+          "pfm_title": "HTTPS Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "FTPEnable",
+          "pfm_title": "Enable FTP Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "FTPPassive",
+          "pfm_title": "Use Passive FTP Mode (PASV)",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the ftp proxy server.",
+          "pfm_name": "FTPProxy",
+          "pfm_title": "FTP Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the ftp proxy server.",
+          "pfm_name": "FTPPort",
+          "pfm_title": "FTP Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "SOCKSEnable",
+          "pfm_title": "Enable SOCKS Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the socks proxy server.",
+          "pfm_name": "SOCKSProxy",
+          "pfm_title": "SOCKS Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the socks proxy server.",
+          "pfm_name": "SOCKSPortInteger",
+          "pfm_title": "SOCKS Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "RTSPEnable",
+          "pfm_title": "Enable RTSP Steaming Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the rtsp proxy server.",
+          "pfm_name": "RTSPProxy",
+          "pfm_title": "RTSP Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the rtsp proxy server.",
+          "pfm_name": "RTSPPort",
+          "pfm_title": "RTSP Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "",
+          "pfm_name": "GopherEnable",
+          "pfm_title": "Enable Gopher Proxy",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The IP address or fully qualified domain name (FQDN) of the gopher proxy server.",
+          "pfm_name": "GopherProxy",
+          "pfm_title": "Gopher Proxy Hostname",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 80,
+          "pfm_description": "The port on which to connect to the gopher proxy server.",
+          "pfm_name": "GopherPort",
+          "pfm_title": "Gopher Proxy Port",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "Bypass proxy settings for these Hosts & Domains.",
+          "pfm_name": "ExceptionsList",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Bypassed domain or IP address. May contain wildcards. IP addresses may be in CIDR format.",
+              "pfm_name": "ExceptionsListItem",
+              "pfm_require": "always",
+              "pfm_title": "Bypassed Domain",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Exceptions",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_description": "Enable the use of a Proxy AutoConfig file.",
+          "pfm_name": "ProxyAutoConfigEnable",
+          "pfm_title": "Enable Automatic Proxy Configuration",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": [1],
+                  "pfm_target": "Proxies.ProxyAutoConfigEnable"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "URL to the Automatic Proxy Configuration file.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [1],
+                  "pfm_target": "Proxies.ProxyAutoConfigEnable"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "ProxyAutoConfigURLString",
+          "pfm_title": "Automatic Proxy Configuration URL",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "Enables fallback when set to 1. The default value is 1, except for managed devices whose default is 0.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [1],
+                  "pfm_target": "Proxies.ProxyAutoConfigEnable"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "FallBackAllowed",
+          "pfm_title": "Allow Proxy PAC Fallback",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "Allow the device to bypass the proxy server to display the login page for captive networks.",
+          "pfm_name": "ProxyCaptiveLoginAllowed",
+          "pfm_title": "Allow Proxy Bypass for Captive Portal Logins",
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_title": "Proxy Configuration",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Proxies",
+  "pfm_unique": true,
+  "pfm_version": 3
+}

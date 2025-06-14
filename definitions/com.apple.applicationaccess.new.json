@@ -1,0 +1,263 @@
+{
+  "pfm_description": "Configures Parental Controls: Application Restrictions settings",
+  "pfm_description_reference": "The Parental Control Application Access payload is designated by specifying com.apple.applicationaccess.new as the PayloadType value.\nIt enables application access restrictions on macOS.\nTo determine if an application can be launched, these rules are evaluated:\n1. Certainsystemapplicationsandutilitiesarealwaysallowedtorun.\n2. ThewhiteListissearchedtoseeifamatchingentryisfoundbybundleID.Ifamatchisfound,theappID and detachedSignature (if present) are used to verify the signature of the application being launched. If the signature is valid and matches the designated requirement (in the appID key), the application is allowed to launch.\n3. If the path to the binary being launched matches (or is in a subdirectory) of a path in pathBlackList, the binary is denied.\n4. Ifthepathtothebinarybeinglaunchedmatches(orisasubdirectory)ofapathinpathWhiteList,thebinary is allowed to launch.\n5. Thebinaryisdeniedpermissiontolaunch.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/parentalcontrolsapplicationrestrictions",
+  "pfm_domain": "com.apple.applicationaccess.new",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-09-12T10:00:38.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Parental Controls: Application Restrictions",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Parental Controls: Application Restrictions",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess.new",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess.new",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "If 'true', enables app access restrictions.",
+      "pfm_name": "familyControlsEnabled",
+      "pfm_require": "always",
+      "pfm_title": "Enable application access restrictions",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_allowed_file_types": ["com.apple.application-bundle"],
+      "pfm_description": "The allow list of app item dictionaries.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "familyControlsEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "whiteList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Allowlisted application dictionary",
+          "pfm_name": "whiteListItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The bundle ID of the app.",
+              "pfm_name": "bundleID",
+              "pfm_require": "always",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The name used for display purposes.",
+              "pfm_name": "displayName",
+              "pfm_title": "Display Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The identifier of the app. Obtain this value from the Security framework using SecCodeCopyDesignatedRequirement(_:_:_:).",
+              "pfm_name": "appID",
+              "pfm_require": "always",
+              "pfm_title": "Code Requirement",
+              "pfm_type": "data",
+              "pfm_type_input": "string",
+              "pfm_value_processor": "designatedCodeRequirement2Data"
+            },
+            {
+              "pfm_description": "An array of nested helper applications.",
+              "pfm_hidden": "all",
+              "pfm_name": "subApps",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "Bundle ID of application.",
+                  "pfm_description_reference": "Required. Bundle ID of application.",
+                  "pfm_name": "bundleID",
+                  "pfm_require": "always",
+                  "pfm_title": "Bundle Identifier",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "Display name of the application.",
+                  "pfm_description_reference": "Optional. Display name.",
+                  "pfm_name": "displayName",
+                  "pfm_title": "Display Name",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The designated requirement describing the code signature of this executable.",
+                  "pfm_description_reference": "Required. The designated requirement describing the code signature of this executable. This value is obtained from the Security.framework using SecCodeCopyDesignatedRequirement.",
+                  "pfm_name": "appID",
+                  "pfm_require": "always",
+                  "pfm_title": "Application Identifier",
+                  "pfm_type": "data"
+                },
+                {
+                  "pfm_description": "The required signature for an unsigned binary",
+                  "pfm_description_reference": "Optional. Can be used to provide the required signature for an unsigned binary. Generate an ad-hoc signature of the unsigned binary and store the signature here.",
+                  "pfm_name": "detachedSignature",
+                  "pfm_title": "Detached Signature",
+                  "pfm_type": "data"
+                },
+                {
+                  "pfm_description": "",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "Profile Manager",
+                  "pfm_name": "appStore",
+                  "pfm_title": "App Store",
+                  "pfm_type": "boolean"
+                },
+                {
+                  "pfm_description": "Specifies whether this application information is to be included in the allowlist or not.",
+                  "pfm_description_reference": "Optional. Specifies whether this application information is to be included in the whiteList or not. Set to true to keep the application off the whiteList. It could still be allowed to launch via pathWhiteList, although this behavior is discouraged.\nDefault is false.",
+                  "pfm_name": "disabled",
+                  "pfm_title": "Disabled",
+                  "pfm_type": "boolean"
+                }
+              ],
+              "pfm_title": "Sub Apps",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "The signature for an unsigned binary.",
+              "pfm_hidden": "all",
+              "pfm_name": "detachedSignature",
+              "pfm_title": "Detached Signature",
+              "pfm_type": "data"
+            },
+            {
+              "pfm_description": "",
+              "pfm_description_reference": "",
+              "pfm_documentation_source": "Profile Manager",
+              "pfm_name": "appStore",
+              "pfm_title": "App Store",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "If 'true', this app isn't added to the allow list.",
+              "pfm_name": "disabled",
+              "pfm_title": "Disabled",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "Allowlisted Item",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Allowlisted Applications by Code Signature",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "com.apple.applicationaccess.new.whiteList"
+    },
+    {
+      "pfm_allowed_file_types": ["public.folder"],
+      "pfm_description": "The paths to apps in the allow list. This property is deprecated in macOS 10.15 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "familyControlsEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_deprecated": "10.15",
+      "pfm_name": "pathWhiteList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A path.",
+          "pfm_name": "pathWhiteListItem",
+          "pfm_require": "always",
+          "pfm_title": "Folder Path",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "/Applications"
+        }
+      ],
+      "pfm_title": "Allowlisted Application Folders",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "public.folder"
+    },
+    {
+      "pfm_allowed_file_types": ["public.folder"],
+      "pfm_description": "The paths to apps in the deny list. This property is deprecated in macOS 10.15 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "familyControlsEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_deprecated": "10.15",
+      "pfm_name": "pathBlackList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A path.",
+          "pfm_name": "pathBlackListItem",
+          "pfm_require": "always",
+          "pfm_title": "Folder Path",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "/Users/Shared/Applications"
+        }
+      ],
+      "pfm_title": "Denylisted Application Folders",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "public.folder"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Parental Controls: Application Restrictions",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

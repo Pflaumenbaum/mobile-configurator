@@ -1,0 +1,733 @@
+{
+  "pfm_description": "Active Directory settings",
+  "pfm_description_reference": "In macOS 10.9 and later, a configuration profile can be used to configure macOS to join an Active Directory (AD) domain. Advanced AD options available via Directory Utility or the dsconfigad command line tool can also be set using a configuration profile, following this procedure:\n1. StartwithamacOSDirectorypayload,createdinProfileManager. \n2. Saveanddownloadtheprofilesoyoucanedititmanually.\nThe following AD configuration keys can be added to the Directory payload, of type com.apple.DirectoryService.managed. \nNote that some settings will only be set if the associated flag key is set to true. Forexample,ADPacketEncryptFlag\nmust be set to true to set the ADPacketEncrypt key to enable.",
+  "pfm_domain": "com.apple.DirectoryService.managed",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2024-03-04T09:35:44.000Z",
+  "pfm_macos_min": "10.8",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Active Directory settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Active Directory",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.DirectoryService.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.DirectoryService.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The hostname of the directory server.",
+      "pfm_description_reference": "The Active Directory domain to join.",
+      "pfm_name": "HostName",
+      "pfm_require": "always",
+      "pfm_title": "Server Hostname",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "User name of the account used to join the domain.",
+      "pfm_description_reference": "User name of the account used to join the domain.",
+      "pfm_name": "UserName",
+      "pfm_title": "User name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Password of the account used to join the domain.",
+      "pfm_description_reference": "Password of the account used to join the domain.",
+      "pfm_name": "Password",
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The directory server client ID.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "ClientID",
+      "pfm_title": "Client ID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The organizational unit (OU) where the joining computer object is added.",
+      "pfm_description_reference": "The organizational unit (OU) where the joining computer object is added.",
+      "pfm_name": "ADOrganizationalUnit",
+      "pfm_title": "Organizational Unit",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADCreateMobileAccountAtLogin Flag.",
+      "pfm_description_reference": "Enable or disable the ADCreateMobileAccountAtLogin key.",
+      "pfm_name": "ADCreateMobileAccountAtLoginFlag",
+      "pfm_title": "Enable ADCreateMobileAccountAtLogin Flag",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADCreateMobileAccountAtLoginFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "Create mobile account at login.",
+      "pfm_description_reference": "Create mobile account at login.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADCreateMobileAccountAtLoginFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADCreateMobileAccountAtLogin",
+      "pfm_title": "Create mobile account at login",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADWarnUserBeforeCreatingMA Flag.",
+      "pfm_description_reference": "Enable or disable the ADWarnUserBeforeCreatingMA key.",
+      "pfm_name": "ADWarnUserBeforeCreatingMAFlag",
+      "pfm_title": "Enable ADWarnUserBeforeCreatingMA Flag",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADWarnUserBeforeCreatingMAFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "Require confirmation before creating mobile account.",
+      "pfm_description_reference": "Warn user before creating a Mobile Account.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADWarnUserBeforeCreatingMAFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADWarnUserBeforeCreatingMA",
+      "pfm_title": "Require confirmation before creating mobile account",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADForceHomeLocal Flag.",
+      "pfm_description_reference": "Enable or disable the ADForceHomeLocal key.",
+      "pfm_name": "ADForceHomeLocalFlag",
+      "pfm_title": "Enable ADForceHomeLocal Flag",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADForceHomeLocalFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "Force local home directory on startup disk.",
+      "pfm_description_reference": "Force local home directory.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADForceHomeLocalFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADForceHomeLocal",
+      "pfm_title": "Force local home directory on startup disk",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADUseWindowsUNCPath Flag.",
+      "pfm_description_reference": "Enable or disable the ADUseWindowsUNCPath key.",
+      "pfm_name": "ADUseWindowsUNCPathFlag",
+      "pfm_title": "Enable ADUseWindowsUNCPath Flag",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADUseWindowsUNCPathFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "Use UNC path from Active Directory to derive network home location",
+      "pfm_description_reference": "Use UNC path from Active Directory to derive network home location.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADUseWindowsUNCPathFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADUseWindowsUNCPath",
+      "pfm_title": "Use UNC path for network home location",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": "smb",
+      "pfm_description": "Network protocol to be used to mount home directory.",
+      "pfm_description_reference": "Network home protocol to use: \"afp\" or \"smb\".",
+      "pfm_name": "ADMountStyle",
+      "pfm_range_list": ["afp", "smb"],
+      "pfm_range_list_titles": ["AFP", "SMB"],
+      "pfm_title": "Mount Style",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADDefaultUserShell Key.",
+      "pfm_description_reference": "Enable or disable the ADDefaultUserShell key.",
+      "pfm_name": "ADDefaultUserShellFlag",
+      "pfm_title": "Enable ADDefaultUserShell Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADDefaultUserShellFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": "/bin/bash",
+      "pfm_description": "Default user shell.",
+      "pfm_description_reference": "Default user shell; e.g. /bin/bash.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADDefaultUserShellFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADDefaultUserShell",
+      "pfm_title": "Default user shell",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADMapUIDAttribute Key.",
+      "pfm_description_reference": "Enable or disable the ADMapUIDAttribute key.",
+      "pfm_name": "ADMapUIDAttributeFlag",
+      "pfm_title": "Enable ADMapUIDAttribute Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADMapUIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Map UID to attribute.",
+      "pfm_description_reference": "Map UID to attribute.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADMapUIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADMapUIDAttribute",
+      "pfm_title": "Map UID to attribute",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADMapGIDAttribute Key.",
+      "pfm_description_reference": "Enable or disable the ADMapGIDAttribute key.",
+      "pfm_name": "ADMapGIDAttributeFlag",
+      "pfm_title": "Enable ADMapGIDAttribute Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADMapGIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Map user GID to attribute.",
+      "pfm_description_reference": "Map user GID to attribute.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADMapGIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADMapGIDAttribute",
+      "pfm_title": "Map user GID to attribute",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADMapGGIDAttribute Key.",
+      "pfm_description_reference": "Enable or disable the ADMapGGIDAttributeFlag key.",
+      "pfm_name": "ADMapGGIDAttributeFlag",
+      "pfm_title": "Enable ADMapGGIDAttribute Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADMapGGIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Map group GID to attribute.",
+      "pfm_description_reference": "Map group GID to attribute.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADMapGGIDAttributeFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADMapGGIDAttribute",
+      "pfm_title": "Map group GID to attribute",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADPreferredDCServer Key.",
+      "pfm_description_reference": "Enable or disable the ADPreferredDCServer key.",
+      "pfm_name": "ADPreferredDCServerFlag",
+      "pfm_title": "Enable ADPreferredDCServer Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADPreferredDCServerFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Preferred domain server.",
+      "pfm_description_reference": "Prefer this domain server.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADPreferredDCServerFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADPreferredDCServer",
+      "pfm_title": "Preferred domain server",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADDomainAdminGroupList Key.",
+      "pfm_description_reference": "Enable or disable the ADDomainAdminGroupList key.",
+      "pfm_name": "ADDomainAdminGroupListFlag",
+      "pfm_title": "Enable ADDomainAdminGroupList Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADDomainAdminGroupListFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Allow administration by specified Active Directory groups.",
+      "pfm_description_reference": "Allow administration by specified Active Directory groups.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADDomainAdminGroupListFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADDomainAdminGroupList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "An active directory group",
+          "pfm_name": "ADDomainAdminGroupListItem",
+          "pfm_require": "always",
+          "pfm_title": "Domain Admin Group Item",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Allow administration by specified Active Directory groups.",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADAllowMultiDomainAuth Key.",
+      "pfm_description_reference": "Enable or disable the ADAllowMultiDomainAuth key.",
+      "pfm_name": "ADAllowMultiDomainAuthFlag",
+      "pfm_title": "Enable ADAllowMultiDomainAuth Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADAllowMultiDomainAuthFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "Allow authentication from any domain in the forest.",
+      "pfm_description_reference": "Allow authentication from any domain in the forest.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADAllowMultiDomainAuthFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADAllowMultiDomainAuth",
+      "pfm_title": "Allow authentication from any domain in the forest",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADNamespace Key.",
+      "pfm_description_reference": "Enable or disable the ADNamespace key.",
+      "pfm_name": "ADNamespaceFlag",
+      "pfm_title": "Enable ADNamespace Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADNamespaceFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": "domain",
+      "pfm_description": "Set primary user account naming convention: \"forest\" or \"domain\".",
+      "pfm_description_reference": "Set primary user account naming convention: \"forest\" or \"domain\"; \"domain\" is default.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADNamespaceFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADNamespace",
+      "pfm_range_list": ["domain", "forest"],
+      "pfm_title": "Set primary user account naming convention: \"forest\" or \"domain\"",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADPacketSign Key.",
+      "pfm_description_reference": "Enable or disable the ADPacketSign key.",
+      "pfm_name": "ADPacketSignFlag",
+      "pfm_title": "Enable ADPacketSign Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADPacketSignFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": "allow",
+      "pfm_description": "Packet signing.",
+      "pfm_description_reference": "Packet signing: \"allow\", \"disable\" or \"require\"; \"allow\" is default.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADPacketSignFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADPacketSign",
+      "pfm_range_list": ["allow", "disable", "require"],
+      "pfm_title": "Packet signing",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADPacketEncrypt Key",
+      "pfm_description_reference": "Enable or disable the ADPacketEncrypt key.",
+      "pfm_name": "ADPacketEncryptFlag",
+      "pfm_title": "Enable ADPacketEncrypt Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADPacketEncryptFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": "allow",
+      "pfm_description": "Packet encryption.",
+      "pfm_description_reference": "Packet encryption: \"allow\", \"disable\", \"require\" or \"ssl\"; \"allow\" is default.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADPacketEncryptFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADPacketEncrypt",
+      "pfm_range_list": ["allow", "disable", "require", "ssl"],
+      "pfm_title": "Packet encryption",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADRestrictDDNS Key.",
+      "pfm_description_reference": "Enable or disable the ADRestrictDDNS key.",
+      "pfm_name": "ADRestrictDDNSFlag",
+      "pfm_title": "Enable ADRestrictDDNS Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADRestrictDDNSFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "Restrict Dynamic DNS updates to the specified interfaces (e.g. en0, en1, etc).",
+      "pfm_description_reference": "Restrict Dynamic DNS updates to the specified interfaces (e.g. en0, en1, etc).",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADRestrictDDNSFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADRestrictDDNS",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "An interface name which is allowed to make DDNS updates",
+          "pfm_name": "ADRestrictDDNSItem",
+          "pfm_require": "always",
+          "pfm_title": "Allowed DDNS Interface Item",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Restrict DDNS on interfaces",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Enable ADTrustChangePassIntervalDays Key.",
+      "pfm_description_reference": "Enable or disable the ADTrustChangePassIntervalDays key.",
+      "pfm_name": "ADTrustChangePassIntervalDaysFlag",
+      "pfm_title": "Enable ADTrustChangePassIntervalDays Key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "ADTrustChangePassIntervalDaysFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_default": 14,
+      "pfm_description": "How often to change computer trust account password in days.",
+      "pfm_description_reference": "How often to require change of the computer trust account password in days; \"0\" is disabled.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "ADTrustChangePassIntervalDaysFlag"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ADTrustChangePassIntervalDays",
+      "pfm_title": "Password trust interval",
+      "pfm_type": "integer",
+      "pfm_value_unit": "days"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Active Directory",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

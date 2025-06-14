@@ -1,0 +1,94 @@
+{
+  "pfm_description": "FileVault Options settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/fdefilevaultoptions",
+  "pfm_domain": "com.apple.MCX",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2020-04-15T17:37:13.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subdomain": "FileVaultOptions",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures FileVault Options",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "FileVault Options",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description_reference": "Set to true to prevent FileVault from being disabled.",
+      "pfm_name": "dontAllowFDEDisable",
+      "pfm_title": "Prevent Disabling FileVault",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description_reference": "Set to true to prevent FileVault from being enabled.",
+      "pfm_name": "dontAllowFDEEnable",
+      "pfm_title": "Prevent Enabling FileVault",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description_reference": "If true, prevents the OS from storing a temporary FileVault key in SMC or RAM for standby.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/energysaver",
+      "pfm_name": "DestroyFVKeyOnStandby",
+      "pfm_note": "In Apple's documentation, this preference lives in the Energy Saver payload.",
+      "pfm_title": "Prevent Storing Temporary FileVault Key for Standby",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "FileVault Options",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

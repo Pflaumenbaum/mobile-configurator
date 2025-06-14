@@ -1,0 +1,462 @@
+{
+  "pfm_description": "Use this section to define settings for the Exchange ActiveSync account.",
+  "pfm_description_reference": "In iOS, the Exchange payload is designated by specifying com.apple.eas.account as the PayloadType value. This payload configures an Exchange Active Sync Contacts account on the device. Mail and Calendar are not config- ured using this payload on iOS.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/exchangeactivesync",
+  "pfm_domain": "com.apple.eas.account",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "4.0",
+  "pfm_last_modified": "2025-03-03T11:08:08.000Z",
+  "pfm_note": "As with VPN and Wi-Fi configurations, it is possible to associate an SCEP credential with an Exchange configu- ration via the PayloadCertificateUUID key.",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define settings for the Exchange ActiveSync account.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Exchange ActiveSync",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_enabled": true,
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.eas.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.eas.account",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "This user name for this Exchange account. Required for noninteractive installations like MDM in iOS.",
+      "pfm_name": "UserName",
+      "pfm_require": "push",
+      "pfm_title": "User",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The full email address for the account. If not present in the payload, the device prompts for this string during profile installation.",
+      "pfm_name": "EmailAddress",
+      "pfm_title": "Email Address",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password of the account. Use only with encrypted profiles.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "OAuth"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "Password",
+      "pfm_sensitive": true,
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system overrides the previous user/EAS password with the new EAS password in the payload. Available in iOS 14 and later.",
+      "pfm_ios_min": "14.0",
+      "pfm_name": "OverridePreviousPassword",
+      "pfm_title": "Override previous password",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The Exchange server host name or IP address.",
+      "pfm_name": "Host",
+      "pfm_require": "always",
+      "pfm_title": "Exchange ActiveSync Host",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables SSL for authentication.",
+      "pfm_name": "SSL",
+      "pfm_title": "Use SSL",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables OAuth for authentication. If enabled, don't specify a password.\nAvailable only in iOS 12.0 and above.",
+      "pfm_ios_min": "12.0",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "OAuth",
+      "pfm_title": "Use OAuth",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_allowed_file_types": ["com.rsa.pkcs-12"],
+      "pfm_description": "The '.p12' identity certificate in NSData blob format, for accounts that allow authentication via certificate.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "PayloadCertificateUUID"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "Certificate",
+      "pfm_title": "Authentication Credential",
+      "pfm_type": "data"
+    },
+    {
+      "pfm_description": "The name or description of the certificate.",
+      "pfm_ios_min": "7.0",
+      "pfm_name": "CertificateName",
+      "pfm_title": "Authentication Credential Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password necessary for the '.p12' identity certificate. Used with mandatory encryption of profiles.",
+      "pfm_name": "CertificatePassword",
+      "pfm_sensitive": true,
+      "pfm_title": "Authentication Credential Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system prevents moving messages from out of this email account into another account. This setting also prevents forwarding or replying from an account other than the recipient of the message.",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "PreventMove",
+      "pfm_title": "Prevent Move",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', prevents this account from sending mail in any app other than the Apple Mail app.",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "PreventAppSheet",
+      "pfm_title": "Prevent App Sheet",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The UUID of the certificate payload within the same profile to use for the identity credential. If this field is present, the Certificate field isn't used.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Payload Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables S/MIME encryption. In iOS 10.0 and later, this key is ignored. Use 'SMIMESigningEnabled' instead.",
+      "pfm_ios_deprecated": "10.0",
+      "pfm_ios_max": "9.3.3",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "SMIMEEnabled",
+      "pfm_title": "S/MIME Enabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables S/MIME signing for this account. Available in iOS 10.0 and later.",
+      "pfm_ios_min": "10.3",
+      "pfm_name": "SMIMESigningEnabled",
+      "pfm_title": "S/MIME Signing Enabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The UUID of the identity certificate used to sign messages sent from this account.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "SMIMESigningCertificateUUID",
+      "pfm_title": "S/MIME Signing Certificate",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables S/MIME encryption for this account. Available in iOS 10.0 and later. As of iOS 12.0, this key is deprecated. Use 'SMIMEEncryptByDefault' instead.",
+      "pfm_ios_deprecated": "12.0",
+      "pfm_ios_min": "10.3",
+      "pfm_name": "SMIMEEncryptionEnabled",
+      "pfm_title": "S/MIME Encryption Enabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The payload UUID of the identity certificate used to decrypt messages sent to this account. The system attaches the public certificate to outgoing mail to allow the user to receive encrypted mail. When the user sends encrypted mail, the system uses the public certificate to encrypt the copy of the mail in the user's Sent mailbox.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "SMIMEEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "SMIMEEncryptionCertificateUUID",
+      "pfm_title": "S/MIME Encryption Certificate",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system displays the per-message encryption switch in the Mail Compose UI.\nAvailable in iOS 8.0 and later. As of iOS 12.0, this key is deprecated. Use 'SMIMEEnableEncryptionPerMessageSwitch' instead.",
+      "pfm_ios_deprecated": "12.0",
+      "pfm_ios_min": "8.0",
+      "pfm_name": "SMIMEEnablePerMessageSwitch",
+      "pfm_title": "S/MIME Enable Per-Message Switch",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the user can turn S/MIME signing on or off in Settings. Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMESigningUserOverrideable",
+      "pfm_title": "Allow user to toggle S/MIME Signing",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the user can select the signing identity. Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMESigningCertificateUUIDUserOverrideable",
+      "pfm_title": "Allow user to select S/MIME Identity",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables S/MIME encryption by default. If 'SMIMEEnableEncryptionPerMessageSwitch' is 'false', the user can't change this default. Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMEEncryptByDefault",
+      "pfm_title": "Enable S/MIME Encryption",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables encryption by default and the user can't change it. Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMEEncryptByDefaultUserOverrideable",
+      "pfm_title": "Allow user to select S/MIME Encryption",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the user can select the S/MIME encryption identity, and encryption is on.Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMEEncryptionCertificateUUIDUserOverrideable",
+      "pfm_title": "Allow user to select S/MIME Encryption Certificate",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system displays the per-message encryption switch in the Mail Compose UI. Available in iOS 12.0 and later.",
+      "pfm_ios_min": "12.0",
+      "pfm_name": "SMIMEEnableEncryptionPerMessageSwitch",
+      "pfm_title": "Allow user to select S/MIME Encryption per message",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Calendars service for this account. The user can reenable Calendars service in Settings unless 'EnableCalendarsUserOverridable' is 'false'.\nAt least of the following fields needs to be 'true': 'EnableMail', 'EnableContacts', 'EnableCalendars', 'EnableReminders', and 'EnableNotes'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableCalendars",
+      "pfm_note": "EnableMail, EnableContacts, EnableCalendars, EnableReminders, and EnableNotes can't all be set to false. At least 1 must be enabled.",
+      "pfm_title": "Enabled Services - Calendars",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Contacts service for this account. The user can reenable Contacts service in Settings unless 'EnableContactsUserOverridable' is 'false'.\nAt least of the following fields needs to be 'true': 'EnableMail', 'EnableContacts', 'EnableCalendars', 'EnableReminders', and 'EnableNotes'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableContacts",
+      "pfm_note": "EnableMail, EnableContacts, EnableCalendars, EnableReminders, and EnableNotes can't all be set to false. At least 1 must be enabled.",
+      "pfm_title": "Enabled Services - Contacts",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Mail service for this account. The user can reenable Mail service in Settings unless 'EnableMailUserOverridable' is 'false'.\nAt least of the following fields needs to be 'true': 'EnableMail', 'EnableContacts', 'EnableCalendars', 'EnableReminders', and 'EnableNotes'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableMail",
+      "pfm_note": "EnableMail, EnableContacts, EnableCalendars, EnableReminders, and EnableNotes can't all be set to false. At least 1 must be enabled.",
+      "pfm_title": "Enabled Services - Mail",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Notes service for this account. The user can reenable Notes service in Settings unless 'EnableNotesUserOverridable' is 'false'.\nAt least of the following fields needs to be 'true': 'EnableMail', 'EnableContacts', 'EnableCalendars', 'EnableReminders', and 'EnableNotes'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableNotes",
+      "pfm_note": "EnableMail, EnableContacts, EnableCalendars, EnableReminders, and EnableNotes can't all be set to false. At least 1 must be enabled.",
+      "pfm_title": "Enabled Services - Notes",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Reminders service for this account. The user can reenable Reminders service in Settings unless 'EnableRemindersUserOverridable' is 'false'.\nAt least of the following fields needs to be 'true': 'EnableMail', 'EnableContacts', 'EnableCalendars', 'EnableReminders', and 'EnableNotes'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableReminders",
+      "pfm_note": "EnableMail, EnableContacts, EnableCalendars, EnableReminders, and EnableNotes can't all be set to false. At least 1 must be enabled.",
+      "pfm_title": "Enabled Services - Reminders",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the state of the Calendars service for this account in Settings.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableCalendarsUserOverridable",
+      "pfm_title": "Account Modification - Calendars",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the state of the Contacts service for this account in Settings.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableContactsUserOverridable",
+      "pfm_title": "Account Modification - Contacts",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the state of the Mail service for this account in Settings.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableMailUserOverridable",
+      "pfm_title": "Account Modification - Mail",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', prevents the user from changing the state of the Notes service for this account in Settings.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableNotesUserOverridable",
+      "pfm_title": "Account Modification - Notes",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the state of the Reminders service for this account in Settings.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "EnableRemindersUserOverridable",
+      "pfm_title": "Account Modification - Reminders",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system excludes this account from Recent Addresses syncing.",
+      "pfm_ios_min": "6.0",
+      "pfm_name": "disableMailRecentsSyncing",
+      "pfm_title": "Disable Mail Recents Syncing",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 7,
+      "pfm_description": "The number of days in the past to sync mail on the device.\nFor no limit, use the value '0'.",
+      "pfm_name": "MailNumberOfPastDaysToSync",
+      "pfm_range_list": [0, 1, 3, 7, 14, 31],
+      "pfm_range_list_titles": ["No Limit", "1", "3", "7", "14", "31"],
+      "pfm_title": "Past Days of Mail to Sync",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The communication service handler rules for this account.",
+      "pfm_ios_min": "10.0",
+      "pfm_name": "CommunicationServiceRules",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The default handlers to use for contacts from this account.",
+          "pfm_ios_min": "10.0",
+          "pfm_name": "DefaultServiceHandlers",
+          "pfm_required": true,
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The bundle identifier of the default application to use for audio calls made to contacts from this account.",
+              "pfm_ios_min": "10.0",
+              "pfm_name": "AudioCall",
+              "pfm_title": "App for audio calls",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Default Service Handlers",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Communication Service Rules",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "The VPNUUID of the per-app VPN the account uses for network communication. Available in iOS 14 and later.",
+      "pfm_ios_min": "14.0",
+      "pfm_name": "VPNUUID",
+      "pfm_title": "VPNUUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The value of the 'X-Apple-Config-Magic' header in each EAS HTTP request.",
+      "pfm_ios_deprecated": "7.0",
+      "pfm_name": "HeaderMagic",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables this account to use Mail Drop.",
+      "pfm_ios_min": "9.2",
+      "pfm_name": "allowMailDrop",
+      "pfm_title": "Allow Mail Drop",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The URL that this account should use for signing in through OAuth. Ignored unless 'OAuth' is 'true'. If you specify this URL, auto-discovery isn't used for this account, so you need to also specify a host.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "OAuthSignInURL",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The URL that this account should use for token requests through OAuth. Ignored unless 'OAuth' is 'true'.",
+      "pfm_ios_min": "13.0",
+      "pfm_name": "OAuthTokenRequestURL",
+      "pfm_type": "string"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Exchange ActiveSync",
+  "pfm_unique": false,
+  "pfm_version": 6
+}

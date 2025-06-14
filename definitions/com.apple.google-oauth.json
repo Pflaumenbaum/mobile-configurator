@@ -1,0 +1,116 @@
+{
+  "pfm_description": "Use this section to configure Google accounts. The user will be prompted to sign in afterward.",
+  "pfm_domain": "com.apple.google-oauth",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "9.3",
+  "pfm_last_modified": "2018-07-18T08:58:51.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures a Google account",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Google Account",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.google-oauth",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.google-oauth",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Description of the account shown to the user",
+      "pfm_ios_min": "9.3",
+      "pfm_name": "AccountDescription",
+      "pfm_title": "Account Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Full user name of the Google account",
+      "pfm_ios_min": "9.3",
+      "pfm_name": "AccountName",
+      "pfm_title": "Account Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Full Google/Gmail email address for the account",
+      "pfm_ios_min": "9.3",
+      "pfm_name": "EmailAddress",
+      "pfm_require": "always",
+      "pfm_title": "Email Address",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The communication service handler rules for this account",
+      "pfm_ios_min": "10.0",
+      "pfm_name": "CommunicationServiceRules",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "DefaultServiceHandlers",
+          "pfm_required": true,
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Bundle identifier for the default application that handles audio calls made to contacts from this account",
+              "pfm_name": "AudioCall",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Default Service Handlers",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Communication Service Rules",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Google Account",
+  "pfm_unique": false,
+  "pfm_version": 2
+}

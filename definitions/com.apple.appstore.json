@@ -1,0 +1,125 @@
+{
+  "pfm_description": "App Store settings",
+  "pfm_description_reference": "The AppStore payload is designated by specifying com.apple.appstore as the PayloadType value. It establishes macOS AppStore restrictions and is supported on the User channel.",
+  "pfm_domain": "com.apple.appstore",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2023-08-15T08:00:00.000Z",
+  "pfm_macos_min": "10.9",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures App Store settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "App Store settings",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.appstore",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.appstore",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Restrict app installations to admin users",
+      "pfm_description_reference": "If true, restricts app installations to admin users only. Deprecated in macOS 10.14. Use the com.apple.SoftwareUpdate payload key restrict-software-update-require-admin-to-install as a replacement.",
+      "pfm_macos_deprecated": "10.14",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "restrict-store-require-admin-to-install",
+      "pfm_title": "Require Admin To Install",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Restrict app installations to software updates only",
+      "pfm_description_reference": "Optional. Restrict app installations to software updates only. Available on macOS 10.10 and later.",
+      "pfm_macos_min": "10.10",
+      "pfm_name": "restrict-store-softwareupdate-only",
+      "pfm_title": "Restrict app installations to software updates only",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Disable App Adoption by users",
+      "pfm_description_reference": "Optional. Disable App Adoption by users. Available on macOS 10.10 and later.",
+      "pfm_macos_min": "10.10",
+      "pfm_name": "restrict-store-disable-app-adoption",
+      "pfm_title": "Disable App Adoption by users",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Disable software update notifications",
+      "pfm_description_reference": "Optional. Disable software update notifications. Available on macOS 10.10 and later.",
+      "pfm_macos_min": "10.10",
+      "pfm_name": "DisableSoftwareUpdateNotifications",
+      "pfm_title": "Disable software update notifications",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Restrict app installations to MDM-installed apps and software updates",
+      "pfm_description_reference": "Optional. Restrict app installations to MDM-installed apps and software updates. Available on macOS 10.11 and later.",
+      "pfm_macos_deprecated": "10.14",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "restrict-store-mdm-install-softwareupdate-only",
+      "pfm_note": "Removed from the Configuration Profile Reference update 2018-08-16 without mention. It might be removed and not only deprecated in 10.14.",
+      "pfm_title": "Restrict app installations to MDM-installed apps and software updates",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "App Store",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

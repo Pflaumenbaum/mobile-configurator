@@ -1,0 +1,252 @@
+{
+  "pfm_description": "Use this section to define policy for system extensions.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/systemextensions",
+  "pfm_domain": "com.apple.system-extension-policy",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-12-13T08:12:27.000Z",
+  "pfm_macos_min": "10.15",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "System Extensions",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.system-extension-policy",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.system-extension-policy",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', restricts users from approving additional system extensions that configuration profiles don't explicitly allow.",
+      "pfm_name": "AllowUserOverrides",
+      "pfm_note": "When multiple System Extension profiles are installed, the AllowUserOverrides preference key will be set to false if any profile sets it to false. As such, if you intend to set this to true, all System Extension profiles must also set this to true.",
+      "pfm_title": "Allow users to approve system extensions",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array of team identifiers that defines valid, signed system extensions that are allowable to load. Approved system extensions are those signed with any of the specified team identifiers.\nTo avoid requiring an administrator to authorize the operation, you can activate system extensions that this key specifies using activationRequest(forExtensionWithIdentifier:queue:).\nIt's an error for the same team identifier to appear in both this array and as a key in the 'AllowedSystemExtensions' dictionary.",
+      "pfm_format": "^[A-Z0-9]{10}$",
+      "pfm_name": "AllowedTeamIdentifiers",
+      "pfm_note": "Team identifiers cannot be defined in this list and at the same time serve as keys in the \"Allowed System Extensions\" property.",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "AllowedTeamIdentifiersItem",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "A1B2C3D4E5"
+        }
+      ],
+      "pfm_title": "Allowed Team Identifiers",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "A dictionary of approved system extensions on the computer. The dictionary maps the team identifiers (keys) to arrays of bundle identifiers, where the bundle identifier defines the system extension to install.\nTo avoid requiring an administrator to authorize the operation, you can activate system extensions that this key specifies using activationRequest(forExtensionWithIdentifier:queue:).\nIt's an error for the same team identifier to appear in both the 'AllowedTeamIdentifiers' array and as a key in this dictionary.",
+      "pfm_name": "AllowedSystemExtensions",
+      "pfm_note": "Team identifiers cannot be used as keys in this dictionary and at the same time be defined in the \"Allowed Team Identifiers\" property.",
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^[A-Z0-9]{10}$",
+          "pfm_name": "{{key}}",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "A1B2C3D4E5"
+        },
+        {
+          "pfm_description": "The mapping of team identifiers to arrays of bundle identifiers, where the bundle identifier is that of the system extension to be installed.",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Allowed system extension bundle ID",
+              "pfm_name": "AllowedSystemExtensionsItems",
+              "pfm_require": "always",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "com.domainname.applicationname"
+            }
+          ],
+          "pfm_title": "Bundle Identifier",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "Allowed System Extensions",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A dictionary that maps a team identifier to an array of strings, where each string is a type of system extension that you can install for that team identifier. The allowed extension types are 'DriverExtension', 'NetworkExtension', and 'EndpointSecurityExtension'.\nIf there's no entry for a specified team identifier in the dictionary, the system allows all extension types.",
+      "pfm_name": "AllowedSystemExtensionTypes",
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^[A-Z0-9]{10}$",
+          "pfm_name": "{{key}}",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "A1B2C3D4E5"
+        },
+        {
+          "pfm_description": "The mapping of team identifier to an array of strings, where each string is a type of system extension that may be installed for that team identifier.",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Permitted System Extension Type",
+              "pfm_name": "AllowedSystemExtensionTypesItems",
+              "pfm_range_list": [
+                "DriverExtension",
+                "NetworkExtension",
+                "EndpointSecurityExtension"
+              ],
+              "pfm_range_list_titles": [
+                "Driver",
+                "Network",
+                "Endpoint Security"
+              ],
+              "pfm_require": "always",
+              "pfm_title": "System Extension Type",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "System Extension Types",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "Allowed System Extension Types",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A dictionary of system extensions that are allowed to remove themselves from the machine. The dictionary maps team identifiers (keys) to arrays of bundle identifiers, where the bundle identifier defines the system extension. An application using the 'OSSystemExtensionDeactivationRequest' API can deactivate the specified system extensions without requiring an administrator to authorize the operation.\nAvailable in macOS 12 and later.",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "RemovableSystemExtensions",
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^[A-Z0-9]{10}$",
+          "pfm_name": "{{key}}",
+          "pfm_title": "Team Identifier",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "A1B2C3D4E5"
+        },
+        {
+          "pfm_description": "The dictionary maps team identifiers (keys) to arrays of bundle identifiers, where the bundle identifier defines the system extension.",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Removed system extension bundle ID",
+              "pfm_name": "RemovableSystemExtensionsItems",
+              "pfm_require": "always",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "com.domainname.applicationname"
+            }
+          ],
+          "pfm_title": "Bundle Identifier",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "Removable System Extensions",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A dictionary of system extensions on the computer. The dictionary maps the team identifiers (keys) to arrays of bundle identifiers, where the bundle identifier defines the system extension which can't be disabled or uninstalled when SIP is enabled. It's an error for the same mapping to appear in the dictionary values corresponding to 'RemovableSystemExtensions' and 'NonRemovableSystemExtensions' keys.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "NonRemovableSystemExtensions",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "{{key}}",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "System extension bundle identifiers",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Non Removable system extension bundle ID",
+              "pfm_name": "NonRemovableSystemExtensionsItems",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A dictionary of system extensions on the computer. The dictionary maps the team identifiers (keys) to arrays of bundle identifiers, where the bundle identifier defines the system extension which can't be disabled or uninstalled from System Settings or Finder. The set of system extensions between 'RemovableSystemExtensions' and 'NonRemovableFromUISystemExtensions' can to overlap.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "NonRemovableFromUISystemExtensions",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "{{key}}",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "System extension bundle identifiers",
+          "pfm_name": "{{value}}",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Non Removable from UI system extension bundle ID",
+              "pfm_name": "NonRemovableFromUISystemExtensionsItems",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "System Extensions",
+  "pfm_unique": false,
+  "pfm_user_approved": true,
+  "pfm_version": 3
+}

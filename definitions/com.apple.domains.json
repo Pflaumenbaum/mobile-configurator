@@ -1,0 +1,159 @@
+{
+  "pfm_description": "Use this section to define Domains settings.",
+  "pfm_description_reference": "This payload defines domains that are under an enterpriseʼs management. This payload is designated by the com.apple.domains PayloadType value.",
+  "pfm_domain": "com.apple.domains",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "8.0",
+  "pfm_last_modified": "2024-12-13T08:49:11.000Z",
+  "pfm_macos_min": "10.10",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define Domains settings.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Domains",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.domains",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.domains",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "An array of domains. The system considers email addresses that lack a suffix matching any of these strings out of domain and marked in Mail.\nAvailable in iOS 8 and later and macOS 10.10 and later.",
+      "pfm_name": "EmailDomains",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "An email address.",
+          "pfm_name": "EmailDomainsItem",
+          "pfm_require": "always",
+          "pfm_title": "Domain",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "example.com"
+        }
+      ],
+      "pfm_title": "Email Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of domains. The system considers URLs matching the patterns listed in this property managed.\nAvailable in iOS 9.3 and later.",
+      "pfm_ios_min": "9.3",
+      "pfm_name": "WebDomains",
+      "pfm_platforms": ["iOS"],
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "WebDomainsItem",
+          "pfm_title": "Domain",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "example.com"
+        }
+      ],
+      "pfm_title": "Managed Safari Web Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of domains. Users can only save passwords in Safari from URLs matching the patterns listed here. This property doesn't disable the autofill feature itself.\nSupervised devices or Shared iPads need this property to enable saving passwords in Safari.\nAvailable in iOS 9.3 and later.",
+      "pfm_description_extended": "Opening a document originating from a managed Safari web domain causes iOS to treat the document as managed for the purpose of Managed Open In.\n\t\t\t\t\n\t\t\t\tThe WebDomains and SafariPasswordAutoFillDomains arrays may contain strings using any of the following matching patterns:\n\napple.com\t\t\tAny path under apple.com matches, but not site.apple.com/.\nfoo.apple.com\t\tAny path under foo.apple.com matches, but not apple.com/ or bar.apple.com/.\n*.apple.com\t\t\tAny path under foo.apple.com or bar.apple.com matches, but not apple.com.\napple.com/sub\t\tapple.com/sub and any path under it matches, but not apple.com/.\nfoo.apple.com/sub\tAny path under foo.apple.com/sub matches, but not apple.com, apple.com/sub, foo.apple.com/, or bar.apple.com/sub.\n*.apple.com/sub\t\tAny path under foo.apple.com/sub or bar.apple.com/sub matches, but not apple.com or foo.apple.com/.\n*.co\t\t\t\tAny path under apple.co or beats.co matches, but not apple.co.uk or apple.com.\n\nA URL that begins with the prefix www. is treated as though it did not contain that prefix during matching. For example, http://www.apple.com/store will be matched as http://apple.com/store.\nTrailing slashes will be ignored.\nIf a ManagedWebDomain string entry contains a port number, only addresses that specify that port number will be considered managed. Otherwise, the domain will be matched without regard to the port number specified. For example, the pattern *.apple.com:8080 will match http://site.apple.com:8080/page.html but not http://site.apple.com/page.html, while the pattern *.apple.com will match both URLs.\nManaged Safari Web Domain definitions are cumulative. Patterns defined by all Managed Web Domains payloads will be used to match a URL request.\nSafariPasswordAutoFillDomains definitions are cumulative. Patterns defined by all SafariPasswordAutoFillDomains payloads will be used to determine if passwords can be stored for a given URL.",
+      "pfm_ios_min": "9.3",
+      "pfm_name": "SafariPasswordAutoFillDomains",
+      "pfm_platforms": ["iOS"],
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "SafariPasswordAutoFillDomainsItem",
+          "pfm_title": "Domain",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "example.com"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Safari Password Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of up to 10 strings. URLs matching the patterns listed here have relaxed enforcement of cross-site tracking prevention.\nAvailable in iOS 16.2 and later and macOS 13.1 and later.",
+      "pfm_description_extended": "As a result, organizations can leave Cross-Site Tracking Prevention turned on and benefit from tracking prevention for general browsing but also allow select domains to give third-party embedded resources the ability to use cookies. This is useful, for example, in education, where learning management systems embed content like videos or images stored by third parties, or learning tools (LTI tools) offered by third parties and presented in iFrames.",
+      "pfm_ios_min": "16.2",
+      "pfm_macos_min": "13.1",
+      "pfm_name": "CrossSiteTrackingPreventionRelaxedDomains",
+      "pfm_note": "A maximum of 10 URLs is supported",
+      "pfm_repetition_max": 10,
+      "pfm_subkeys": [
+        {
+          "pfm_name": "CrossSiteTrackingPreventionRelaxedDomainItem",
+          "pfm_title": "Domain",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "example.com"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Cross-Site Tracking Prevention Relaxed Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of up to 10 strings representing app bundle-ids. Apps matching the bundle-ids listed here will have relaxed enforcement of cross-site tracking prevention for the domains listed in the 'CrossSiteTrackingPreventionRelaxedDomains' key.",
+      "pfm_ios_min": "18.0",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "CrossSiteTrackingPreventionRelaxedApps",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "CrossSiteTrackingPreventionRelaxedAppsItem",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Cross-Site Tracking Prevention Relaxed Apps",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Domains",
+  "pfm_unique": true,
+  "pfm_version": 3
+}

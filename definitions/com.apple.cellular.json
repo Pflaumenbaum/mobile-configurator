@@ -1,0 +1,229 @@
+{
+  "pfm_description": "Use this section to define custom APNs for cellular data access.",
+  "pfm_description_reference": "The cellular payload is designated by specifying com.apple.cellular as the PayloadType value.\nA cellular payload configures cellular network settings for the user-selected data SIM on the device. It is supported\non iOS 7 and later and is not supported on macOS.\nCellular payloads have two important installation requirements:\n• Nomorethanonecellularpayloadcanbeinstalledatanytime.\n• AcellularpayloadcannotbeinstalledifanAPNpayloadisalreadyinstalled.\nThis payload replaces the com.apple.managedCarrier payload, which is supported, but deprecated.",
+  "pfm_domain": "com.apple.cellular",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "7.0",
+  "pfm_last_modified": "2025-04-04T13:11:06.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define custom APNs for cellular data access.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Cellular",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.cellular",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.cellular",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "An array of access point name (APN) dictionaries.",
+      "pfm_name": "APNs",
+      "pfm_range_max": 1,
+      "pfm_subkeys": [
+        {
+          "pfm_name": "APNsItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The name of the data APN.",
+              "pfm_description_reference": "Required. The Access Point Name.",
+              "pfm_name": "Name",
+              "pfm_require": "always",
+              "pfm_title": "Data APN name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": "PAP",
+              "pfm_description": "Authentication type to use for the connection.",
+              "pfm_description_reference": "Optional. Must contain either CHAP or PAP. Defaults to PAP.",
+              "pfm_name": "AuthenticationType",
+              "pfm_range_list": ["CHAP", "PAP"],
+              "pfm_title": "Data APN authentication type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The user name for the data APN account.",
+              "pfm_description_reference": "Optional. A user name used for authentication.",
+              "pfm_name": "Username",
+              "pfm_title": "Data APN user name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The password for the data APN account.",
+              "pfm_description_reference": "Optional. A password used for authentication.",
+              "pfm_name": "Password",
+              "pfm_sensitive": true,
+              "pfm_title": "Data APN password",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The IP address or fully qualified domain name (FQDN) of the data APN proxy server.",
+              "pfm_description_reference": "Optional. The proxy serverʼs network address.",
+              "pfm_name": "ProxyServer",
+              "pfm_title": "Data APN proxy server",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The port number of the data APN proxy server.",
+              "pfm_description_reference": "Optional. The proxy serverʼs port.",
+              "pfm_name": "ProxyPort",
+              "pfm_title": "Data APN proxy port",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The default Internet Protocol versions. Available in iOS 10.3 but no longer used in iOS 11 and later. Allowed values:\n* '1': IPv4\n* '2': IPv6\n* '3': Both",
+              "pfm_ios_deprecated": "11.0",
+              "pfm_ios_min": "10.3",
+              "pfm_name": "DefaultProtocolMask",
+              "pfm_range_list": [1, 2, 3],
+              "pfm_range_list_titles": ["IPv4", "IPv6", "IPv4 and IPv6"],
+              "pfm_title": "Data APN default IP versions",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The Internet Protocol versions that the system supports. Available in iOS 10.3 and later. Allowed values:\n* '1': IPv4\n* '2': IPv6\n* '3': Both",
+              "pfm_ios_min": "10.3",
+              "pfm_name": "AllowedProtocolMask",
+              "pfm_range_list": [1, 2, 3],
+              "pfm_range_list_titles": ["IPv4", "IPv6", "IPv4 and IPv6"],
+              "pfm_title": "Data APN supported IP versions",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The Internet Protocol versions that the system supports while roaming. Available in iOS 10.3 and later. Allowed values:\n* '1': IPv4\n* '2': IPv6\n* '3': Both",
+              "pfm_ios_min": "10.3",
+              "pfm_name": "AllowedProtocolMaskInRoaming",
+              "pfm_range_list": [1, 2, 3],
+              "pfm_range_list_titles": ["IPv4", "IPv6", "IPv4 and IPv6"],
+              "pfm_title": "Data APN supported roaming IP versions",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The Internet Protocol versions that the system supports while roaming. Available in iOS 10.3 and later. Allowed values:\n* '1': IPv4\n* '2': IPv6\n* '3': Both",
+              "pfm_ios_min": "10.3",
+              "pfm_name": "AllowedProtocolMaskInDomesticRoaming",
+              "pfm_range_list": [1, 2, 3],
+              "pfm_range_list_titles": ["IPv4", "IPv6", "IPv4 and IPv6"],
+              "pfm_title": "Data APN supported domestic roaming IP versions",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "If 'true', the system enables XLAT464. Available in iOS 16 and later and watchOS 9 and later.",
+              "pfm_ios_min": "16.0",
+              "pfm_name": "EnableXLAT464",
+              "pfm_title": "Enable 464XLAT IPv6 and IPv4 Interoperability",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Data APN",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": {},
+      "pfm_description": "Default APN configuration",
+      "pfm_description_reference": "Optional. An AttachAPN configuration dictionary, described below.",
+      "pfm_name": "AttachAPN",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The name of the default APN.",
+          "pfm_description_reference": "Required. The Access Point Name.",
+          "pfm_name": "Name",
+          "pfm_require": "always",
+          "pfm_title": "Default APN name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "PAP",
+          "pfm_description": "Authentication type to use for the connection.",
+          "pfm_description_reference": "Optional. Must contain either CHAP or PAP. Defaults to PAP.",
+          "pfm_name": "AuthenticationType",
+          "pfm_range_list": ["CHAP", "PAP"],
+          "pfm_title": "Default APN authentication type",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The user name for the default APN account.",
+          "pfm_description_reference": "Optional. A user name used for authentication.",
+          "pfm_name": "Username",
+          "pfm_title": "Default APN user name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The password for the default APN account.",
+          "pfm_description_reference": "Optional. A password used for authentication.",
+          "pfm_name": "Password",
+          "pfm_sensitive": true,
+          "pfm_title": "Default APN password",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The Internet Protocol versions that the system supports. Allowed values:\n* '1': IPv4\n* '2': IPv6\n* '3': Both",
+          "pfm_documentation_source": "",
+          "pfm_ios_min": "10.3",
+          "pfm_name": "AllowedProtocolMask",
+          "pfm_range_list": [1, 2, 3],
+          "pfm_range_list_titles": ["IPv4", "IPv6", "IPv4 and IPv6"],
+          "pfm_title": "Default APN supported IP versions",
+          "pfm_type": "integer"
+        }
+      ],
+      "pfm_title": "Default APN",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Cellular",
+  "pfm_unique": true,
+  "pfm_version": 3
+}

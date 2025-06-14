@@ -1,0 +1,406 @@
+{
+  "pfm_description": "Education Configuration settings",
+  "pfm_description_reference": "The Education Configuration Payload is designated by specifying com.apple.education as the PayloadType value. It can contain only one payload.\nThe Education Configuration Payload defines the users, groups, and departments within an educational organization. It is supported on iOS 9.3 and later. On iOS, it must be supervised and sent over the device channel.\nIt is supported on macOS 10.14 and later. On macOS, it must be sent over the user channel. Student payloads are only supported on macOS 10.14.4 and later.",
+  "pfm_documentation_url": "",
+  "pfm_domain": "com.apple.education",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "9.3",
+  "pfm_last_modified": "2024-09-12T10:00:38.000Z",
+  "pfm_macos_min": "10.14",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Education settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Education Configuration",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.education",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.education",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The organization's display name. The system displays this name in the iOS login screen.",
+      "pfm_name": "OrganizationName",
+      "pfm_require": "always",
+      "pfm_title": "Organization Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The organization's UUID identifier. This identifier can be any valid UUID. All teacher and student devices that need to communicate with one another must have the same organization UUID, particularly if they originated from different Device Enrollment Programs.",
+      "pfm_name": "OrganizationUUID",
+      "pfm_require": "always",
+      "pfm_title": "Organization UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The UUID of an identity certificate payload within the same profile to use for performing client authentication with other devices. This property supports PKCS12 certificates.\nRequired to configure Classroom. Has no effect on the configuration of the Shared iPad login screen.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "For shared iPad profiles: The array of dictionaries that defines which groups the user can select in the login window.\nFor leader/teacher profiles: The array of dictionaries that defines the groups that the user can control.\nFor member/student profiles: The array of dictionaries that defines the groups where the user is a member.",
+      "pfm_name": "Groups",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "GroupsItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "An unsigned 16 bit integer specifying this group's unique beacon ID.",
+              "pfm_name": "BeaconID",
+              "pfm_require": "always",
+              "pfm_title": "Beacon ID",
+              "pfm_type": "integer"
+            },
+            {
+              "pfm_description": "The display name of the group.",
+              "pfm_name": "Name",
+              "pfm_require": "always",
+              "pfm_title": "Group Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The description of the group.",
+              "pfm_name": "Description",
+              "pfm_title": "Group Description",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "Deprecated in iOS 9.3.1 and later. The URL of an image for the group.",
+              "pfm_ios_deprecated": "9.3.1",
+              "pfm_name": "ImageURL",
+              "pfm_title": "Group Image URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The source that provided this group, such as SIS, or MDM.",
+              "pfm_name": "ConfigurationSource",
+              "pfm_title": "Configuration Source",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The user identifiers that are leaders of this group.",
+              "pfm_name": "LeaderIdentifiers",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A user identifier.",
+                  "pfm_name": "LeaderIdentifiersItem",
+                  "pfm_require": "always",
+                  "pfm_title": "Leader Identifier",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Leader Identifiers",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "The entries in the Users array that are members of the group.",
+              "pfm_name": "MemberIdentifiers",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A member identifier.",
+                  "pfm_name": "MemberIdentifiersItem",
+                  "pfm_require": "always",
+                  "pfm_title": "Member Identifier",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Member Identifiers",
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "The identifiers that refer to entries in the 'DeviceGroups' array to which the instructor can assign users from this class.\nHas no effect on the configuration of the Shared iPad login screen.",
+              "pfm_name": "DeviceGroupIdentifiers",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A device group identifier.",
+                  "pfm_name": "DeviceGroupIdentifiersItem",
+                  "pfm_require": "always",
+                  "pfm_title": "Device Group Identifier",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Device Group Identifiers",
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_title": "GroupsDictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Groups",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "For shared iPad profiles: The array of dictionaries that define the users that the system displays in the iOS login window.\nFor leader/teacher profiles: The array of dictionaries that define users that are members of the teacher's groups.\nFor member/student profiles: The array of dictionaries that needs to contain the definition of the user specified in the 'UserIdentifier' key. With one-to-one member devices, this key should include only the device user and the teacher but not other class members.",
+      "pfm_name": "Users",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "UsersItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The unique identifier for a user in the organization.",
+              "pfm_name": "Identifier",
+              "pfm_require": "always",
+              "pfm_title": "Identifier",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The name of the user.",
+              "pfm_name": "Name",
+              "pfm_require": "always",
+              "pfm_title": "Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The given name of the user.",
+              "pfm_name": "GivenName",
+              "pfm_title": "Given Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The family name of the user.",
+              "pfm_name": "FamilyName",
+              "pfm_title": "Family Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The user's phonetic given name. The system uses this name to sort users in the Classroom app and the Shared iPad Login Screen.",
+              "pfm_name": "PhoneticGivenName",
+              "pfm_title": "Phonetic Given Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The user's phonetic family name. The system uses this name to sort users in the Classroom app and the shared iPad login screen.",
+              "pfm_name": "PhoneticFamilyName",
+              "pfm_title": "Phonetic Family Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "A string that contains a URL pointing to an image of the user. The system displays this image in the iOS login screen and in the Classroom app. The recommended resolution is 256 x 256 pixels (512 x 512 pixels on a 2x device). The recommended formats are JPEG, PNG, and TIFF. The system uses the 'ResourcePayloadCertificateUUID' identity certificate or the MDM client identity to perform authentication when fetching the image.",
+              "pfm_name": "ImageURL",
+              "pfm_title": "Image URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "Deprecated in iOS 9.3.1 and later. The URL pointing to an image of the user. The system uses the  'ResourcePayloadCertificateUUID' identity certificate or the MDM client identity to perform authentication when fetching the specified resource.",
+              "pfm_ios_deprecated": "9.3.1",
+              "pfm_n_platforms": ["macOS"],
+              "pfm_name": "FullScreenImageURL",
+              "pfm_title": "Fullscreen Image URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The Managed Apple Account for this user.\nNot required to configure Classroom, but if set the system uses it.\nRequired to configure the Shared iPad login screen.",
+              "pfm_name": "AppleID",
+              "pfm_title": "Apple ID",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The type of passcode UI to show when the user is at the login window.",
+              "pfm_name": "PasscodeType",
+              "pfm_range_list": ["complex", "four", "six"],
+              "pfm_title": "Passcode Type",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "UsersDictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Users",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The array of UUIDs referring to certificate payloads within the same profile that the system uses to authorize leader peer certificate identities. This array needs to contain all necessary certificates to validate the entire chain of trust. Leader certificates needs to have the common name prefix leader, which is case insensitive.\nThis property doesn't support identity payloads or PKCS12 certificates.\nRequired when configuring a student device for Classroom, and ignored when configuring an instructor device. Has no effect on the configuration of the Shared iPad login screen.",
+      "pfm_name": "LeaderPayloadCertificateAnchorUUID",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A certificate payload UUID.",
+          "pfm_name": "LeaderPayloadCertificateAnchorUUIDItem",
+          "pfm_require": "always",
+          "pfm_title": "UUID",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Leader Payload Certificate Anchor UUIDs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The array of UUIDs referring to certificate payloads within the same profile that the system uses to authorize group member peer certificate identities. This array must contain all certificates needed to validate the entire chain of trust. Member certificates must have the common name prefix member (case insensitive).\nThis property doesn't support identity payloads or PKCS12 certificates.\nRequired when configuring a student device for Classroom, and ignored when configuring an instructor device. Has no effect on the configuration of the Shared iPad login screen.",
+      "pfm_name": "MemberPayloadCertificateAnchorUUID",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A certificate payload UUID.",
+          "pfm_name": "MemberPayloadCertificateAnchorUUIDItem",
+          "pfm_require": "always",
+          "pfm_title": "UUID",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Member Payload Certificate Anchor UUIDs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The UUID of an identity certificate payload within the same profile that the system uses to perform client authentication when fetching additional resources, such as student images.\nIf set, the system uses this key to configure both Classroom and the Shared iPad login screen. If not set, the system uses MDM client identity.",
+      "pfm_name": "ResourcePayloadCertificateUUID",
+      "pfm_title": "Resource Payload Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The unique string that identifies the user of this device within the organization.\nDon't set this value in payloads intended to configure the Shared iPad login screen.",
+      "pfm_name": "UserIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "User Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "For shared iPad profiles: The array of dictionaries that defines which departments the system displays in the Shared iPad login screen. If set, the system uses this key to configure both Classroom and the Shared iPad login screen.",
+      "pfm_name": "Departments",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "DepartmentsItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The display name of the department.",
+              "pfm_name": "Name",
+              "pfm_require": "always",
+              "pfm_title": "Department Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The group beacon identifiers that are members of this department.",
+              "pfm_name": "GroupBeaconIDs",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A group beacon identifier.",
+                  "pfm_name": "GroupBeaconIDsItem",
+                  "pfm_require": "always",
+                  "pfm_title": "Group Beacon ID",
+                  "pfm_type": "integer"
+                }
+              ],
+              "pfm_title": "Group Beacon IDs",
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_title": "DepartmentsDictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Departments",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "For leader/teacher profiles: The array of dictionaries that defines which device groups the leader can assign devices to. Not included in member payloads.",
+      "pfm_name": "DeviceGroups",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "DeviceGroupsItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The unique identifier for the device group in the organization.",
+              "pfm_name": "Identifier",
+              "pfm_require": "always",
+              "pfm_title": "Device Group Identifier",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The name of the device group, which must be unique in the organization.",
+              "pfm_name": "Name",
+              "pfm_require": "always",
+              "pfm_title": "Device Group Name",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The serial numbers of the devices in the group.",
+              "pfm_name": "SerialNumbers",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "A serial number.",
+                  "pfm_name": "SerialNumbersItem",
+                  "pfm_require": "always",
+                  "pfm_title": "Device Serial Number",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Device Group Serial Numbers",
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_title": "DeviceGroupsDictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Device Groups",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system allows students enrolled in managed classes to modify their teacher's permissions for screen observation on their device.",
+      "pfm_ios_min": "10.3",
+      "pfm_name": "ScreenObservationPermissionModificationAllowed",
+      "pfm_title": "Allow students to modify screen observation permissions",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "Education Configuration",
+  "pfm_unique": true,
+  "pfm_version": 5
+}

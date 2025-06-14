@@ -1,0 +1,115 @@
+{
+  "pfm_description": "Use this section to define settings for Associated Domains to be used with features such as Extensible AppSSO, universal links and Password AutoFill.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/associateddomains",
+  "pfm_domain": "com.apple.associated-domains",
+  "pfm_format_version": 1,
+  "pfm_last_modified": "2023-11-23T13:57:28.000Z",
+  "pfm_macos_min": "10.15",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define settings for Associated Domains to be used with features such as Extensible AppSSO, universal links and Password AutoFill.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Associated Domains",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.associated-domains",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.associated-domains",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload. A profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A dictionary that maps apps to their associated domains.",
+      "pfm_name": "Configuration",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "ConfigurationItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The app identifier to associate the domains with.",
+              "pfm_name": "ApplicationIdentifier",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The domains to be associated with the app. Each string is in the form of ''service:domain''. Domains should be fully qualified hostnames, like 'www.example.com'.\nSee Supporting Associated Domains for more information.",
+              "pfm_name": "AssociatedDomains",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_name": "AssociatedDomain",
+                  "pfm_require": "always",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_type": "array"
+            },
+            {
+              "pfm_description": "If 'true', data for this domain should be downloaded directly instead of through a CDN. The entitlement value for this domain must be set to 'service:domain?mode=managed' or this value will be ignored. Available in macOS 11 and later.",
+              "pfm_macos_min": "11.0",
+              "pfm_name": "EnableDirectDownloads",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Configuration",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Associated Domains",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

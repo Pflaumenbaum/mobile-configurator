@@ -1,0 +1,668 @@
+{
+  "pfm_description": "Use this section to define managed email and web domains.",
+  "pfm_description_reference": "URLs are matched by using string-based root matching. A URL matches an allow list, deny list, or permitted list pattern if the exact characters of the pattern appear as the root of the URL. For example, if test.com/a is denylisted, then test.com, test.com/b, and test.com/c/d/e will all be blocked. Matching also discards subdomain prefixes, so if test.com/a is denylisted, m.test.com is also blocked.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/webcontentfilter",
+  "pfm_domain": "com.apple.webcontent-filter",
+  "pfm_format_version": 1,
+  "pfm_ios_min": "7.0",
+  "pfm_last_modified": "2024-09-03T15:13:17.000Z",
+  "pfm_macos_min": "10.15",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define managed email and web domains.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Web Content Filter",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.webcontent-filter",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.webcontent-filter",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "BuiltIn",
+      "pfm_description": "The type of filter, built-in or plug-in. In macOS, the system only supports the plug-in value.",
+      "pfm_ios_min": "8.0",
+      "pfm_name": "FilterType",
+      "pfm_range_list": ["BuiltIn", "Plugin"],
+      "pfm_range_list_titles": ["Built-In (iOS only)", "Plug-In"],
+      "pfm_title": "Filter Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "firewall",
+      "pfm_description": "The system uses this value to derive the relative order of content filters. Filters with a grade of 'firewall' see network traffic before filters with a grade of 'inspector'. However, the system doesn't define the order of filters within a grade.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterGrade",
+      "pfm_platforms": ["macOS"],
+      "pfm_range_list": ["firewall", "inspector"],
+      "pfm_range_list_titles": ["Firewall", "Inspector"],
+      "pfm_title": "Filter Grade",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables automatic filtering. Use when 'FilterType' is 'BuiltIn'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "AutoFilterEnabled",
+      "pfm_title": "Limit adult content automatically",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array or URLs that are accessible whether or not the automatic filter allows access. Use when 'FilterType' is 'BuiltIn'. Requires that 'AutoFilterEnabled' is 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "AutoFilterEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "PermittedURLs",
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^https?://.*$",
+          "pfm_name": "PermittedURLItems",
+          "pfm_title": "Permitted URL",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Permitted URLs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables filtering WebKit traffic. Use when 'FilterType' is 'Plugin'.\nAt least one of 'FilterBrowsers' or 'FilterSockets' needs to be 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "FilterBrowsers",
+      "pfm_title": "Filter WebKit Traffic",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array of dictionaries that define the pages that the user can bookmark or visit. Use when 'FilterType' is 'BuiltIn'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "AutoFilterEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "14.5",
+      "pfm_macos_min": "11.3",
+      "pfm_name": "AllowListBookmarks",
+      "pfm_repetition_max": 500,
+      "pfm_subkeys": [
+        {
+          "pfm_hidden": "container",
+          "pfm_name": "AllowListBookmarksItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The URL of the bookmark in the allow list.",
+              "pfm_format": "^https?:\\/\\/.*$",
+              "pfm_name": "URL",
+              "pfm_require": "always",
+              "pfm_title": "URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The title of the bookmark.",
+              "pfm_name": "Title",
+              "pfm_require": "always",
+              "pfm_title": "Title",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Allow List Bookmarks Dictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Allow List Bookmarks",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "Use 'AllowListBookmarks' instead.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "AutoFilterEnabled"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_deprecated": "14.5",
+      "pfm_macos_deprecated": "11.3",
+      "pfm_name": "WhitelistedBookmarks",
+      "pfm_repetition_max": 500,
+      "pfm_subkeys": [
+        {
+          "pfm_hidden": "container",
+          "pfm_name": "WhitelistedBookmarksItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The URL of the bookmark in the allow list.",
+              "pfm_format": "^https?:\\/\\/.*$",
+              "pfm_name": "URL",
+              "pfm_require": "always",
+              "pfm_title": "URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The title of the bookmark.",
+              "pfm_name": "Title",
+              "pfm_require": "always",
+              "pfm_title": "Title",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Allowlisted Bookmarks Dictionary",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Allowlisted Bookmarks",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of URLs that are inaccessible. Use when 'FilterType' is 'BuiltIn'. Limit the number of these URLs to about 500.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "14.5",
+      "pfm_macos_min": "11.3",
+      "pfm_name": "DenyListURLs",
+      "pfm_repetition_max": 500,
+      "pfm_subkeys": [
+        {
+          "pfm_name": "DenyListURLItems",
+          "pfm_title": "Deny List URL",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Deny List URLs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "Use 'DenyListURLs' instead.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["BuiltIn"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_deprecated": "14.5",
+      "pfm_macos_deprecated": "11.3",
+      "pfm_name": "BlacklistedURLs",
+      "pfm_repetition_max": 500,
+      "pfm_subkeys": [
+        {
+          "pfm_name": "BlacklistedURLItems",
+          "pfm_title": "Denylisted URL",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Denylisted URLs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The display name for this filtering configuration. Required when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "UserDefinedName",
+      "pfm_title": "Filter Configuration Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The bundle ID of the plug-in that provides filtering service. Required when 'FilterType' is 'Plugin'. Otherwise, it ignores this value. Consult your filtering solution vendor to determine what to specify for this value. Required when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "PluginBundleID",
+      "pfm_title": "Plug-In Bundle ID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The server address, which may be the IP address, hostname, or URL. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ServerAddress",
+      "pfm_title": "Server Address",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The user name for the service. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "UserName",
+      "pfm_title": "Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password for the service. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "Password",
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The UUID of the certificate payload within the same profile that the system uses to authenticate the user. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The organization string to pass to the third-party plug-in. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "Organization",
+      "pfm_title": "Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables the filtering of socket traffic. Use when 'FilterType' is 'Plugin'.\nAt least one of 'FilterBrowsers' or 'FilterSockets' needs to be 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "FilterSockets",
+      "pfm_note": "Either FilterPackets or FilterSockets must be true for the filter to have any effect.",
+      "pfm_title": "Enable Socket Filtering",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "FilterSockets"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The bundle identifier string of the filter data provider system extension. This string identifies the filter data provider when the filter starts running. Required if 'FilterSockets' is 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "FilterSockets"
+            },
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterDataProviderBundleIdentifier",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Filter Data Provider Bundle Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "FilterSockets"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The designated requirement string that the system embeds in the code signature of the filter data provider system extension. This string identifies the filter data provider when the filter starts running. Required if 'FilterSockets' is 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "FilterSockets"
+            },
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterDataProviderDesignatedRequirement",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Filter Data Provider Designated Requirement",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true' and 'FilterType' is 'Plugin', the system enables filtering network packets. Use when 'FilterType' is 'Plugin'.\nAt least one of 'FilterPackets' or 'FilterSockets' needs to be 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterPackets",
+      "pfm_note": "Either FilterPackets or FilterSockets must be true for the filter to have any effect.",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Enable Packet Filtering",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "FilterPackets"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The bundle identifier string of the filter packet provider system extension. This string identifies the filter packet provider when the filter starts running. Required if 'FilterPackets' is 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            },
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "FilterPackets"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterPacketProviderBundleIdentifier",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Filter Packet Provider Bundle ID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "FilterPackets"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The designated requirement string that the system embeds in the code signature of the filter packet provider system extension. This string identifies the filter packet provider when the filter starts running. Required if 'FilterPackets' is 'true'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            },
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "FilterPackets"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.15",
+      "pfm_name": "FilterPacketProviderDesignatedRequirement",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Filter Packet Provider Designated Requirement",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The custom dictionary that the filtering service plug-in needs. Use when 'FilterType' is 'Plugin'.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Plugin"],
+              "pfm_target": "FilterType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "VendorConfig",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "{{key}}",
+          "pfm_require": "always",
+          "pfm_title": "Vendor Custom Key Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The custom key/value pairs for the filtering service.",
+          "pfm_name": "{{value}}",
+          "pfm_require": "always",
+          "pfm_title": "Vendor Custom Key Value",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Vendor Configuration",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A globally unique identifier for this content filter configuration. The content filter processes network traffic for managed apps with the same 'ContentFilterUUID' in their app attributes. Use when 'FilterType' is 'Plugin'. This key must be present for unsupervised devices and user enrollments.",
+      "pfm_ios_min": "16.0",
+      "pfm_name": "ContentFilterUUID",
+      "pfm_platforms": ["iOS"],
+      "pfm_title": "Content Filter UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Hide the DenyListURLs in profiles UI in Settings > General > VPN & Device Management > profiles details.",
+      "pfm_ios_min": "18.0",
+      "pfm_name": "HideDenyListURLs",
+      "pfm_platforms": ["iOS"],
+      "pfm_title": "HideDenyListURLs",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Web Content Filter",
+  "pfm_unique": false,
+  "pfm_version": 5
+}

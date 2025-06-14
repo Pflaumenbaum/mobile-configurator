@@ -1,0 +1,132 @@
+{
+  "pfm_description": "Messages: Jabber settings",
+  "pfm_domain": "com.apple.jabber.account",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2021-11-17T16:39:02.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Messages: Jabber settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Messages: Jabber",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.jabber.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.mobiledevice.passwordpolicy",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The display name for the account.",
+      "pfm_name": "JabberAccountDescription",
+      "pfm_require": "always",
+      "pfm_title": "Account description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The chat name of the user.",
+      "pfm_name": "JabberUserName",
+      "pfm_title": "Account name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password for the account.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["JabberAuthKerberos"],
+              "pfm_target": "JabberAuthentication"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "JabberPassword",
+      "pfm_sensitive": true,
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The authentication method for the server.",
+      "pfm_name": "JabberAuthentication",
+      "pfm_range_list": ["JabberAuthPassword", "JabberAuthKerberos"],
+      "pfm_range_list_titles": ["Password", "Kerberos v5"],
+      "pfm_require": "always",
+      "pfm_title": "Authentication Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The IP address or fully qualified domain name (FQDN) of the server.",
+      "pfm_name": "JabberHostName",
+      "pfm_require": "always",
+      "pfm_title": "Hostname",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 5223,
+      "pfm_description": "The port on which to connect to the server.",
+      "pfm_name": "JabberPort",
+      "pfm_range_max": 65535,
+      "pfm_range_min": 0,
+      "pfm_require": "always",
+      "pfm_title": "Port",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Enable Secure Socket Layer for this connection.",
+      "pfm_name": "JabberUseSSL",
+      "pfm_title": "Use SSL",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "Messages: Jabber",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

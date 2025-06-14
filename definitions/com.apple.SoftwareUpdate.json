@@ -1,0 +1,189 @@
+{
+  "pfm_description": "Software Update settings",
+  "pfm_description_reference": "The Software Update payload is designated by specifying com.apple.SoftwareUpdate as the PayloadType.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/softwareupdate",
+  "pfm_domain": "com.apple.SoftwareUpdate",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2023-08-15T08:00:00.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Software Update settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Software Update",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.SoftwareUpdate",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.SoftwareUpdate",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile. The payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Specify a URL of the desired software update catalog in the form of http://server.example.com:8088/index.sucatalog",
+      "pfm_description_reference": "The URL of the software update catalog. This property is not supported in macOS 11 and later.",
+      "pfm_macos_deprecated": "11.0",
+      "pfm_name": "CatalogURL",
+      "pfm_title": "Catalog URL",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "This option was needed during Mojave betas which required https.",
+      "pfm_description_reference": "",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "SUDisableEVCheck",
+      "pfm_title": "Disable Extended Validation check of TLS certificate.",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_name": "AutomaticCheckEnabled",
+      "pfm_title": "Automatically check for updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_name": "AutomaticDownload",
+      "pfm_title": "Download newly available updates in the background",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_macos_min": "10.15",
+      "pfm_name": "AutomaticallyInstallMacOSUpdates",
+      "pfm_title": "Automatically install macOS updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_macos_min": "10.15",
+      "pfm_name": "AutomaticallyInstallAppUpdates",
+      "pfm_title": "Automatically install App Store app updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_name": "ConfigDataInstall",
+      "pfm_title": "Install XProtect, MRT, & Gatekeeper updates automatically",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "These are not regular security updates. An example is the OS X NTP Security Update 1.0 update.",
+      "pfm_name": "CriticalUpdateInstall",
+      "pfm_title": "Install security updates automatically",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "",
+      "pfm_description_reference": "Optional. If true, prerelease software can be installed on this computer. Default is true.",
+      "pfm_name": "AllowPreReleaseInstallation",
+      "pfm_title": "Allow installation of macOS beta releases",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Software updates will be delayed by the duration defined by ManagedDeferredInstallDelay.",
+      "pfm_description_reference": "Optional. If true, software updates will be delayed by the duration defined by ManagedDeferredInstallDelay. Default is false.",
+      "pfm_name": "forceDelayedSoftwareUpdates",
+      "pfm_title": "Force Update Delay",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "This key has the same function as the key restrict-store-require-admin-to-install in the com.apple.appstore payload.",
+      "pfm_description_reference": "Optional. If true, restrict app installations to admin users. This key has the same function as the key restrict-store-require-admin-to-install in the com.apple.appstore payload.\nAvailability: Available in macOS 10.14 and later.",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "restrict-software-update-require-admin-to-install",
+      "pfm_title": "Restrict app installations to admin users",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "forceDelayedSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_default": 30,
+      "pfm_description": "The duration that software updates will be delayed.",
+      "pfm_description_reference": "Optional. The duration, in days, that software updates will be delayed, if forcedDelayedSoftwareUpdates is set to true. Default is 30. Availability: Available in macOS 10.13.4 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "forceDelayedSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.13.4",
+      "pfm_name": "ManagedDeferredInstallDelay",
+      "pfm_title": "Update Delay",
+      "pfm_type": "integer",
+      "pfm_value_unit": "Days"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Software Update",
+  "pfm_unique": true,
+  "pfm_version": 7
+}

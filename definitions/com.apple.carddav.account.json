@@ -1,0 +1,179 @@
+{
+  "pfm_description": "Use the Contacts payload to provide account settings for connecting to a CardDAV-compliant contact server. If you omit the account information, users need to enter it manually when the profile is installed.",
+  "pfm_description_reference": "The CardDAV payload is designated by specifying com.apple.carddav.account as the PayloadType value. As of macOS v10.8 and later, this payload type supports obtaining CardDAVUsername and CardDAVPassword from\nan Identification Payload, if present.",
+  "pfm_domain": "com.apple.carddav.account",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/carddav",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2019-09-17T08:52:32.000Z",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures a Contacts account",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Contacts",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.carddav.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.carddav.account",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "My Contacts Account",
+      "pfm_description": "The display name of the account (e.g. \"Company Contacts Account\")",
+      "pfm_description_reference": "Optional. The description of the account.",
+      "pfm_name": "CardDAVAccountDescription",
+      "pfm_title": "Account Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The IP address or fully qualified domain name (FQDN) of the CardDAV server.",
+      "pfm_description_reference": "The server address.",
+      "pfm_name": "CardDAVHostName",
+      "pfm_require": "always",
+      "pfm_title": "Account Hostname",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 443,
+      "pfm_description": "The port on which to connect to the CardDAV server.",
+      "pfm_description_reference": "Optional. The port on which to connect to the server.",
+      "pfm_name": "CardDAVPort",
+      "pfm_range_max": 65535,
+      "pfm_range_min": 0,
+      "pfm_title": "Port Number",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The Principal URL for the CardDAV account.",
+      "pfm_description_reference": "Optional. Not supported on macOS. The base URL to the userʼs address book.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_platforms": ["macOS"]
+            }
+          ]
+        }
+      ],
+      "pfm_name": "CardDAVPrincipalURL",
+      "pfm_title": "Principal URL",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_platforms": ["macOS"]
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The CardDAV username",
+      "pfm_description_reference": "The userʼs login name.",
+      "pfm_name": "CardDAVUsername",
+      "pfm_require": "push",
+      "pfm_title": "Account Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The CardDAV password",
+      "pfm_description_reference": "Optional. The userʼs password.",
+      "pfm_name": "CardDAVPassword",
+      "pfm_sensitive": true,
+      "pfm_title": "Account Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Enable Secure Socket Layer communication with CardDAV server",
+      "pfm_description_reference": "Optional. Whether or not to use SSL.",
+      "pfm_name": "CardDAVUseSSL",
+      "pfm_title": "Use SSL",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The communication service handler rules for this account.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "CommunicationServiceRules",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_name": "DefaultServiceHandlers",
+          "pfm_required": true,
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Bundle identifier for the default application that handles audio calls made to contacts from this account",
+              "pfm_name": "AudioCall",
+              "pfm_title": "Bundle Identifier",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Default Service Handlers",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Communication Service Rules",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "Contacts",
+  "pfm_unique": false,
+  "pfm_version": 2
+}

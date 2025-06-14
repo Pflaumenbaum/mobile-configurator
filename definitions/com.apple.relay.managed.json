@@ -1,0 +1,204 @@
+{
+  "pfm_description": "Use this section to define settings for network relays.",
+  "pfm_domain": "com.apple.relay.managed",
+  "pfm_format_version": 1,
+  "pfm_ios_min": "17.0",
+  "pfm_last_modified": "2025-03-03T11:08:08.000Z",
+  "pfm_macos_min": "14.0",
+  "pfm_platforms": ["iOS", "macOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define settings for network relays.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Relay",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.relay.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.relay.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "An array of dictionaries that describe one or more relay servers that the system can chain together.",
+      "pfm_name": "Relays",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "Relay",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The URL or URI template, as defined in RFC 9298, of a relay server that's reachable using HTTP/3 and supports proxying TCP and UDP using the CONNECT method.\nEach relay needs to include either 'HTTP2RelayURL' or 'HTTP3RelayURL', or it can include both.",
+              "pfm_name": "HTTP3RelayURL",
+              "pfm_title": "HTTP/3 Relay URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The URL or URI template, as defined in RFC 9298, of a relay server that's reachable using HTTP/2 and supports proxying TCP and UDP using the CONNECT method.\nEach relay needs to include either 'HTTP2RelayURL' or 'HTTP3RelayURL', or it can include both.",
+              "pfm_name": "HTTP2RelayURL",
+              "pfm_title": "HTTP/2 Relay URL",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "A dictionary that contains custom HTTP header keys and values to add to each request. The dictionary key name represents the HTTP header field name to use, and the dictionary value is the string to use as the HTTP header field value.",
+              "pfm_name": "AdditionalHTTPHeaderFields",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "",
+                  "pfm_name": "{{key}}",
+                  "pfm_repetition_min": 1,
+                  "pfm_require": "always",
+                  "pfm_type": "string",
+                  "pfm_value_unique": true
+                },
+                {
+                  "pfm_description": "The HTTP header field value for the corresponding header field name.",
+                  "pfm_name": "{{value}}",
+                  "pfm_repetition_min": 1,
+                  "pfm_require": "always",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Additional HTTP Header Fields",
+              "pfm_type": "dictionary"
+            },
+            {
+              "pfm_description": "The UUID that points to an identity certificate payload, which the system uses to authenticate the user to the relay server.",
+              "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+              "pfm_name": "PayloadCertificateUUID",
+              "pfm_title": "Certificate UUID",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "An array of DER-encoded public keys that the system uses to authenticate the server during a TLS handshake. The server needs to use one of the keys in the handshake to authenticate.\nIf this array is empty, the system uses the default TLS trust evaluation.",
+              "pfm_name": "RawPublicKeys",
+              "pfm_subkeys": [
+                {
+                  "pfm_name": "RawPublicKeysElement",
+                  "pfm_title": "Raw Public Key Element",
+                  "pfm_type": "data"
+                }
+              ],
+              "pfm_title": "Raw Public Keys",
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_title": "Network Relay",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Relays",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "A list of domain strings that the system uses to determine which connection to route through the servers in 'Relays'.\nAny connection that matches a domain in the list exactly or is a subdomain of the listed domain uses the relay servers, unless it matches a domain in 'ExcludedDomains'.\nIf this list is empty, the system routes traffic to all domains to the relay servers, except those that match an excluded domain.",
+      "pfm_name": "MatchDomains",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "MatchDomainsElement",
+          "pfm_title": "Match Domains Element",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Match Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "A list of domain strings to exclude from routing through the servers in 'Relays'. Any connection that matches a domain in the list exactly or is a subdomain of the listed domain won't use the relay server.",
+      "pfm_name": "ExcludedDomains",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "ExcludedDomainsElement",
+          "pfm_title": "Excluded Domains Element",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Excluded Domains",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "A globally-unique identifier for this relay configuration. The system uses this UUID to route managed apps through the servers in 'Relays'. This key is required for user enrollments.",
+      "pfm_name": "RelayUUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A list of Fully Qualified Domain Names (FQDNs), also known as hostnames, that should be routed through the servers contained in Relays. Any connection that matches this exact FQDN or hostname will use the relays. If no FQDNs and no 'MatchDomains' are listed, traffic to all domains, except those matching an excluded domain or excluded FQDN, will be routed to the relay servers.",
+      "pfm_ios_min": "18.4",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "MatchFQDNs",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "MatchFQDNsElement",
+          "pfm_title": "Match FQDNs Element",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Match FQDNs",
+      "pfm_tvos_min": "18.4",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "A list of Fully Qualified Domain Names (FQDNs), also known as hostnames, that should not be routed through the servers contained in Relays. Any connection that matches the FQDN exactly will not use the relay server. When 'MatchDomains' are also specified any FQDN listed here in 'ExcludedFQDNs' should be a subdomain of at least one MatchDomain otherwise it will not have any effect.",
+      "pfm_ios_min": "18.4",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "Excluded FQDNs",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "ExcludedFQDNsElement",
+          "pfm_title": "Excluded FQDNs Element",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Excluded FQDNs",
+      "pfm_tvos_min": "18.4",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Relay",
+  "pfm_tvos_min": "17.0",
+  "pfm_unique": false,
+  "pfm_version": 2
+}

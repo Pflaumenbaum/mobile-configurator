@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Mobile Configurator",
+    "slug": "configurator",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/images/icon.png",
+    "scheme": "configurator",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "barStyle": "black-translucent",
+      "backgroundColor": "#fefbfe",
+      "lang": "en",
+      "name": "MobileConfigurator",
+      "themeColor": "#f0ebf4",
+      "shortName": "Configurator",
+      "splash": {
+        "backgroundColor": "#fefbfe",
+        "image": "./assets/images/icon.png",
+        "resizeMode": "contain"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-sqlite",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

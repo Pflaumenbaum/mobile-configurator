@@ -1,0 +1,1165 @@
+{
+  "pfm_description": "Use this section to manage the Dock.",
+  "pfm_description_reference": "The Dock payload is designated by specifying com.apple.dock as the PayloadType.\nThe Dock payload is supported on the user channel and, except for AllowDockFixupOverride, on all version of\nmacOS. The key AllowDockFixupOverride is supported on macOS 10.12 and later.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/dock",
+  "pfm_domain": "com.apple.dock",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-09-18T11:20:15.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to manage the Dock.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Dock",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dock",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.dock",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_allowed_file_types": ["com.apple.application-bundle"],
+      "pfm_description": "An array of items located on the Applications side of the Dock and cannot be removed from that location.",
+      "pfm_name": "static-apps",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "StaticItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "file-tile",
+              "pfm_description": "The type of tile.",
+              "pfm_hidden": "all",
+              "pfm_name": "tile-type",
+              "pfm_range_list": ["file-tile"],
+              "pfm_range_list_titles": ["File"],
+              "pfm_require": "always",
+              "pfm_title": "Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The information about the dock item.",
+              "pfm_hidden": "container",
+              "pfm_name": "tile-data",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The label of the dock item.",
+                  "pfm_hidden": "all",
+                  "pfm_name": "label",
+                  "pfm_require": "always",
+                  "pfm_title": "Label",
+                  "pfm_type": "string",
+                  "pfm_value_copy": "static-apps.StaticItem.tile-data.file-data._CFURLString",
+                  "pfm_value_processor": "dockTileLabel"
+                },
+                {
+                  "pfm_description": "Display name in the profile GUI of a dock item.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-label",
+                  "pfm_title": "Display Name",
+                  "pfm_type": "string",
+                  "pfm_value_copy": "static-apps.StaticItem.tile-data.label"
+                },
+                {
+                  "pfm_description": "The type of tile.",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-type",
+                  "pfm_range_list": [1],
+                  "pfm_range_list_titles": ["File"],
+                  "pfm_require": "always",
+                  "pfm_title": "Type",
+                  "pfm_type": "integer",
+                  "pfm_type_input": "string",
+                  "pfm_value_copy": "static-apps.StaticItem.tile-type",
+                  "pfm_value_processor": "dockTileType"
+                },
+                {
+                  "pfm_description": "The data in a file. For Apple use only.",
+                  "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                  "pfm_hidden": "container",
+                  "pfm_name": "file-data",
+                  "pfm_require": "always",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "Path to the application.",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_name": "_CFURLString",
+                      "pfm_title": "Path",
+                      "pfm_type": "string"
+                    },
+                    {
+                      "pfm_description": "Path type. 0 = /Path/to/item, 15 = file://Path/to/item",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_hidden": "all",
+                      "pfm_name": "_CFURLStringType",
+                      "pfm_range_list": [0, 15],
+                      "pfm_range_list_titles": ["Path", "File URL"],
+                      "pfm_title": "Path Type",
+                      "pfm_type": "integer",
+                      "pfm_type_input": "string",
+                      "pfm_value_copy": "static-apps.StaticItem.tile-data.file-data._CFURLString",
+                      "pfm_value_processor": "dockTilePathType",
+                      "pfmx_comment": "pfm_type_input set to string to enable pfm_value_copy to work as expected."
+                    }
+                  ],
+                  "pfm_title": "File Data",
+                  "pfm_type": "dictionary"
+                },
+                {
+                  "pfm_description": "The URL string.",
+                  "pfm_name": "url",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Information",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Static Apps",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "com.apple.dock.static-apps"
+    },
+    {
+      "pfm_description": "An array of items located on the Documents side of the Dock and cannot be removed from that location.",
+      "pfm_name": "static-others",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_description_reference": "",
+          "pfm_name": "StaticItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "file-tile",
+              "pfm_description": "The type of tile.",
+              "pfm_name": "tile-type",
+              "pfm_range_list": ["file-tile", "directory-tile", "url-tile"],
+              "pfm_range_list_titles": ["File", "Directory", "URL"],
+              "pfm_require": "always",
+              "pfm_title": "Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The information about the dock item.",
+              "pfm_hidden": "container",
+              "pfm_name": "tile-data",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_default_copy": "static-others.StaticItem.tile-data.file-data._CFURLString",
+                  "pfm_description": "The label of the dock item.",
+                  "pfm_name": "label",
+                  "pfm_require": "always",
+                  "pfm_title": "Label",
+                  "pfm_type": "string",
+                  "pfm_value_processor": "dockTileLabel"
+                },
+                {
+                  "pfm_default_copy": "static-others.StaticItem.tile-data.label",
+                  "pfm_description": "Display name in the profile GUI of a dock item.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-label",
+                  "pfm_title": "Display Name",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The URL string.",
+                  "pfm_name": "url",
+                  "pfm_title": "URL",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_default_copy": "static-others.StaticItem.tile-type",
+                  "pfm_description": "The type of tile:\n* '0': URL\n* '1': File\n* '3': Directory",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-type",
+                  "pfm_range_list": [0, 1, 3],
+                  "pfm_range_list_titles": ["URL", "File", "Directory"],
+                  "pfm_require": "always",
+                  "pfm_title": "Type",
+                  "pfm_type": "integer",
+                  "pfm_type_input": "string",
+                  "pfm_value_processor": "dockTileType"
+                },
+                {
+                  "pfm_description": "The data in a file. For Apple use only.",
+                  "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_contains_any": ["file-tile", "directory-tile"],
+                          "pfm_target": "static-others.StaticItem.tile-type"
+                        },
+                        {
+                          "pfm_target": "static-others.StaticItem.tile-data.home directory relative",
+                          "pfm_value_empty": false
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_hidden": "container",
+                  "pfm_name": "file-data",
+                  "pfm_require": "always",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "Path to the file.",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_name": "_CFURLString",
+                      "pfm_title": "Path",
+                      "pfm_type": "string"
+                    },
+                    {
+                      "pfm_description": "Path type. 0 = /Path/to/item, 15 = file://Path/to/item",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_hidden": "all",
+                      "pfm_name": "_CFURLStringType",
+                      "pfm_range_list": [0, 15],
+                      "pfm_range_list_titles": ["Path", "File URL"],
+                      "pfm_title": "Path Type",
+                      "pfm_type": "integer",
+                      "pfm_type_input": "string",
+                      "pfm_value_copy": "static-others.StaticItem.tile-data.file-data._CFURLString",
+                      "pfm_value_processor": "dockTilePathType",
+                      "pfmx_comment": "pfm_type_input set to string to enable pfm_value_copy to work as expected."
+                    }
+                  ],
+                  "pfm_title": "File Data",
+                  "pfm_type": "dictionary"
+                },
+                {
+                  "pfm_description": "Path to item relative to the current user's home directory.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "static-others.StaticItem.tile-type"
+                        },
+                        {
+                          "pfm_target": "static-others.StaticItem.tile-data.file-data._CFURLString",
+                          "pfm_value_empty": false
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "home directory relative",
+                  "pfm_title": "Home Directory Relative",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_default": 1,
+                  "pfm_description": "Arrangement (sorting) of the directory contents.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "static-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "arrangement",
+                  "pfm_range_list": [1, 2, 3, 4, 5],
+                  "pfm_range_list_titles": [
+                    "Name",
+                    "Date Added",
+                    "Date Modified",
+                    "Date Created",
+                    "Kind"
+                  ],
+                  "pfm_title": "Arrangement",
+                  "pfm_type": "integer"
+                },
+                {
+                  "pfm_default": 2,
+                  "pfm_description": "Display directory as either a Folder or a Stack.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "static-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "displayas",
+                  "pfm_range_list": [1, 2],
+                  "pfm_range_list_titles": ["Folder", "Stack"],
+                  "pfm_title": "Display As",
+                  "pfm_type": "integer"
+                },
+                {
+                  "pfm_default": 4,
+                  "pfm_description": "How to show directory contents.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "static-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "showas",
+                  "pfm_range_list": [1, 2, 3, 4],
+                  "pfm_range_list_titles": ["Fan", "Grid", "List", "Automatic"],
+                  "pfm_title": "Show As",
+                  "pfm_type": "integer"
+                }
+              ],
+              "pfm_title": "Information",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Static Other",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Static Others",
+      "pfm_type": "array",
+      "pfm_value_import_processor": "com.apple.dock.static-others"
+    },
+    {
+      "pfm_description": "An array of items located on the Applications side of the Dock that can be removed from the dock.",
+      "pfm_name": "persistent-apps",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "StaticItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "file-tile",
+              "pfm_description": "The type of tile.",
+              "pfm_hidden": "all",
+              "pfm_name": "tile-type",
+              "pfm_range_list": ["file-tile"],
+              "pfm_range_list_titles": ["File"],
+              "pfm_require": "always",
+              "pfm_title": "Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The information about the dock item.",
+              "pfm_hidden": "container",
+              "pfm_name": "tile-data",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "The label of the dock item.",
+                  "pfm_hidden": "all",
+                  "pfm_name": "label",
+                  "pfm_require": "always",
+                  "pfm_title": "Label",
+                  "pfm_type": "string",
+                  "pfm_value_copy": "persistent-apps.StaticItem.tile-data.file-data._CFURLString",
+                  "pfm_value_processor": "dockTileLabel"
+                },
+                {
+                  "pfm_description": "Display name in the profile GUI of a dock item.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-label",
+                  "pfm_title": "Display Name",
+                  "pfm_type": "string",
+                  "pfm_value_copy": "persistent-apps.StaticItem.tile-data.label"
+                },
+                {
+                  "pfm_description": "The type of tile.",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-type",
+                  "pfm_range_list": [1],
+                  "pfm_range_list_titles": ["File"],
+                  "pfm_require": "always",
+                  "pfm_title": "Type",
+                  "pfm_type": "integer",
+                  "pfm_type_input": "string",
+                  "pfm_value_copy": "persistent-apps.StaticItem.tile-type",
+                  "pfm_value_processor": "dockTileType"
+                },
+                {
+                  "pfm_description": "The data in a file. For Apple use only.",
+                  "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                  "pfm_hidden": "container",
+                  "pfm_name": "file-data",
+                  "pfm_require": "always",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "Path to the application.",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_name": "_CFURLString",
+                      "pfm_title": "Path",
+                      "pfm_type": "string"
+                    },
+                    {
+                      "pfm_description": "Path type. 0 = /Path/to/item, 15 = file://Path/to/item",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_hidden": "all",
+                      "pfm_name": "_CFURLStringType",
+                      "pfm_range_list": [0, 15],
+                      "pfm_range_list_titles": ["Path", "File URL"],
+                      "pfm_title": "Path Type",
+                      "pfm_type": "integer",
+                      "pfm_type_input": "string",
+                      "pfm_value_copy": "persistent-apps.StaticItem.tile-data.file-data._CFURLString",
+                      "pfm_value_processor": "dockTilePathType",
+                      "pfmx_comment": "pfm_type_input set to string to enable pfm_value_copy to work as expected."
+                    }
+                  ],
+                  "pfm_title": "File Data",
+                  "pfm_type": "dictionary"
+                },
+                {
+                  "pfm_description": "The URL string.",
+                  "pfm_name": "url",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_title": "Information",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Persistent Apps",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of items located on the Documents side of the Dock that can be removed from the dock.",
+      "pfm_name": "persistent-others",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_description_reference": "",
+          "pfm_name": "StaticItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "file-tile",
+              "pfm_description": "The type of tile.",
+              "pfm_name": "tile-type",
+              "pfm_range_list": ["file-tile", "directory-tile", "url-tile"],
+              "pfm_range_list_titles": ["File", "Directory", "URL"],
+              "pfm_require": "always",
+              "pfm_title": "Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The information about the dock item.",
+              "pfm_hidden": "container",
+              "pfm_name": "tile-data",
+              "pfm_require": "always",
+              "pfm_subkeys": [
+                {
+                  "pfm_default_copy": "persistent-others.StaticItem.tile-data.file-data._CFURLString",
+                  "pfm_description": "The label of the dock item.",
+                  "pfm_name": "label",
+                  "pfm_require": "always",
+                  "pfm_title": "Label",
+                  "pfm_type": "string",
+                  "pfm_value_processor": "dockTileLabel"
+                },
+                {
+                  "pfm_default_copy": "persistent-others.StaticItem.tile-data.label",
+                  "pfm_description": "Display name in the profile GUI of a dock item.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-label",
+                  "pfm_title": "Display Name",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_description": "The URL string.",
+                  "pfm_name": "url",
+                  "pfm_title": "URL",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_default_copy": "persistent-others.StaticItem.tile-type",
+                  "pfm_description": "The type of tile:\n* '0': URL\n* '1': File\n* '3': Directory",
+                  "pfm_hidden": "all",
+                  "pfm_name": "file-type",
+                  "pfm_range_list": [0, 1, 3],
+                  "pfm_range_list_titles": ["URL", "File", "Directory"],
+                  "pfm_require": "always",
+                  "pfm_title": "Type",
+                  "pfm_type": "integer",
+                  "pfm_type_input": "string",
+                  "pfm_value_processor": "dockTileType"
+                },
+                {
+                  "pfm_description": "The data in a file. For Apple use only.",
+                  "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_contains_any": ["file-tile", "directory-tile"],
+                          "pfm_target": "persistent-others.StaticItem.tile-type"
+                        },
+                        {
+                          "pfm_target": "persistent-others.StaticItem.tile-data.home directory relative",
+                          "pfm_value_empty": false
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_hidden": "container",
+                  "pfm_name": "file-data",
+                  "pfm_require": "always",
+                  "pfm_subkeys": [
+                    {
+                      "pfm_description": "Path to the file.",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_name": "_CFURLString",
+                      "pfm_title": "Path",
+                      "pfm_type": "string"
+                    },
+                    {
+                      "pfm_description": "Path type. 0 = /Path/to/item, 15 = file://Path/to/item",
+                      "pfm_description_reference": "",
+                      "pfm_documentation_source": "/System/Library/PrivateFrameworks/ConfigurationEngineModel.framework/Versions/A/ConfigurationEngineModel",
+                      "pfm_hidden": "all",
+                      "pfm_name": "_CFURLStringType",
+                      "pfm_range_list": [0, 15],
+                      "pfm_range_list_titles": ["Path", "File URL"],
+                      "pfm_title": "Path Type",
+                      "pfm_type": "integer",
+                      "pfm_type_input": "string",
+                      "pfm_value_copy": "persistent-others.StaticItem.tile-data.file-data._CFURLString",
+                      "pfm_value_processor": "dockTilePathType",
+                      "pfmx_comment": "pfm_type_input set to string to enable pfm_value_copy to work as expected."
+                    }
+                  ],
+                  "pfm_title": "File Data",
+                  "pfm_type": "dictionary"
+                },
+                {
+                  "pfm_description": "Path to item relative to the current user's home directory.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "persistent-others.StaticItem.tile-type"
+                        },
+                        {
+                          "pfm_target": "persistent-others.StaticItem.tile-data.file-data._CFURLString",
+                          "pfm_value_empty": false
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "home directory relative",
+                  "pfm_title": "Home Directory Relative",
+                  "pfm_type": "string"
+                },
+                {
+                  "pfm_default": 1,
+                  "pfm_description": "Arrangement (sorting) of the directory contents.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "persistent-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "arrangement",
+                  "pfm_range_list": [1, 2, 3, 4, 5],
+                  "pfm_range_list_titles": [
+                    "Name",
+                    "Date Added",
+                    "Date Modified",
+                    "Date Created",
+                    "Kind"
+                  ],
+                  "pfm_title": "Arrangement",
+                  "pfm_type": "integer"
+                },
+                {
+                  "pfm_default": 2,
+                  "pfm_description": "Display directory as either a Folder or a Stack.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "persistent-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "displayas",
+                  "pfm_range_list": [1, 2],
+                  "pfm_range_list_titles": ["Folder", "Stack"],
+                  "pfm_title": "Display As",
+                  "pfm_type": "integer"
+                },
+                {
+                  "pfm_default": 4,
+                  "pfm_description": "How to show directory contents.",
+                  "pfm_description_reference": "",
+                  "pfm_documentation_source": "",
+                  "pfm_exclude": [
+                    {
+                      "pfm_target_conditions": [
+                        {
+                          "pfm_n_range_list": ["directory-tile"],
+                          "pfm_target": "persistent-others.StaticItem.tile-type"
+                        }
+                      ]
+                    }
+                  ],
+                  "pfm_name": "showas",
+                  "pfm_range_list": [1, 2, 3, 4],
+                  "pfm_range_list_titles": ["Fan", "Grid", "List", "Automatic"],
+                  "pfm_title": "Show As",
+                  "pfm_type": "integer"
+                }
+              ],
+              "pfm_title": "Information",
+              "pfm_type": "dictionary"
+            }
+          ],
+          "pfm_title": "Static Other",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Persistent Others",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": 64,
+      "pfm_description": "The tile size. Values must be in the range from 16 to 128.",
+      "pfm_name": "tilesize",
+      "pfm_range_max": 128,
+      "pfm_range_min": 16,
+      "pfm_title": "Size",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks the size slider.",
+      "pfm_name": "size-immutable",
+      "pfm_title": "Size slider disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables magnification.",
+      "pfm_name": "magnification",
+      "pfm_title": "Enable magnification",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks magnification.",
+      "pfm_name": "magnify-immutable",
+      "pfm_title": "Enable magnification checkbox disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 128,
+      "pfm_description": "The size of the largest magnification.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "magnification"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "largesize",
+      "pfm_range_max": 128,
+      "pfm_range_min": 16,
+      "pfm_title": "Magnification",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks the magnification slider.",
+      "pfm_name": "magsize-immutable",
+      "pfm_title": "Magnification slider disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The orientation of the dock.",
+      "pfm_name": "orientation",
+      "pfm_range_list": ["bottom", "left", "right"],
+      "pfm_range_list_titles": ["Bottom", "Left", "Right"],
+      "pfm_title": "Position on screen",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks the position.",
+      "pfm_name": "position-immutable",
+      "pfm_title": "Position on screen buttons disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": "genie",
+      "pfm_description": "The minimize effect.",
+      "pfm_name": "mineffect",
+      "pfm_range_list": ["genie", "scale"],
+      "pfm_range_list_titles": ["Genie Effect", "Scale Effect"],
+      "pfm_title": "Minimize window effect",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks 'Minimize windows using.'",
+      "pfm_name": "mineffect-immutable",
+      "pfm_title": "Minimize window effect button disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables 'Minimize windows into application icon.'",
+      "pfm_name": "minimize-to-application",
+      "pfm_title": "Minimize windows into application icon",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', disables the 'Minimize windows into application icon' checkbox.",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "minintoapp-immutable",
+      "pfm_title": "Minimize windows into application icon Checkbox Disable",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables 'Animate opening applications.'",
+      "pfm_name": "launchanim",
+      "pfm_title": "Animate opening applications",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks 'Animate opening applications.'",
+      "pfm_name": "launchanim-immutable",
+      "pfm_title": "Animate opening applications checkbox disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables 'Automatically hide and show the dock.'",
+      "pfm_name": "autohide",
+      "pfm_title": "Automatically hide and show the Dock",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks 'Automatically hide.'",
+      "pfm_name": "autohide-immutable",
+      "pfm_title": "Automatically hide and show the Dock checkbox disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If true, shows the process indicator.",
+      "pfm_name": "show-process-indicators",
+      "pfm_title": "Show indicators for open applications",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', enables 'Show recent items.'",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "show-recents",
+      "pfm_title": "Show recent applications in Dock",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', uses the 'static-apps' and 'static-others' dictionaries for the dock and ignores any items in the 'persistent-apps' and 'persistent-others' dictionaries. If 'false', the contents are merged with the static items listed first.",
+      "pfm_name": "static-only",
+      "pfm_title": "Remove non-static apps and documents from Dock",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', disables changes to the dock.",
+      "pfm_name": "contents-immutable",
+      "pfm_title": "Prevent modifying items in Dock",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', use the file in '/Library/Preferences/com.apple.dockfixup.plist' when a new user or migrated user logs in. This option has no effect for existing users. Available in macOS 10.12 and later. Only available on the device channel.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "AllowDockFixupOverride",
+      "pfm_title": "Allow DockFixup override",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "One or more special folders that may be created at user login time and placed in the dock.\n\nThe 'My Applications' item is only used for Simple Finder environments. The 'Original Network Home' item is only used for mobile account users.",
+      "pfm_name": "MCXDockSpecialFolders",
+      "pfm_repetition_max": 3,
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Flag for the folder to be added by Managed Client.",
+          "pfm_name": "MCXDockSpecialFoldersItems",
+          "pfm_range_list": [
+            "AddDockMCXMyApplicationsFolder",
+            "AddDockMCXDocumentsFolder",
+            "AddDockMCXSharedFolder",
+            "AddDockMCXOriginalNetworkHomeFolder"
+          ],
+          "pfm_range_list_titles": [
+            "My apps",
+            "Documents",
+            "Shared Items",
+            "Network home"
+          ],
+          "pfm_title": "Folder Flag",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Managed Client Special Folders",
+      "pfm_type": "array",
+      "pfm_type_input": "boolean"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Action to be taken when the pointer enters the top left corner of the screen",
+      "pfm_name": "wvous-tl-corner",
+      "pfm_range_list": [5, 6, 2, 3, 4, 7, 12, 11, 14, 10, 13, 0],
+      "pfm_range_list_titles": [
+        "Start Screen Saver",
+        "Disable Screen Saver",
+        "Mission Control",
+        "Application Windows",
+        "Desktop",
+        "Dashboard (removed from macOS 10.15)",
+        "Notification Center",
+        "Launchpad",
+        "Quick Note (introduced on macOS 12.0)",
+        "Put Display to Sleep",
+        "Lock Screen",
+        "No Action"
+      ],
+      "pfm_title": "Top Left Hot Corner Action",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Modifier keys required to activate the top left hot corner",
+      "pfm_name": "wvous-tl-modifier",
+      "pfm_range_list": [
+        0, 1048576, 1572864, 1835008, 1966080, 1703936, 1310720, 1441792,
+        1179648, 524288, 786432, 917504, 655360, 262144, 393216, 131072
+      ],
+      "pfm_range_list_titles": [
+        "None",
+        "Command",
+        "Command+Option",
+        "Command+Option+Control",
+        "Command+Option+Control+Shift",
+        "Command+Option+Shift",
+        "Command+Control",
+        "Command+Control+Shift",
+        "Command+Shift",
+        "Option",
+        "Option+Control",
+        "Option+Control+Shift",
+        "Option+Shift",
+        "Control",
+        "Control+Shift",
+        "Shift"
+      ],
+      "pfm_title": "Top Left Hot Corner Modifier",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Action to be taken when the pointer enters the top right corner of the screen",
+      "pfm_name": "wvous-tr-corner",
+      "pfm_range_list": [5, 6, 2, 3, 4, 7, 12, 11, 14, 10, 13, 0],
+      "pfm_range_list_titles": [
+        "Start Screen Saver",
+        "Disable Screen Saver",
+        "Mission Control",
+        "Application Windows",
+        "Desktop",
+        "Dashboard (removed from macOS 10.15)",
+        "Notification Center",
+        "Launchpad",
+        "Quick Note (introduced on macOS 12.0)",
+        "Put Display to Sleep",
+        "Lock Screen",
+        "No Action"
+      ],
+      "pfm_title": "Top Right Hot Corner Action",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Modifier keys required to activate the top right hot corner",
+      "pfm_name": "wvous-tr-modifier",
+      "pfm_range_list": [
+        0, 1048576, 1572864, 1835008, 1966080, 1703936, 1310720, 1441792,
+        1179648, 524288, 786432, 917504, 655360, 262144, 393216, 131072
+      ],
+      "pfm_range_list_titles": [
+        "None",
+        "Command",
+        "Command+Option",
+        "Command+Option+Control",
+        "Command+Option+Control+Shift",
+        "Command+Option+Shift",
+        "Command+Control",
+        "Command+Control+Shift",
+        "Command+Shift",
+        "Option",
+        "Option+Control",
+        "Option+Control+Shift",
+        "Option+Shift",
+        "Control",
+        "Control+Shift",
+        "Shift"
+      ],
+      "pfm_title": "Top Right Hot Corner Modifier",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Action to be taken when the pointer enters the bottom left corner of the screen",
+      "pfm_name": "wvous-bl-corner",
+      "pfm_range_list": [5, 6, 2, 3, 4, 7, 12, 11, 14, 10, 13, 0],
+      "pfm_range_list_titles": [
+        "Start Screen Saver",
+        "Disable Screen Saver",
+        "Mission Control",
+        "Application Windows",
+        "Desktop",
+        "Dashboard (removed from macOS 10.15)",
+        "Notification Center",
+        "Launchpad",
+        "Quick Note (introduced on macOS 12.0)",
+        "Put Display to Sleep",
+        "Lock Screen",
+        "No Action"
+      ],
+      "pfm_title": "Bottom Left Hot Corner Action",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Modifier keys required to activate the bottom left hot corner",
+      "pfm_name": "wvous-bl-modifier",
+      "pfm_range_list": [
+        0, 1048576, 1572864, 1835008, 1966080, 1703936, 1310720, 1441792,
+        1179648, 524288, 786432, 917504, 655360, 262144, 393216, 131072
+      ],
+      "pfm_range_list_titles": [
+        "None",
+        "Command",
+        "Command+Option",
+        "Command+Option+Control",
+        "Command+Option+Control+Shift",
+        "Command+Option+Shift",
+        "Command+Control",
+        "Command+Control+Shift",
+        "Command+Shift",
+        "Option",
+        "Option+Control",
+        "Option+Control+Shift",
+        "Option+Shift",
+        "Control",
+        "Control+Shift",
+        "Shift"
+      ],
+      "pfm_title": "Bottom Left Hot Corner Modifier",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Action to be taken when the pointer enters the bottom right corner of the screen",
+      "pfm_name": "wvous-br-corner",
+      "pfm_range_list": [5, 6, 2, 3, 4, 7, 12, 11, 14, 10, 13, 0],
+      "pfm_range_list_titles": [
+        "Start Screen Saver",
+        "Disable Screen Saver",
+        "Mission Control",
+        "Application Windows",
+        "Desktop",
+        "Dashboard (removed from macOS 10.15)",
+        "Notification Center",
+        "Launchpad",
+        "Quick Note (introduced on macOS 12.0)",
+        "Put Display to Sleep",
+        "Lock Screen",
+        "No Action"
+      ],
+      "pfm_title": "Bottom Right Hot Corner Action",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 0,
+      "pfm_description": "Modifier keys required to activate the bottom right hot corner",
+      "pfm_name": "wvous-br-modifier",
+      "pfm_range_list": [
+        0, 1048576, 1572864, 1835008, 1966080, 1703936, 1310720, 1441792,
+        1179648, 524288, 786432, 917504, 655360, 262144, 393216, 131072
+      ],
+      "pfm_range_list_titles": [
+        "None",
+        "Command",
+        "Command+Option",
+        "Command+Option+Control",
+        "Command+Option+Control+Shift",
+        "Command+Option+Shift",
+        "Command+Control",
+        "Command+Control+Shift",
+        "Command+Shift",
+        "Option",
+        "Option+Control",
+        "Option+Control+Shift",
+        "Option+Shift",
+        "Control",
+        "Control+Shift",
+        "Shift"
+      ],
+      "pfm_title": "Bottom Right Hot Corner Modifier",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "Set the 'Prefer tabs when opening documents' to the provided value.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "windowtabbing",
+      "pfm_range_list": ["manual", "always", "fullscreen"],
+      "pfm_range_list_titles": ["Manual", "Always", "Fullscreen"],
+      "pfm_title": "Prefer tabs when opening documents",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', disables 'Prefer tabs when opening documents' checkbox.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "windowtabbing-immutable",
+      "pfm_title": "Prevent changing tabs preference",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The behavior when the window's title bar is double-clicked.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "dblclickbehavior",
+      "pfm_range_list": ["minimize", "maximize", "none"],
+      "pfm_range_list_titles": ["Minimize", "Maximize", "None"],
+      "pfm_title": "Doubleclick behavior",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks 'Double-click a window's title bar.'",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "dblclickbehavior-immutable",
+      "pfm_title": "Prevent changing doubleclick behavior",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', locks 'Show indicators.'",
+      "pfm_name": "showindicators-immutable",
+      "pfm_title": "Prevent changing indicators display",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', disables 'Show recent applications' checkbox.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "showrecents-immutable",
+      "pfm_title": "Prevent shanging recents display",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Dock",
+  "pfm_unique": false,
+  "pfm_version": 7
+}

@@ -1,0 +1,1575 @@
+{
+  "pfm_description": "Configures an app extension to handle SSO.",
+  "pfm_description_reference": "The payload for configuring an app extension that performs single sign-on.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/extensiblesinglesignon",
+  "pfm_domain": "com.apple.extensiblesso",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "13.0",
+  "pfm_last_modified": "2025-04-04T13:24:55.000Z",
+  "pfm_macos_min": "10.15",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures an app extension to handle SSO.",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Extensible Single Sign-On",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.extensiblesso",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.extensiblesso",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The bundle identifier of the app extension that performs SSO for the specified URLs.",
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "ExtensionIdentifier",
+      "pfm_range_list": [
+        "com.apple.AppSSOKerberos.KerberosExtension",
+        "com.microsoft.azureauthenticator.ssoextension",
+        "com.microsoft.CompanyPortalMac.ssoextension"
+      ],
+      "pfm_range_list_allow_custom_value": true,
+      "pfm_require": "always",
+      "pfm_title": "Extension Identifier",
+      "pfm_type": "string",
+      "pfm_value_placeholder": "com.apple.AppSSOKerberos.KerberosExtension"
+    },
+    {
+      "pfm_description": "The type of SSO.",
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "Type",
+      "pfm_note": "If ExtensionIdentifier is set to com.apple.AppSSOKerberos.KerberosExtension, this preference must be set to 'Credential'.",
+      "pfm_range_list": ["Credential", "Redirect"],
+      "pfm_require": "always",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["com.apple.AppSSOKerberos.KerberosExtension"],
+              "pfm_target": "ExtensionIdentifier"
+            }
+          ]
+        },
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_platforms": ["macOS"]
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The team identifier of the app extension. This key is required on macOS and ignored elsewhere.",
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "TeamIdentifier",
+      "pfm_note": "If ExtensionIdentifier is set to com.apple.AppSSOKerberos.KerberosExtension, this preference value must be 'apple'.",
+      "pfm_title": "Team Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Credential"],
+              "pfm_target": "Type"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "An array of host or domain names that apps can authenticate through the app extension.\nRequired for 'Credential' payloads. Ignored for 'Redirect' payloads.\nThe system:\n* Matches host or domain names case-insensitively\n* Requires that all the host and domain names of all installed Extensible SSO payloads are unique\nHost names that begin with a “.” are wildcard suffixes that match all subdomains; otherwise the host name needs be an exact match.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Redirect"],
+              "pfm_target": "Type"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "Hosts",
+      "pfm_note": "Host or domain names are matched case-insensitively, and all the host / domain names of all installed Extensible SSO payloads must be unique.\n\nHosts that begin with a \".\" are wildcard suffixes and will match all subdomains, otherwise the host must be an exact match.",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A host or domain name. Values that begin with a \".\" will be used as domain names.",
+          "pfm_name": "hostname",
+          "pfm_require": "always",
+          "pfm_title": "Hostname / Domain name",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_type": "array"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["com.apple.AppSSOKerberos.KerberosExtension"],
+              "pfm_target": "ExtensionIdentifier"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The realm name for 'Credential' payloads. Use proper capitalization for this value. Ignored for 'Redirect' payloads.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Redirect"],
+              "pfm_target": "Type"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "Realm",
+      "pfm_note": "If ExtensionIdentifier is set to com.apple.AppSSOKerberos.KerberosExtension, this preference is required. The Kerberos realm, which should be properly capitalized. If in an Active Directory forest, this is the realm where the user logs in.",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Redirect"],
+              "pfm_target": "Type"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "An array of URL prefixes of identity providers where the app extension performs SSO.\nRequired for 'Redirect' payloads. Ignored for 'Credential' payloads.\nThe URLs need to begin with 'http://' or 'https://'.\nThe system:\n* Matches scheme and host name case-insensitively\n* Doesn't allow query parameters and URL fragments\n* Requires that the URLs of all installed Extensible SSO payloads are unique",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Credential"],
+              "pfm_target": "Type"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "URLs",
+      "pfm_note": "The URLs must begin with http:// or https://, the scheme and host name are matched case-insensitively, query parameters and URL fragments are not allowed, and the URLs of all installed Extensible SSO payloads must be unique.",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "An http or https URL prefix.",
+          "pfm_format": "^https?://.*",
+          "pfm_name": "URL",
+          "pfm_require": "always",
+          "pfm_title": "URL",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "http(s)://"
+        }
+      ],
+      "pfm_title": "URLs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of bundle identifiers of apps that don't use SSO provided by this extension. Available in iOS 15 and later, and macOS 12 and later.",
+      "pfm_ios_min": "15.0",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "DeniedBundleIdentifiers",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The bundle identifier of the app.",
+          "pfm_name": "bundleIdentifier",
+          "pfm_require": "always",
+          "pfm_title": "Bundle Identifier",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Denied Bundle Identifiers",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": "Cancel",
+      "pfm_description": "If set to 'Cancel', the system cancels authentication requests when the screen is locked. If set to 'DoNotHandle', the request continues without SSO instead. This doesn't apply to requests where 'userInterfaceEnabled' is 'false', or for background URLSession requests. Available in iOS 15 and later, and macOS 12 and later.",
+      "pfm_ios_min": "15.0",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "ScreenLockedBehavior",
+      "pfm_range_list": ["Cancel", "DoNotHandle"],
+      "pfm_range_list_titles": ["Cancel", "Do Not Handle"],
+      "pfm_title": "Screen Locked Behavior",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["com.apple.AppSSOKerberos.KerberosExtension"],
+              "pfm_target": "ExtensionIdentifier"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "A dictionary of arbitrary data passed through to the app extension.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [
+                "com.apple.AppSSOKerberos.KerberosExtension",
+                "com.microsoft.azureauthenticator.ssoextension",
+                "com.microsoft.CompanyPortalMac.ssoextension"
+              ],
+              "pfm_target": "ExtensionIdentifier"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "13.0",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "ExtensionData",
+      "pfm_subkeys": [
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'false', the system doesn't allow saving passwords in the keychain.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "13.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "allowAutomaticLogin",
+          "pfm_title": "Allow Automatic Login",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'false', the system disables password changes. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "allowPasswordChange",
+          "pfm_title": "Allow Password Change",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system requires this configuration uses a TGT from Platform SSO instead of requesting a new one. Available in macOS 13 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "13.0",
+          "pfm_name": "usePlatformSSOTGT",
+          "pfm_platforms": ["macOS"],
+          "pfm_title": "Use Platform SSO TGT",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true' and 'usePlatformSSOTGT' is 'true', the system allows the user to manually sign in. Available in macOS 13 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "ExtensionData.usePlatformSSOTGT"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "13.0",
+          "pfm_name": "allowPlatformSSOAuthFallback",
+          "pfm_platforms": ["macOS"],
+          "pfm_title": "Allow Platform SSO Authentication Fallback",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the Kerberos Extension handles Kerberos requests only. It doesn't check for password expiration, show the password expiration in the menu, check for external password changes, perform password sync, or retrieve the home directory. Available in macOS 13 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "16.0",
+          "pfm_macos_min": "13.0",
+          "pfm_name": "performKerberosOnly",
+          "pfm_title": "Perform Kerberos Requests Only",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The GSS name of the Kerberos cache to use. Rarely set by an administrator.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_deprecated": "15.0",
+          "pfm_ios_min": "13.0",
+          "pfm_macos_deprecated": "12.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "cacheName",
+          "pfm_title": "Cache Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default_copy": "com.apple.security.pkcs1@PayloadUUID",
+          "pfm_description": "The PayloadUUID of a PKINIT certificate.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "13.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "certificateUUID",
+          "pfm_note": "Add the Certificate PKCS1 payload to have the appropriate value copied to this preference.",
+          "pfm_title": "Certificate UUID",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "A list of bundle IDs allowed to access the ticket-granting ticket (TGT).",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "13.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "credentialBundleIdACL",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Bundle IDs allowed to access the TGT. These values are case sensitive.",
+              "pfm_name": "credentialBundleIdACLItem",
+              "pfm_title": "Bundle ID",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Credential Bundle ID ACL",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": "always",
+          "pfm_description": "This setting affects how other processes use the Kerberos Extension credential. Allowed values:\n\n* 'always': The system always uses the credential if the SPN matches the Kerberos Extension 'Hosts' array and the caller hasn't specified another credential. However, the system won't use the credential if the calling app isn't in the 'credentialBundleIDACL'.\n* 'whenNotSpecified': The system only uses the extension credential if the SPN matches the Kerberos Extension 'Hosts' array. However, the system won't use the credential if the calling app isn't in the 'credentialBundleIDACL'.\n* 'kerberosDefault': The system uses the default Kerberos processes to select credentials, and normally uses the default Kerberos credential. This is the same as turning off this capabiliity.\nAvailable in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "credentialUseMode",
+          "pfm_note": "always - The extension credential will always be used if the SPN matches the Kerberos Extension Hosts array. The credential will not be used if the calling app is not in the credentialBundleIDACL.\n\nwhenNotSpecified - The credential will only be used when another credential has not been specified by the caller and the SPN matches the Kerberos Extensions Hosts array. The credential will not be used if the calling app is not in the credentialBundleIDACL.\n\nkerberosDefault - The default Kerberos processes for selecting credentials is used which normally uses the default Kerberos credential. This is the same as turning off this capability.",
+          "pfm_range_list": ["always", "whenNotSpecified", "kerberosDefault"],
+          "pfm_range_list_titles": [
+            "Always",
+            "When Not Specified",
+            "Kerberos Default"
+          ],
+          "pfm_title": "Credential Use Mode",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The custom user name label used in the Kerberos extension instead of “Username,” such as “Company ID”. Available in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "customUsernameLabel",
+          "pfm_title": "Custom Username Label",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system doesn't prompt the user to setup the Kerberos extension until either the administrator enables it with the 'app-sso' tool or the system receives a Kerberos challenge. Available in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "11.0",
+          "pfm_name": "delayUserSetup",
+          "pfm_title": "Delay User Setup",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The text to display to the user at the bottom of the Kerberos login window. You can also use this to display help information or disclaimer text. Available in iOS 14 and later, and macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "helpText",
+          "pfm_title": "Help Text",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "Specifies whether this is the default realm if there's more than one Kerberos extension configuration.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "isDefaultRealm",
+          "pfm_title": "Is Default Realm",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the Kerberos extension allows only managed apps to access and use the credential. This is in addition to the 'credentialBundleIDACL', if you specify that value. Available in iOS 14 and later, and macOS 12 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "12.0",
+          "pfm_name": "includeManagedAppsInBundleIdACL",
+          "pfm_title": "Include Managed Apps in Bundle ID ACL",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the Kerberos extension allows the standard Kerberos utilities including 'TicketViewer' and 'klist' to access and use the credential. This is in addition to 'includeManagedAppsInBundleIdACL' or the 'credentialBundleIdACL', if you specify those values. Available in macOS 12 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "12.0",
+          "pfm_name": "includeKerberosAppsInBundleIdACL",
+          "pfm_title": "Include Kerberos Apps in Bundle ID ACL",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'false', the system requests the credential on the next matching Kerberos challenge or network state change. If the credential is expired or missing, the system creates a new one. Available in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "11.0",
+          "pfm_name": "monitorCredentialsCache",
+          "pfm_title": "Monitor Credential Cache",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The principal (username) to use. You don't need to include the realm.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "principalName",
+          "pfm_title": "Principal Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The ordered list of preferred Key Distribution Centers (KDCs) to use for Kerberos traffic. Use this if the servers aren't discoverable through DNS. If the servers are specified, then the system uses them for both connectivity checks and attempts to use them first for Kerberos traffic. If the servers don't respond, the device falls back to DNS discovery. Format each entry the same as it would be in a 'krb5.conf' file, for example:\n* 'adserver1.example.com'\n* 'tcp/adserver1.example.com:88'\n* 'kkdcp://kerberosproxy.example.com:443/kkdcp'",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_format": "^((kkdcp:\\/\\/)|(tcp\\/))?[^:\\/]+(:\\d+)?(\\/[^:]*)?$",
+          "pfm_ios_min": "15.0",
+          "pfm_macos_min": "12.0",
+          "pfm_name": "preferredKDCs",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A host or domain name in the format of [protocol/]hostname[:port][/path]",
+              "pfm_name": "preferredKDC",
+              "pfm_require": "always",
+              "pfm_title": "Key Distribution Center",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Preferred KDCs",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "This URL will launch in the user's default web browser when they initiate a password change. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwChangeURL",
+          "pfm_title": "Password Change URL",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 15,
+          "pfm_description": "The number of days prior to password expiration when the system sends a notification of password expiration to the user. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwNotificationDays",
+          "pfm_title": "Password Notification Days",
+          "pfm_type": "integer",
+          "pfm_value_unit": "days"
+        },
+        {
+          "pfm_description": "The number of days that the system allows using passwords on this domain. For most domains, this calculation is automatic. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_deprecated": "12.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwExpireOverride",
+          "pfm_title": "Password Expiration Override",
+          "pfm_type": "integer",
+          "pfm_value_unit": "days"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system requires passwords to meet Active Directory's definition of “complex”. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwReqComplexity",
+          "pfm_title": "Password Requirement Complexity",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The number of prior passwords that the system disallows reuse on this domain. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwReqHistory",
+          "pfm_title": "Password Requirement History",
+          "pfm_type": "integer",
+          "pfm_value_unit": "prior passwords"
+        },
+        {
+          "pfm_description": "The minimum length of passwords on the domain.Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwReqLength",
+          "pfm_title": "Password Requirement Length",
+          "pfm_type": "integer",
+          "pfm_value_unit": "characters"
+        },
+        {
+          "pfm_description": "The minimum age of passwords before the system allows changing them on this domain. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwReqMinAge",
+          "pfm_title": "Password Requirement Minimum Age",
+          "pfm_type": "integer",
+          "pfm_value_unit": "days"
+        },
+        {
+          "pfm_description": "The text version of the domain's password requirements. Only for use if 'pwReqComplexity' or 'pwReqLength' aren't specified. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "pwReqText",
+          "pfm_title": "Password Requirement Text",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The RTF file formatted version of the domain's password requirements. Only for use if 'pwReqComplexity' or 'pwReqLength' aren't specified. Available in macOS 15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": [true],
+                  "pfm_target": "ExtensionData.pwReqComplexity"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_present": true,
+                  "pfm_target": "ExtensionData.pwReqLength"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "15.0",
+          "pfm_name": "pwReqRTFData",
+          "pfm_platforms": ["macOS"],
+          "pfm_type": "data"
+        },
+        {
+          "pfm_default": 900,
+          "pfm_description": "The time, in seconds, required to replicate changes in the Active Directory domain. The Kerberos extension uses this when checking password age after a change. Available in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_deprecated": "12.0",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "replicationTime",
+          "pfm_title": "Replication Time",
+          "pfm_type": "integer",
+          "pfm_value_unit": "seconds"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "Require that LDAP connections use TLS. Available in macOS 11 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "11.0",
+          "pfm_name": "requireTLSForLDAP",
+          "pfm_title": "Require TLS for LDAP",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system requires the user to provide Touch ID, Face ID or their passcode to access the keychain entry.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "requireUserPresence",
+          "pfm_title": "Require User Presence",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The name of the Active Directory site the Kerberos extension should use. Most administrators don't need to modify this value, as the Kerberos extension can normally find the site automatically.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "14.0",
+          "pfm_macos_min": "10.15",
+          "pfm_name": "siteCode",
+          "pfm_title": "Site Code",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'false', the system disables password sync. Note that this will not work if the user is logged in with a mobile account. Available in macOS 10.15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "syncLocalPassword",
+          "pfm_title": "Sync Local Password",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'false', the Kerberos extension doesn't automatically use LDAP and DNS to determine its AD site name.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "10.15",
+          "pfm_name": "useSiteAutoDiscovery",
+          "pfm_title": "Use Site Auto Discovery",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "A custom domain-realm mapping for Kerberos. The system uses this when the DNS name of hosts doesn't match the realm name. Most administrators don't need to customize this.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "domainRealmMapping",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The key should be the name of the realm, and the value is an array of DNS suffixes that map to the realm.",
+              "pfm_name": "Realm",
+              "pfm_subkeys": [
+                {
+                  "pfm_description": "Domains to map to the realm",
+                  "pfm_name": "RealmItem",
+                  "pfm_type": "string"
+                }
+              ],
+              "pfm_type": "array"
+            }
+          ],
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "Enable_SSO_On_All_ManagedApps",
+          "pfm_range_list": [0, 1],
+          "pfm_range_list_titles": ["Disable", "Enable"],
+          "pfm_title": "Enable SSO on All Managed Apps",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "Enable SSO for specific apps",
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "AppAllowList",
+          "pfm_title": "App Allow List",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.contoso.workapp, com.contoso.travelapp"
+        },
+        {
+          "pfm_description": "Enable SSO for all apps with a specific bundle ID prefix",
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "AppPrefixAllowList",
+          "pfm_title": "App Prefix Allow List",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.contoso., com.fabrikam."
+        },
+        {
+          "pfm_description": "Disable SSO for specific apps",
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "AppBlockList",
+          "pfm_title": "App Block List",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.contoso.studyapp, com.contoso.travelapp"
+        },
+        {
+          "pfm_description": "Enable SSO through cookies for a specific application",
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "AppCookieSSOAllowList",
+          "pfm_title": "App Cookie SSO Allow List",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "com.contoso.studyapp, com.contoso.travelapp"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "browser_sso_interaction_enabled",
+          "pfm_range_list": [0, 1],
+          "pfm_range_list_titles": ["Disable", "Enable"],
+          "pfm_title": "Allow Users to Sign in from Unknown Applications using the Safari Browser",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "browser_sso_disable_mfa",
+          "pfm_range_list": [0, 1],
+          "pfm_range_list_titles": ["Enable", "Disable"],
+          "pfm_title": "Disable Asking for MFA During Initial Bootstrapping",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "disable_explicit_app_prompt",
+          "pfm_range_list": [0, 1],
+          "pfm_range_list_titles": ["Enable", "Disable"],
+          "pfm_title": "Disable OAuth2 Application Prompts",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_default": 0,
+          "pfm_documentation_url": "https://docs.microsoft.com/en-us/azure/active-directory/develop/apple-sso-plugin",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.microsoft.azureauthenticator.ssoextension",
+                    "com.microsoft.CompanyPortalMac.ssoextension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "disable_explicit_app_prompt_and_autologin",
+          "pfm_range_list": [0, 1],
+          "pfm_range_list_titles": ["Enable", "Disable"],
+          "pfm_title": "Disable OAuth2 Application Prompts and Autologin",
+          "pfm_type": "integer",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "A string with wildcards that can use used to filter the list of available SmartCards by issuer. e.g “*My CA2*”. If there is one remaining, it will be auto-selected. If there more than one remaining, then the list is shorter. Available in macOS 15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "15.0",
+          "pfm_name": "identityIssuerAutoSelectFilter",
+          "pfm_platforms": ["macOS"],
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true', allow the user to switch the user interface to SmartCard mode. Available in macOS 15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "15.0",
+          "pfm_name": "allowSmartCard",
+          "pfm_platforms": ["macOS"],
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true', allow the user to switch the user interface to Password mode. Available in macOS 15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "15.0",
+          "pfm_name": "allowPassword",
+          "pfm_platforms": ["macOS"],
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the user interface will start in SmartCard mode. Available in macOS 15 and later.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [
+                    "com.apple.AppSSOKerberos.KerberosExtension"
+                  ],
+                  "pfm_target": "ExtensionIdentifier"
+                }
+              ]
+            }
+          ],
+          "pfm_macos_min": "15.0",
+          "pfm_name": "startInSmartCardMode",
+          "pfm_platforms": ["macOS"],
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_title": "Kerberos Extension Data",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "The Platform SSO authentication method the extension uses. Requires that the SSO Extension also supports the method. Available in macOS 13 and later, and deprecated in macOS 14.",
+      "pfm_macos_deprecated": "14.0",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "AuthenticationMethod",
+      "pfm_platforms": ["macOS"],
+      "pfm_range_list": ["Password", "UserSecureEnclaveKey"],
+      "pfm_range_list_titles": ["Password", "User Secure Enclave Key"],
+      "pfm_title": "Authentication Method",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The dictionary to configure Platform SSO.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "PlatformSSO",
+      "pfm_platforms": ["macOS"],
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The Platform SSO authentication method to use with the extension. Requires that the SSO Extension also support the method.",
+          "pfm_name": "AuthenticationMethod",
+          "pfm_range_list": ["Password", "UserSecureEnclaveKey", "SmartCard"],
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system uses the same signing and encryption keys for all users. Only supported on the device channel.",
+          "pfm_name": "UseSharedDeviceKeys",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The display name for the account in notifications and authentication requests.",
+          "pfm_name": "AccountDisplayName",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": 64800,
+          "pfm_description": "The duration, in seconds, until the system requires a full login instead of a refresh. The default value is 64,800 (18 hours). The minimum value is 3600 (1 hour).",
+          "pfm_name": "LoginFrequency",
+          "pfm_range_min": 3600,
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "Enables creating new users at the login window with an 'AuthenticationMethod' of either 'Password' or 'SmartCard'. Requires that 'UseSharedDeviceKeys' is 'true'.",
+          "pfm_name": "EnableCreateUserAtLogin",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "Enables using identity provider accounts at authorization prompts. Requires that 'UseSharedDeviceKeys' is 'true'. The system assigns groups using 'AdministratorGroups', 'AdditionalGroups', or 'AuthorizationGroups'.",
+          "pfm_name": "EnableAuthorization",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "The attribute mapping to use when creating new users or for authorization.",
+          "pfm_name": "TokenToUserMapping",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The claim name to use for the user's account name.",
+              "pfm_name": "AccountName",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The claim name to use for the user's full name.",
+              "pfm_name": "FullName",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_description": "The permission to apply to newly created accounts at login. Allowed values:\n\n* 'Standard': The account is a standard user.\n* 'Admin': The system adds the account to the local administrators group.\n* 'Groups': The system assigns group to the account using 'AdministratorGroups', 'AdditionalGroups', or 'AuthorizationGroups'.",
+          "pfm_name": "NewUserAuthorizationMode",
+          "pfm_range_list": ["Standard", "Admin", "Groups"],
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The permission to apply to an account each time the user authenticates. Allowed values:\n\n* 'Standard': The account is a standard user.\n* 'Admin': The system adds the account to the local administrators group.\n* 'Groups': The system assigns group to the account using 'AdministratorGroups', 'AdditionalGroups', or 'AuthorizationGroups'.",
+          "pfm_name": "UserAuthorizationMode",
+          "pfm_range_list": ["Standard", "Admin", "Groups"],
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The list of groups to use for administrator access. The system requests membership during authentication.",
+          "pfm_name": "AdministratorGroups",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The group name.",
+              "pfm_name": "Group",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The list of created groups that don't have administrator access.",
+          "pfm_name": "AdditionalGroups",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The group name.",
+              "pfm_name": "Group",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The pairing of Authorization Rights to group names. The system updates the Authorization Right to use the group when used.",
+          "pfm_name": "AuthorizationGroups",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "",
+              "pfm_name": "{{key}}",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_description": "The key is an access right value, the value is the group to be associated with that access right.",
+              "pfm_name": "{{value}}",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_description": "The policy to apply when using Platform SSO at FileVault unlock on Apple Silicon Macs. Applies when 'AuthenticationMethod' is 'Password'. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "FileVaultPolicy",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "* AttemptAuthentication\n    Platform SSO authentication is attempted before proceeding. If offline, unlock will continue\n    if the local account password matches. If online and the credential is incorrect, then a\n    successful Platform SSO authentication is required to proceed, even if taken offline.\n* RequireAuthentication\n    Platform SSO authentication is required before proceeding.  If the device is offline and\n    `AllowOfflineGracePeriod` is enabled, then the offline `OfflineGracePeriod` is used to determine\n    if the user can proceed or not. If online and the credential is incorrect, then a valid Platform\n    SSO authentication is required to proceed regardless of the `OfflineGracePeriod`. If the account\n    is not registered for Platform SSO and `AllowAuthenticationGracePeriod` is enabled, then the\n    `AuthenticationGracePeriod` is used to determine if the user can proceed or not.\n* AllowOfflineGracePeriod\n    Allow the use of the `OfflineGracePeriod` when `RequireAuthentication` is enabled.  If\n    `AllowOfflineGracePeriod` is not set, then offline access is denied.\n* AllowAuthenticationGracePeriod\n    Allow the use of the `AuthenticationGracePeriod` for other local accounts when `RequireAuthentication`\n    is enabled. The `AuthenticationGracePeriod` starts when any of the policies have been updated. If\n    `AllowAuthenticationGracePeriod` is not set, then unregistered account access is denied.",
+              "pfm_name": "policy",
+              "pfm_range_list": [
+                "AttemptAuthentication",
+                "RequireAuthentication",
+                "AllowOfflineGracePeriod",
+                "AllowAuthenticationGracePeriod"
+              ],
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The policy to apply when using Platform SSO at the login window. Applies when 'AuthenticationMethod' is 'Password'. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "LoginPolicy",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "* AttemptAuthentication\n    Platform SSO authentication is attempted before proceeding. If offline, unlock will continue\n    if the local account password matches. If online and the credential is incorrect, then a\n    successful Platform SSO authentication is required to proceed, even if taken offline.\n* RequireAuthentication\n    Platform SSO authentication is required before proceeding.  If the device is offline and\n    `AllowOfflineGracePeriod` is enabled, then the offline `OfflineGracePeriod` is used to determine\n    if the user can proceed or not. If online and the credential is incorrect, then a valid Platform\n    SSO authentication is required to proceed regardless of the `OfflineGracePeriod`. If the account\n    is not registered for Platform SSO and `AllowAuthenticationGracePeriod` is enabled, then the\n    `AuthenticationGracePeriod` is used to determine if the user can proceed or not.\n* AllowOfflineGracePeriod\n    Allow the use of the `OfflineGracePeriod` when `RequireAuthentication` is enabled.  If\n    `AllowOfflineGracePeriod` is not set, then offline access is denied.\n* AllowAuthenticationGracePeriod\n    Allow the use of the `AuthenticationGracePeriod` for other local accounts when `RequireAuthentication`\n    is enabled. The `AuthenticationGracePeriod` starts when any of the policies have been updated. If\n    `AllowAuthenticationGracePeriod` is not set, then unregistered account access is denied.",
+              "pfm_name": "policy",
+              "pfm_range_list": [
+                "AttemptAuthentication",
+                "RequireAuthentication",
+                "AllowOfflineGracePeriod",
+                "AllowAuthenticationGracePeriod"
+              ],
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The policy to apply when using Platform SSO at screensaver unlock. Applies when 'AuthenticationMethod' is 'Password'. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "UnlockPolicy",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "* AttemptAuthentication\n    Platform SSO authentication is attempted before proceeding. If offline, unlock will continue\n    if the local account password matches. If online and the credential is incorrect, then a\n    successful Platform SSO authentication is required to proceed, even if taken offline.\n* RequireAuthentication\n    Platform SSO authentication is required before proceeding.  If the device is offline and\n    `AllowOfflineGracePeriod` is enabled, then the offline `OfflineGracePeriod` is used to determine\n    if the user can proceed or not. If online and the credential is incorrect, then a valid Platform\n    SSO authentication is required to proceed regardless of the `OfflineGracePeriod`. If the account\n    is not registered for Platform SSO and `AllowAuthenticationGracePeriod` is enabled, then the\n    `AuthenticationGracePeriod` is used to determine if the user can proceed or not.\n* AllowOfflineGracePeriod\n    Allow the use of the `OfflineGracePeriod` when `RequireAuthentication` is enabled.  If\n    `AllowOfflineGracePeriod` is not set, then offline access is denied.\n* AllowAuthenticationGracePeriod\n    Allow the use of the `AuthenticationGracePeriod` for other local accounts when `RequireAuthentication`\n    is enabled. The `AuthenticationGracePeriod` starts when any of the policies have been updated. If\n    `AllowAuthenticationGracePeriod` is not set, then unregistered account access is denied.\n* AllowTouchIDOrWatchForUnlock\n    Allow TouchID or Watch to unlock the screensaver instead of Platform SSO authentication when\n    `RequireAuthentication` is enabled.",
+              "pfm_name": "policy",
+              "pfm_range_list": [
+                "AttemptAuthentication",
+                "RequireAuthentication",
+                "AllowOfflineGracePeriod",
+                "AllowAuthenticationGracePeriod",
+                "AllowTouchIDOrWatchForUnlock"
+              ],
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The amount of time after the last successful Platform SSO login a local account password can be used offline. Required when 'AllowOfflineGracePeriod' is set. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "OfflineGracePeriod",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "The amount of time after a 'FileVaultPolicy', 'LoginPolicy', or 'UnlockPolicy' is received or updated that unregistered local accounts can be used. Required when 'AllowAuthenticationGracePeriod' is set. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "AuthenticationGracePeriod",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "The list of local accounts that aren't subject to the 'FileVaultPolicy', 'LoginPolicy', or 'UnlockPolicy'. The accounts aren't prompted to register for Platform SSO. Available in macOS 15 and later.",
+          "pfm_macos_min": "15.0",
+          "pfm_name": "NonPlatformSSOAccounts",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A local account username.",
+              "pfm_name": "username",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If set to true, the device UDID and serial number will be included in Platform SSO attestations.",
+          "pfm_macos_min": "15.4",
+          "pfm_name": "AllowDeviceIdentifiersInAttestation",
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "The token this device uses for registration with Platform SSO. Use it for silent registration with the Identity Provider. Requires that 'PlatformSSO.AuthenticationMethod' isn't empty. Available in macOS 13 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "AuthenticationMethod"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "PlatformSSO.AuthenticationMethod"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "13.0",
+      "pfm_name": "RegistrationToken",
+      "pfm_platforms": ["macOS"],
+      "pfm_title": "Registration Token",
+      "pfm_type": "string"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Extensible Single Sign-On",
+  "pfm_unique": false,
+  "pfm_user_approved": true,
+  "pfm_version": 8
+}

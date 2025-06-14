@@ -1,0 +1,170 @@
+{
+  "pfm_description": "Identification settings",
+  "pfm_description_reference": "The Identification payload is designated by specifying com.apple.configurationprofile.identification value as the PayloadType value.\nThis payload allows you to save names of the account user and prompt text. If left blank, the user has to provide this information when he or she installs the profile.\nThe Identification payload is not supported in iOS.",
+  "pfm_domain": "com.apple.configurationprofile.identification",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_last_modified": "2025-03-03T11:08:08.000Z",
+  "pfm_macos_deprecated": "15.4",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Identification settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Identification",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.configurationprofile.identification",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.configurationprofile.identification",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The dictionary that contains details about the user.",
+      "pfm_name": "PayloadIdentification",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The full name of the account.",
+          "pfm_name": "FullName",
+          "pfm_require": "always",
+          "pfm_title": "Full Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The address for the account.",
+          "pfm_name": "EmailAddress",
+          "pfm_require": "always",
+          "pfm_title": "E-mail address",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The UNIX user name for the accounts.",
+          "pfm_name": "UserName",
+          "pfm_require": "always",
+          "pfm_title": "Username",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The password for the account. Required when the 'AuthMethod' is 'Password'.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": ["UserEnteredPassword"],
+                  "pfm_target": "PayloadIdentification.AuthMethod"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "Password",
+          "pfm_require": "always",
+          "pfm_sensitive": true,
+          "pfm_title": "Password",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "UserEnteredPassword",
+          "pfm_description": "The authorization method. Either the profile contains the password or the user provides it.",
+          "pfm_documentation_source": "",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_distribution": ["push"]
+                }
+              ]
+            }
+          ],
+          "pfm_name": "AuthMethod",
+          "pfm_range_list": ["Password", "UserEnteredPassword"],
+          "pfm_require": "always",
+          "pfm_title": "Authentication Method",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The custom instructions for the user, if needed.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_distribution": ["push"]
+                }
+              ]
+            }
+          ],
+          "pfm_name": "Prompt",
+          "pfm_title": "Prompt",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The additional descriptive text for the user prompt.",
+          "pfm_documentation_source": "",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_distribution": ["push"]
+                }
+              ]
+            }
+          ],
+          "pfm_name": "PromptMessage",
+          "pfm_title": "Prompt Message",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "PayloadIdentification",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Identification",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

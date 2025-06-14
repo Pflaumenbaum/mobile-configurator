@@ -1,0 +1,213 @@
+{
+  "pfm_description": "Global HTTP Proxy settings",
+  "pfm_domain": "com.apple.proxy.http.global",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "6.0",
+  "pfm_last_modified": "2024-09-03T15:13:17.000Z",
+  "pfm_macos_min": "10.9",
+  "pfm_platforms": ["iOS", "macOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Global HTTP Proxy (Supervised devices only)",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Global HTTP Proxy",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.proxy.http.global",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.proxy.http.global",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Manual",
+      "pfm_description": "The proxy type. For a manual proxy type, the profile contains the proxy server address, including its port, and optionally a user name and password. For an auto proxy type, you can enter a PAC URL.",
+      "pfm_name": "ProxyType",
+      "pfm_range_list": ["Manual", "Auto"],
+      "pfm_require": "always",
+      "pfm_title": "Proxy Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The proxy server's network address. This is required if the ProxyType is set to Manual, and is ignored if the ProxyType is set to Automatic.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyServer",
+      "pfm_require": "always",
+      "pfm_title": "Proxy Server",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The proxy server's port number. This is required if the ProxyType is set to Manual, and is ignored if the ProxyType is set to Automatic.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyServerPort",
+      "pfm_title": "Proxy Server Port",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The user name used to authenticate to the proxy server. This setting is only used if the ProxyType is set to Manual, and is ignored if the ProxyType is set to Automatic.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyUsername",
+      "pfm_title": "Proxy Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password used to authenticate to the proxy server. This setting is only used if the ProxyType is set to Manual, and is ignored if the ProxyType is set to Automatic.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyPassword",
+      "pfm_title": "Proxy Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The URL of the PAC file that defines the proxy configuration. Starting in iOS 13 and macOS 10.15, only URLs that begin with 'http://' or 'https://' are allowed. This setting is only used if the ProxyType is set to Automatic, and is ignored if the ProxyType is set to Manual.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Auto"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_format": "^https?://.*",
+      "pfm_name": "ProxyPACURL",
+      "pfm_note": "The URL of the PAC file that defines the proxy configuration. Starting in iOS 13 and macOS 10.15, only URLs that begin with 'http://' or 'https://' are allowed. This setting is only used if the ProxyType is set to Automatic, and is ignored if the ProxyType is set to Manual.",
+      "pfm_title": "Proxy PAC URL",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', allows connecting directly to the destination if the proxy autoconfiguration (PAC) file is unreachable.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Auto"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "ProxyPACFallbackAllowed",
+      "pfm_title": "Proxy PAC Fallback Allowed",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', allows the device to bypass the proxy server to display the login page for captive networks.",
+      "pfm_ios_min": "7.0",
+      "pfm_name": "ProxyCaptiveLoginAllowed",
+      "pfm_title": "Allow Proxy Bypass for Captive Portal Logins",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_supervised": true,
+  "pfm_targets": ["system"],
+  "pfm_title": "Global HTTP Proxy",
+  "pfm_tvos_min": "9.0",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

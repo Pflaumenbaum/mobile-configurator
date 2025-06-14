@@ -1,0 +1,148 @@
+{
+  "pfm_description": "Cellular Private Network Settings and Device Configuration",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/cellularprivatenetwork",
+  "pfm_domain": "com.apple.cellularprivatenetwork.managed",
+  "pfm_format_version": 1,
+  "pfm_ios_min": "17.0",
+  "pfm_last_modified": "2024-09-12T10:00:38.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Cellular Private Network Settings and Device Configuration",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Cellular Private Network",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.cellularprivatenetwork.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.cellularprivatenetwork.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A list of up to 1000 geofences for private networks. Geofencing is only used on iPhone.",
+      "pfm_name": "Geofences",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "GeofenceItem",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The longitude of the geofence.",
+              "pfm_name": "Longitude",
+              "pfm_range_max": 180,
+              "pfm_range_min": -180,
+              "pfm_require": "always",
+              "pfm_type": "real"
+            },
+            {
+              "pfm_description": "The latitude of the geofence.",
+              "pfm_name": "Latitude",
+              "pfm_range_max": 90,
+              "pfm_range_min": -90,
+              "pfm_require": "always",
+              "pfm_type": "real"
+            },
+            {
+              "pfm_description": "Specifies the radius of the geofence in meters. Set this value slightly greater than the private cellular network coverage area.",
+              "pfm_name": "Radius",
+              "pfm_range_max": 6500,
+              "pfm_range_min": 100,
+              "pfm_require": "always",
+              "pfm_type": "real"
+            },
+            {
+              "pfm_description": "A geofence identifier that's unique within a list of geofences.",
+              "pfm_name": "GeofenceId",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The name of the private network configuration data set.",
+      "pfm_name": "DataSetName",
+      "pfm_require": "always",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The version number of this dataset that the system uses to track updates.",
+      "pfm_name": "VersionNumber",
+      "pfm_require": "always",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Set to 'true' to prefer this private network over Wi-Fi.",
+      "pfm_name": "CellularDataPreferred",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Set to 'true' if this private network is NR Standalone.",
+      "pfm_name": "EnableNRStandalone",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "String formatted in accordance with the definition of a \"Coordinated NID\" (option 1 or option 2) in 3GPP 31.102 §12.7.1. Used to match this profile to a SIM present on the device. All combinations of NetworkIdentifier and CsgNetworkIdentifier must be unique between profiles installed on the device.",
+      "pfm_ios_min": "18.0",
+      "pfm_name": "NetworkIdentifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "String formatted in accordance with the definition of \"CSG_ID\" in 3GPP 23.003 §4.7. Used to match this profile to a SIM present on the device. All combinations of NetworkIdentifier and CsgNetworkIdentifier must be unique between profiles installed on the device.",
+      "pfm_ios_min": "18.0",
+      "pfm_name": "CsgNetworkIdentifier",
+      "pfm_type": "string"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Cellular Private Network",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

@@ -1,0 +1,150 @@
+{
+  "pfm_description": "LDAP settings",
+  "pfm_domain": "com.apple.ldap.account",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2018-07-18T08:58:51.000Z",
+  "pfm_platforms": ["iOS", "macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures an LDAP account",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "LDAP",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.ldap.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.ldap.account",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The display name of the account (e.g. 'Company LDAP Account')",
+      "pfm_name": "LDAPAccountDescription",
+      "pfm_title": "Account Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The username for this LDAP account",
+      "pfm_name": "LDAPAccountUserName",
+      "pfm_title": "Account Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password for this LDAP account",
+      "pfm_name": "LDAPAccountPassword",
+      "pfm_sensitive": true,
+      "pfm_title": "Account Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The LDAP Hostname or IP address",
+      "pfm_name": "LDAPAccountHostName",
+      "pfm_require": "always",
+      "pfm_title": "Account Hostname",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Enable Secure Socket Layer for this connection",
+      "pfm_name": "LDAPAccountUseSSL",
+      "pfm_title": "Use SSL",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Scope and search base for this LDAP server.",
+      "pfm_name": "LDAPSearchSettings",
+      "pfm_subkeys": [
+        {
+          "pfm_default": {
+            "LDAPSearchSettingDescription": "My Search",
+            "LDAPSearchSettingScope": "LDAPSearchSettingScopeSubtree",
+            "LDAPSearchSettingSearchBase": "o=My Company ou=MyDepartment"
+          },
+          "pfm_description": "An item within the Search Settings array",
+          "pfm_name": "LDAPSearchSettingsItem",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "My Search",
+              "pfm_description": "Description for this setting",
+              "pfm_name": "LDAPSearchSettingDescription",
+              "pfm_title": "Description",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": "LDAPSearchSettingScopeSubtree",
+              "pfm_description": "Defines what recursion to use in the search",
+              "pfm_name": "LDAPSearchSettingScope",
+              "pfm_range_list": [
+                "LDAPSearchSettingScopeBase",
+                "LDAPSearchSettingScopeOneLevel",
+                "LDAPSearchSettingScopeSubtree"
+              ],
+              "pfm_range_list_titles": ["Base", "One Level", "Subtree"],
+              "pfm_title": "Scope",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": "o=My Company,ou=My Department",
+              "pfm_description": "Conceptually, the path to the the node to start a search at",
+              "pfm_name": "LDAPSearchSettingSearchBase",
+              "pfm_title": "Search Base",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "An LDAP Search Setting",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Search Settings",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "LDAP",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

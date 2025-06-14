@@ -1,0 +1,483 @@
+{
+  "pfm_description": "Login Window settings",
+  "pfm_description_reference": "The Loginwindow payload is designated by specifying com.apple.loginwindow as the PayloadType value. This payload creates managed preferences on all versions of macOS for system and device profiles. Multiple Login-\nwindow payloads may be installed together.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/loginwindow",
+  "pfm_domain": "com.apple.loginwindow",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-09-03T15:13:17.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Loginwindow settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Login Window",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.loginwindow",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.loginwindow",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_name": "PFC_SegmentedControl_0",
+      "pfm_range_list_titles": ["Window", "Options", "Access", "Password"],
+      "pfm_require": "always",
+      "pfm_segments": {
+        "Access": [
+          "AllowList",
+          "DenyList",
+          "LocalUserLoginEnabled",
+          "LocalUsersHaveWorkgroups",
+          "FlattenUserWorkgroups",
+          "CombineUserWorkgroups",
+          "AlwaysShowWorkgroupDialog"
+        ],
+        "Options": [
+          "com.apple.login.mcx.DisableAutoLoginClient",
+          "AutologinUsername",
+          "AutologinPassword",
+          "DisableFDEAutoLogin",
+          "DisableConsoleAccess",
+          "EnableExternalAccounts",
+          "AdminMayDisableMCX",
+          "TALLogoutSavesState",
+          "UseComputerNameForComputerRecordName"
+        ],
+        "Password": ["ChangePasswordDisabled", "RetriesUntilHint"],
+        "Window": [
+          "AdminHostInfo",
+          "LoginwindowText",
+          "SHOWFULLNAME",
+          "HideLocalUsers",
+          "HideMobileAccounts",
+          "IncludeNetworkUser",
+          "HideAdminUsers",
+          "SHOWOTHERUSERS_MANAGED",
+          "SleepDisabled",
+          "RestartDisabled",
+          "ShutDownDisabled",
+          "PowerOffDisabled",
+          "RestartDisabledWhileLoggedIn",
+          "ShutDownDisabledWhileLoggedIn",
+          "PowerOffDisabledWhileLoggedIn",
+          "LogOutDisabledWhileLoggedIn",
+          "DisableScreenLockImmediate",
+          "showInputMenu",
+          "HiddenUsersList"
+        ]
+      },
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "HostName",
+      "pfm_description": "The admin host info. If present in the payload, the system displays its value in the login window as additional computer information. Before macOS 10.10, this string could only contain host name, system version, or IP address. After macOS 10.10, setting this key to any value allows the user to click the time area of the menu bar to toggle through various computer information values.",
+      "pfm_name": "AdminHostInfo",
+      "pfm_range_list": ["HostName", "SystemVersion", "IPAddress"],
+      "pfm_range_list_allow_custom_value": true,
+      "pfm_title": "Show additional information in the menu bar",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The text to display in the login window.",
+      "pfm_name": "LoginwindowText",
+      "pfm_title": "Banner",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system shows the name and password dialog. If 'false', the system displays a list of users.",
+      "pfm_name": "SHOWFULLNAME",
+      "pfm_range_list_titles": ["List of users", "Name and password"],
+      "pfm_title": "Display login window as",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system shows only network and system users when showing a user list.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "SHOWFULLNAME"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "HideLocalUsers",
+      "pfm_title": "Show local users",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system hides mobile account users in a user list. In some cases, mobile users show up as network users.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "SHOWFULLNAME"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "HideMobileAccounts",
+      "pfm_title": "Show mobile accounts",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system shows network users when showing a user list.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "SHOWFULLNAME"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "IncludeNetworkUser",
+      "pfm_title": "Show network users",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system hides administrator users when showing a user list.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "SHOWFULLNAME"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "HideAdminUsers",
+      "pfm_title": "Show Mac computer's administrator accounts",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system displays “Other...” when it shows a list of users.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "SHOWFULLNAME"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "SHOWOTHERUSERS_MANAGED",
+      "pfm_title": "Show \"Other\"",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Sleep button.",
+      "pfm_name": "SleepDisabled",
+      "pfm_title": "Show the Sleep button",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Restart item.",
+      "pfm_name": "RestartDisabled",
+      "pfm_title": "Show the Restart button",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Shut Down button.",
+      "pfm_name": "ShutDownDisabled",
+      "pfm_title": "Show the Shut Down button",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Restart menu item when the user is logged in.",
+      "pfm_name": "RestartDisabledWhileLoggedIn",
+      "pfm_title": "Disable the Restart menu item while logged in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Shut Down menu item when the user is logged in.",
+      "pfm_name": "ShutDownDisabledWhileLoggedIn",
+      "pfm_title": "Disable the Shut Down menu item while logged in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Power Off menu item when the user is logged in.",
+      "pfm_name": "PowerOffDisabledWhileLoggedIn",
+      "pfm_title": "Disable the Power Off menu item while logged in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the Log Out menu item when the user is logged in. Available in macOS 10.13 and later.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "LogOutDisabledWhileLoggedIn",
+      "pfm_title": "Disable the Log Out menu item while logged in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the immediate Screen Lock functions. Available in macOS 10.13 and later.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "DisableScreenLockImmediate",
+      "pfm_title": "Disable the immediate Screen Lock function",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "A loginwindow password will be required to login.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "com.apple.login.mcx.DisableAutoLoginClient",
+      "pfm_title": "Disable automatic login if FileVault is disabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The user short name for an existing user to set up auto login.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "AutologinUsername",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A user password to set up auto login, must match the \"AutologinUsername\" user's current password.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "AutologinPassword",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables the automatic login option when using FileVault.",
+      "pfm_documentation_source": "",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "DisableFDEAutoLogin",
+      "pfm_title": "Disable automatic login if FileVault is enabled",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disregards the '>console' special user name, which provides a command line UI.",
+      "pfm_name": "DisableConsoleAccess",
+      "pfm_title": "Enable >console login",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Allows external accounts to log in.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "EnableExternalAccounts",
+      "pfm_title": "Enable external accounts",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Allows Mac administrators on the computer to refresh or disable the management features.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "AdminMayDisableMCX",
+      "pfm_title": "Mac computer administrators may refresh content or disable management",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Reopens windows that were open at time of logout",
+      "pfm_name": "TALLogoutSavesState",
+      "pfm_title": "Reopen windows when logging back in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "Forces the name of the Mac to be set as the computer record name.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "UseComputerNameForComputerRecordName",
+      "pfm_title": "Set Mac computer name to computer record name",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The list of user GUIDs or group GUIDs of users that the system allows to log in. An asterisk ('*') string specifies all users or groups.",
+      "pfm_name": "AllowList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A user or group GUID.",
+          "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+          "pfm_name": "AllowListItem",
+          "pfm_require": "always",
+          "pfm_title": "User or Group GUID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "ABCDEFAB-CDEF-ABCD-EFAB-CDEF00000050"
+        }
+      ],
+      "pfm_title": "Allowed Users or Groups",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The list of user GUIDs or group GUIDs of users that the system disallows to log in. This list takes priority over the list in the 'AllowList' key.",
+      "pfm_name": "DenyList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A user or group GUID.",
+          "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+          "pfm_name": "DenyListItem",
+          "pfm_require": "always",
+          "pfm_title": "User or Group GUID",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "ABCDEFAB-CDEF-ABCD-EFAB-CDEF00000050"
+        }
+      ],
+      "pfm_title": "Denied Users or Groups",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "Permit only local users to log in. Network users won't be allowed to log in.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "LocalUserLoginEnabled",
+      "pfm_title": "Local-only users may log in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Local users are forced to use any available workgroup settings.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "LocalUsersHaveWorkgroups",
+      "pfm_title": "Local-only users use available workgroup settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "If users are part of a nested workgroup, only the settings of the user's workgroup are enforced.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "FlattenUserWorkgroups",
+      "pfm_title": "Ignore workgroup nesting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "If users are part of a nested workgroup, all nested workgroup settings are enforced.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "CombineUserWorkgroups",
+      "pfm_title": "Combine available workgroup settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "If the workgroup has a specific dialog, that dialog is shown when users log in.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "AlwaysShowWorkgroupDialog",
+      "pfm_title": "Always show workgroup dialog during log in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Enable or disable the \"Change Password…\" button in the Users & Groups preference pane.",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "ChangePasswordDisabled",
+      "pfm_title": "Allow user to change password",
+      "pfm_type": "boolean",
+      "pfm_value_inverted": true
+    },
+    {
+      "pfm_description": "Number of tries until password hint is shown (0 = disable password hints).",
+      "pfm_description_reference": "",
+      "pfm_documentation_source": "",
+      "pfm_name": "RetriesUntilHint",
+      "pfm_title": "Show password hints after failed attempts",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system shows the Input Menu in the login window.",
+      "pfm_documentation_source": "",
+      "pfm_macos_min": "10.8",
+      "pfm_name": "showInputMenu",
+      "pfm_title": "Show input menu in login window",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "Hides users defined in the list from the login window under the Other button",
+      "pfm_description_reference": "Optional. Users defined are hidden from the login list.",
+      "pfm_name": "HiddenUsersList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "",
+          "pfm_format": "(\\p{L}+)",
+          "pfm_name": "username",
+          "pfm_title": "Username",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "user"
+        }
+      ],
+      "pfm_title": "Hidden Users List",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Login Window",
+  "pfm_unique": false,
+  "pfm_version": 7
+}

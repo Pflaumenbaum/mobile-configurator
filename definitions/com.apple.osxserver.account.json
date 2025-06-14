@@ -1,0 +1,132 @@
+{
+  "pfm_description": "Use the macOS Server Accounts payload to specify macOS Server account information allowing an iOS device to use it as a document repository.",
+  "pfm_domain": "com.apple.osxserver.account",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2018-07-18T08:58:51.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures a macOS Server account",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Server Account",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.osxserver.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.osxserver.account",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "My macOS Server Account",
+      "pfm_description": "The display name for the macOS Server Account.",
+      "pfm_name": "AccountDescription",
+      "pfm_require": "always",
+      "pfm_title": "Account Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The IP address or fully qualified domain name (FQDN) of the server.",
+      "pfm_name": "HostName",
+      "pfm_require": "always",
+      "pfm_title": "Hostname",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The name of the user.",
+      "pfm_name": "UserName",
+      "pfm_require": "always",
+      "pfm_title": "User Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password for the user.",
+      "pfm_name": "Password",
+      "pfm_title": "Account Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The port on macOS Server over which the connection is established.",
+      "pfm_name": "ConfiguredAccounts",
+      "pfm_range_max": 1,
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Configured account type and relevant settings",
+          "pfm_name": "ConfiguredAccount",
+          "pfm_subkeys": [
+            {
+              "pfm_default": "com.apple.osxserver.documents",
+              "pfm_description": "Must be com.apple.osxserver.documents (the Documents account type).",
+              "pfm_hidden": "all",
+              "pfm_name": "Type",
+              "pfm_require": "always",
+              "pfm_title": "Account Type",
+              "pfm_type": "string"
+            },
+            {
+              "pfm_default": 8071,
+              "pfm_description": "The port on which to connect to the server.",
+              "pfm_name": "Port",
+              "pfm_range_max": 65535,
+              "pfm_range_min": 0,
+              "pfm_title": "Port Number",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Configured Account",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Documents Server Port",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "macOS Server Accounts",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

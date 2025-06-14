@@ -1,0 +1,262 @@
+{
+  "pfm_description": "Single App Mode settings",
+  "pfm_description_reference": "The App Lock payload is designated by specifying com.apple.app.lock as the PayloadType value. Only one of this payload type can be installed at any time. This payload can be installed only on a Supervised device.\nBy installing an app lock payload, the device is locked to a single application until the payload is removed. The home button is disabled, and the device returns to the specified application automatically upon wake or reboot.\nThis payload is supported only in iOS 6.0 and later.",
+  "pfm_domain": "com.apple.app.lock",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exclusive",
+  "pfm_ios_min": "6.0",
+  "pfm_last_modified": "2023-08-15T08:00:00.000Z",
+  "pfm_note": "You canʼt update any app while the device is locked in Single App Mode. You need to exit Single App Mode long enough to update apps as needed. During that time you should restrict the visible apps as much as possible, except for Settings and Phone and any other apps that cannot be denylisted.",
+  "pfm_platforms": ["iOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Single App Mode",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Single App Mode",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.app.lock",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.app.lock",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile. The payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "A dictionary containing information about the app",
+      "pfm_description_reference": "A dictionary containing information about the app.",
+      "pfm_name": "App",
+      "pfm_require": "always",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The bundle identifier of the application.",
+          "pfm_description_reference": "The bundle identifier of the application.",
+          "pfm_name": "Identifier",
+          "pfm_require": "always",
+          "pfm_title": "Identifier",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "Settings enforced when in Single App Mode",
+          "pfm_description_reference": "Optional. Described below.\nAvailability: Available only in iOS 7.0 and later.",
+          "pfm_ios_min": "7.0",
+          "pfm_name": "Options",
+          "pfm_subkeys": [
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Touch Screen",
+              "pfm_description_reference": "Optional. If true, the touch screen is disabled. Default is false. Also, available in tvOS 10.2 and later to lock the touch pad on the remote.",
+              "pfm_name": "DisableTouch",
+              "pfm_title": "Disable Touch",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Device Rotation",
+              "pfm_description_reference": "Optional. If true, device rotation sensing is disabled. Default is false.",
+              "pfm_name": "DisableDeviceRotation",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Disable Device Rotation",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Volume Buttons",
+              "pfm_description_reference": "Optional. If true, the volume buttons are disabled. Default to false.",
+              "pfm_name": "DisableVolumeButtons",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Disable Volume Buttons",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Ringer Switch",
+              "pfm_description_reference": "Optional. If true, the ringer switch is disabled. Default is false. When disabled, the ringer behavior depends on what position the switch was in when it was first disabled.",
+              "pfm_name": "DisableRingerSwitch",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Disable Ringer Switch",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Sleep Wake Button",
+              "pfm_description_reference": "Optional. If true, the sleep/wake button is disabled. Default is false.",
+              "pfm_name": "DisableSleepWakeButton",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Disable Sleep Wake Button",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Disable Auto Lock",
+              "pfm_description_reference": "Optional. If true, the device will not automatically go to sleep after an idle period. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "DisableAutoLock",
+              "pfm_title": "Disable Auto Lock",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Voice Over",
+              "pfm_description_reference": "Optional. If true, VoiceOver is turned on. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "EnableVoiceOver",
+              "pfm_title": "Enable Voice Over",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Zoom",
+              "pfm_description_reference": "Optional. If true, Zoom is turned on. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "EnableZoom",
+              "pfm_title": "Enable Zoom",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Inverted Colors",
+              "pfm_description_reference": "Optional. If true, Invert Colors is turned on. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "EnableInvertColors",
+              "pfm_title": "Enable Invert Colors",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Assistive Touch",
+              "pfm_description_reference": "Optional. If true, AssistiveTouch is turned on. Default is false.",
+              "pfm_name": "EnableAssistiveTouch",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Enable Assistive Touch",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Speak Selection",
+              "pfm_description_reference": "Optional. If true, Speak Selection is turned on. Default is false.",
+              "pfm_name": "EnableSpeakSelection",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Enable Speak Selection",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Enable Mono Audio",
+              "pfm_description_reference": "Optional. If true, Mono Audio is turned on. Default is false.",
+              "pfm_name": "EnableMonoAudio",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Enable Mono Audio",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "Options",
+          "pfm_type": "dictionary"
+        },
+        {
+          "pfm_description": "Allow the user to change these settings when in Single App Mode",
+          "pfm_description_reference": "Optional. Described below.\nAvailability: Available only in iOS 7.0 and later.",
+          "pfm_ios_min": "7.0",
+          "pfm_name": "UserEnabledOptions",
+          "pfm_subkeys": [
+            {
+              "pfm_default": false,
+              "pfm_description": "Allow user to enable Voice Over",
+              "pfm_description_reference": "Optional. If true, allow VoiceOver adjustment. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "VoiceOver",
+              "pfm_title": "Voice Over",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Allow user to enable Zoom",
+              "pfm_description_reference": "Optional. If true, allow Zoom adjustment. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "Zoom",
+              "pfm_title": "Zoom",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Allow user to enable Inverted Colors",
+              "pfm_description_reference": "Optional. If true, allow Zoom adjustment. Default is false. Also, available in tvOS 10.2 and later.",
+              "pfm_name": "InvertColors",
+              "pfm_title": "Invert Colors",
+              "pfm_tvos_min": "10.2",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "Allow user to enable Assistive Touch",
+              "pfm_description_reference": "Optional. If true, allow AssistiveTouch adjustment. Default is false.",
+              "pfm_name": "AssistiveTouch",
+              "pfm_platforms": ["iOS"],
+              "pfm_title": "Assistive Touch",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "User Enabled Options",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "App",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_supervised": true,
+  "pfm_targets": ["system"],
+  "pfm_title": "Single App Mode",
+  "pfm_unique": true,
+  "pfm_version": 2
+}

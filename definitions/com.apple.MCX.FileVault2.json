@@ -1,0 +1,170 @@
+{
+  "pfm_description": "Use this section to define settings for FileVault 2",
+  "pfm_description_reference": "In macOS 10.9, you can use FileVault 2 to perform full XTS-AES 128 encryption on the contents of a volume. FileVault 2 payloads are designated by specifying com.apple.MCX.FileVault2 as the PayloadType value. Removal of the FileVault payload does not disable FileVault.",
+  "pfm_domain": "com.apple.MCX.FileVault2",
+  "pfm_format_version": 1,
+  "pfm_interaction": "undefined",
+  "pfm_last_modified": "2025-03-03T11:08:08.000Z",
+  "pfm_macos_max": "10.12.6",
+  "pfm_macos_min": "10.9",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures FileVault 2 settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "FDE FileVault",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX.FileVault2",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.MCX.FileVault2",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Set to 'On' to enable FileVault and set to 'Off' to disable FileVault. Payloads set to 'On' sent through MDM need to either include full authentication information in the payload or have the 'Defer' option set to 'true'. When 'Defer' is 'true', the system prompts for the authentication information when the user enables FileVault.",
+      "pfm_name": "Enable",
+      "pfm_range_list": ["On", "Off"],
+      "pfm_require": "always",
+      "pfm_title": "Enable FileVault 2",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system defers enabling FileVault until the designated user logs out. For details, see 'fdesetup(8)'. Only a local user or a mobile account user can enable FileVault.",
+      "pfm_name": "Defer",
+      "pfm_title": "Defer enabling until logout",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables a prompt for missing user name or password fields.",
+      "pfm_name": "UserEntersMissingInfo",
+      "pfm_title": "User enters username and password",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'true', the system creates a personal recovery key and displays it to the user.",
+      "pfm_name": "UseRecoveryKey",
+      "pfm_title": "Create a personal recovery key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents display of the personal recovery key to the user after the system enables FileVault.",
+      "pfm_name": "ShowRecoveryKey",
+      "pfm_title": "Show the personal recovery key",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The path to the location of the recovery key and computer information property list.",
+      "pfm_name": "OutputPath",
+      "pfm_title": "Recovery key path",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_allowed_file_types": ["public.x509-certificate"],
+      "pfm_description": "The DER-encoded certificate data if the system creates an institutional recovery key. This key isn't supported on Macs with Apple silicon.",
+      "pfm_name": "Certificate",
+      "pfm_title": "Certificate",
+      "pfm_type": "data"
+    },
+    {
+      "pfm_description": "The UUID of the payload within the same profile containing the asymmetric recovery key certificate payload.",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Recovery Key Certificate Payload",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The user name of the Open Directory user to add to FileVault.",
+      "pfm_name": "Username",
+      "pfm_title": "Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password of the Open Directory user to add to FileVault. Use the 'UserEntersMissingInfo' key to prompt for this information.",
+      "pfm_name": "Password",
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true' and you don't include certificate information in this payload, the system uses the keychain created at '/Library/Keychains/FileVaultMaster.keychain' when it adds the institutional recovery key.",
+      "pfm_name": "UseKeychain",
+      "pfm_title": "Add institutional recovery key to keychain",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The maximum number of times users can bypass enabling FileVault before the system requires the user to enable it to log in. If the value is '0', the system requires the user to enable FileVault the next time they attempt to log in. Set this key to '-1' to disable this feature.",
+      "pfm_macos_min": "10.10.0",
+      "pfm_name": "DeferForceAtUserLoginMaxBypassAttempts",
+      "pfm_range_max": 9999,
+      "pfm_range_min": -1,
+      "pfm_title": "Maximum number of times FileVault can be skipped",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system prevents requests to enable FileVault at user logout time.",
+      "pfm_macos_min": "10.10",
+      "pfm_name": "DeferDontAskAtUserLogout",
+      "pfm_title": "Dont ask at logout",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', and installation of this payload occurs after enrolling with MDM in Setup Assistant, the system requests Setup Assistant to enable FileVault at setup time.\nTo use this, enable the Await Device Configured DEP configuration option and send this profile with this key set, before sending the DeviceConfiguredCommand.\nAn admin SecureToken user is required, otherwise the FileVault pane does not appear.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "ForceEnableInSetupAssistant",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "FDE FileVault",
+  "pfm_unique": false,
+  "pfm_version": 6
+}

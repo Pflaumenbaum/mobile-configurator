@@ -1,0 +1,127 @@
+{
+  "pfm_description": "Xsan Preference settings",
+  "pfm_description_reference": "The payload for configuring the Xsan preferences that define the volumes that automatically mount at startup.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/xsanpreferences",
+  "pfm_domain": "com.apple.xsan.preferences",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2020-04-28T13:19:18.000Z",
+  "pfm_macos_min": "10.11",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Xsan Preferences settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Xsan Preferences",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.xsan.preferences",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.xsan.preferences",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description_reference": "If true, use the DLC for all volumes.",
+      "pfm_name": "useDLC",
+      "pfm_title": "Use Distributed LAN Client (DLC)",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description_reference": "An array of Xsan or StorNext volume names. The Xsan client attempts to automatically mount these volumes at startup. The system administrator can mount additional volumes manually by using the xsanctl(8) mount command.",
+      "pfm_name": "onlyMount",
+      "pfm_subkeys": [
+        {
+          "pfm_title": "Xsan or StorNext Volume Name",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Only Mount",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description_reference": "An array of Xsan or StorNext volume names. If no onlyMount array is present, the Xsan client automatically attempts to mount all SAN volumes except the volumes in this array. The system administrator can mount those volumes manually by using the xsanctl(8) mount command.",
+      "pfm_name": "denyMount",
+      "pfm_subkeys": [
+        {
+          "pfm_title": "Xsan or StorNext Volume Name",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Deny Mount",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description_reference": "An array of StorNext volume names. If the Xsan client is attempting to mount a volume named in this array, the Xsan client attempts to mount the volume using DLC. If DLC isn't available, the client attempts to mount the volume if its LUNs are available through Fibre Channel. The volume name must not also appear in denyDLC.",
+      "pfm_name": "preferDLC",
+      "pfm_subkeys": [
+        {
+          "pfm_title": "StorNext Volume Name",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Prefer DLC",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description_reference": "An array of StorNext volume names. If the Xsan client is attempting to mount a volume named in this array, the client only mounts the volume if its logical units (LUNs) are available through Fibre Channel. It doesn't attempt to mount the volume using Distributed LAN Client (DLC).",
+      "pfm_name": "denyDLC",
+      "pfm_subkeys": [
+        {
+          "pfm_title": "StorNext Volume Name",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Deny DLC",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Xsan Preferences",
+  "pfm_unique": false,
+  "pfm_version": 1
+}

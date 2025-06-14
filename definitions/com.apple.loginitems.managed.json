@@ -1,0 +1,117 @@
+{
+  "pfm_description": "Login Items settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/loginitemsmanageditems",
+  "pfm_domain": "com.apple.loginitems.managed",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2022-12-08T10:00:00.000Z",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Login Items settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Login Items",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.loginitems.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.loginitems.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Automatically launch these items at login.",
+      "pfm_documentation_url": "https://github.com/ProfileCreator/ProfileCreator/wiki/Login-Items",
+      "pfm_name": "AutoLaunchedApplicationDictionary-managed",
+      "pfm_note": "For each individual item, you should only supply a Path (for local apps and items) or a URL (for remote resources). The `AuthenticateAsLoginUserShortName` should only be used when supplying a URL.\n\nWhen exporting a profile, you will need to manually remove the extraneous keys from the profile. This is a limitation with ProfileCreator. Click the documentation link above this note for more information.",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "Automatically Launched Login Item",
+          "pfm_name": "AutoLaunchedApplicationItem",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_default": false,
+              "pfm_description": "If true, hide this item in the Users & Groups login items list.",
+              "pfm_name": "Hide",
+              "pfm_title": "Hide",
+              "pfm_type": "boolean"
+            },
+            {
+              "pfm_description": "Path to the item's location.",
+              "pfm_name": "Path",
+              "pfm_title": "Path",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "/Applications/Safari.app"
+            },
+            {
+              "pfm_description": "URL to mount in the form scheme://mount.point/Share",
+              "pfm_format": "^(afp|nfs|smb)\\:\\/\\/.*",
+              "pfm_name": "URL",
+              "pfm_title": "URL",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "afp://192.168.10.10/Volume"
+            },
+            {
+              "pfm_description": "Authenticate to the URL with the current users short name. Required if URL is specified, but not for Path",
+              "pfm_name": "AuthenticateAsLoginUserShortName",
+              "pfm_title": "Authenticate with short name",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "Login Item",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "Automatically launched items",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "Login Items",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

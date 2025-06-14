@@ -1,0 +1,47 @@
+{
+  "short_name": "Configurator",
+  "name": "Mobile Configurator",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/handle-audio-file",
+      "accept": {
+        "application/x-apple-aspen-config": [".mobileconfig"],
+        "application/xml": [".xml"],
+        "application/x-plist": [".plist"]
+      }
+    }
+  ],
+  "start_url": ".",
+  "description": "MobileConfigurator is an open-source, cross-platform configuration profile editor built with Expo",
+  "display": "standalone",
+  "theme_color": "#f0ebf4",
+  "categories": ["utilities"],
+  "background_color": "#fefbfe"
+}

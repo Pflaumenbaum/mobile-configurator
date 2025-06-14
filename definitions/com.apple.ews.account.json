@@ -1,0 +1,244 @@
+{
+  "pfm_description": "Exchange Web Services settings",
+  "pfm_description_reference": "In macOS, the Exchange payload is designated by specifying com.apple.ews.account as the PayloadType value. This payload will configure an Exchange Web Services account for Contacts, Mail, Notes, Reminders, and Calendar.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/exchangewebservices",
+  "pfm_domain": "com.apple.ews.account",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2024-08-20T09:06:20.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_note": "As with VPN and Wi-Fi configurations, it is possible to associate an SCEP credential with an Exchange configu- ration via the PayloadCertificateUUID key.",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures an Exchange account",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "push",
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "IdentificationUUID"
+            }
+          ]
+        }
+      ],
+      "pfm_default": "Exchange Web Services",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_enabled": true,
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.ews.account",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.ews.account",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "push",
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "IdentificationUUID"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The user name for this Exchange account. Required for noninteractive installation, such as through MDM. If missing, the system prompts the user for it during interactive profile installation.",
+      "pfm_name": "UserName",
+      "pfm_title": "Account user name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "push",
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "IdentificationUUID"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The full email address for the account. If the email address string isn't present in the payload, the device prompts for it during profile installation.",
+      "pfm_name": "EmailAddress",
+      "pfm_title": "Account email address",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password of the account. Use only with encrypted profiles.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [true],
+              "pfm_target": "OAuth"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "Password",
+      "pfm_sensitive": true,
+      "pfm_title": "Account password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default_copy": "com.apple.configurationprofile.identification@PayloadUUID",
+      "pfm_description": "The UUID of the Identification Payload to use as the source for user values.",
+      "pfm_name": "IdentificationUUID",
+      "pfm_title": "IdentificationUUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The Exchange server host name or IP address. Ignored if using OAuth.",
+      "pfm_name": "Host",
+      "pfm_title": "Internal Exchange Host",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The server port number.",
+      "pfm_name": "Port",
+      "pfm_range_max": 65535,
+      "pfm_range_min": 0,
+      "pfm_title": "Internal Exchange Host Port",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The server path.",
+      "pfm_name": "Path",
+      "pfm_title": "Internal server path",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'true', the system enables SSL.",
+      "pfm_name": "SSL",
+      "pfm_title": "Use SSL for Internal Exchange Host",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The external server address.",
+      "pfm_name": "ExternalHost",
+      "pfm_title": "External Exchange Host",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The external server port number.",
+      "pfm_name": "ExternalPort",
+      "pfm_range_max": 65535,
+      "pfm_range_min": 0,
+      "pfm_title": "External Exchange Host Port",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The external server path.",
+      "pfm_name": "ExternalPath",
+      "pfm_title": "External server path",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'true', the system enables SSL for connections to the external server.",
+      "pfm_name": "ExternalSSL",
+      "pfm_title": "Use SSL for External Exchange Host",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables OAuth for authentication. Don't specify a password if 'OAuth' is 'true'. Available in macOS 10.14 and later",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "OAuth",
+      "pfm_title": "Use OAuth",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The URL to load into a web view for authentication through OAuth when autodiscovery isn't used. This setting requires a 'Host' value.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "Host"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.14",
+      "pfm_name": "OAuthSignInURL",
+      "pfm_title": "URL for OAuth sign-in",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The UUID of the certificate payload within the same profile to use for the identity credential. Supported on macOS 10.12 or later.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Payload Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The UUID of the certificate payload within the same profile to use for the identity credential. Supported on macOS 10.11 or later. On macOS 10.12 or later use the PayloadCertificateUUID.",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "AuthenticationCertificateUUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system enables Mail Drop.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowMailDrop",
+      "pfm_title": "Allow Mail Drop",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["user"],
+  "pfm_title": "Exchange Web Services",
+  "pfm_unique": false,
+  "pfm_version": 4
+}

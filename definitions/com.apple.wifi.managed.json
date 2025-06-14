@@ -1,0 +1,1161 @@
+{
+  "pfm_description": "Use this section to define Wi-Fi settings",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/wifi",
+  "pfm_domain": "com.apple.wifi.managed",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_ios_min": "4.0",
+  "pfm_last_modified": "2024-09-10T12:46:34.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["iOS", "macOS", "tvOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define Wi-Fi settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Wi-Fi",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.wifi.managed",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.wifi.managed",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Type of network interface on the device.",
+      "pfm_excluded": true,
+      "pfm_name": "PFC_InterfaceSelector",
+      "pfm_range_list": ["BuiltInWireless", "Hotspot", "Hotspot2"],
+      "pfm_range_list_titles": ["Wi-Fi", "Legacy Hotspot", "Passpoint"],
+      "pfm_require": "always",
+      "pfm_title": "Network Interface",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_contains_any": ["Hotspot", "Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_default": false,
+      "pfm_description": "If 'true', the device treats the network as a hotspot. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_contains_any": ["Hotspot", "Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "IsHotspot",
+      "pfm_title": "Is Hotspot",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_contains_any": ["BuiltInWireless", "Hotspot"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        },
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The SSID of the Wi-Fi network to use. In iOS 7.0 and later, the SSID is optional if a value exists for 'DomainName' value.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "SSID_STR",
+      "pfm_title": "Service Set Identifier (SSID)",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', defines this network as hidden.",
+      "pfm_name": "HIDDEN_NETWORK",
+      "pfm_title": "Hidden Network",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'true', the device joins the network automatically.\nIf 'false', the user must tap the network name to join it.\nAvailable in iOS 5.0 and later, and in macOS 10.7 and later.",
+      "pfm_ios_min": "5.0",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "AutoJoin",
+      "pfm_title": "Auto Join",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system bypasses Captive Network detection when the device connects to the network. Available in iOS 10.0 and later.",
+      "pfm_ios_min": "10.0",
+      "pfm_name": "CaptiveBypass",
+      "pfm_platforms": ["iOS", "tvOS"],
+      "pfm_title": "Disable Captive Network Detection",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true,' disables MAC address randomization for a Wi-Fi network while associated with that network. This feature also shows a privacy warning in Settings indicating that the network has reduced privacy protections.\nIf 'false', then the system enables MAC address randomization on iOS, watchOS, and visionOS.\nThis value is only locked when MDM installs the profile. If the profile is manually installed, the system sets the value but the user can change it. Available in iOS 14 and later, watchOS 7 and later, macOS 15 and later, and visionOS.",
+      "pfm_ios_min": "14.0",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "DisableAssociationMACRandomization",
+      "pfm_platforms": ["iOS", "macOS"],
+      "pfm_title": "Disable MAC address randomization during association",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'true', enables IPv6 on this interface.",
+      "pfm_name": "EnableIPv6",
+      "pfm_title": "Enable IPv6",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": "None",
+      "pfm_description": "The proxy type, if any, to use. If you choose the manual proxy type, you need the proxy server address, including its port and optionally a user name and password into the proxy server. If you choose the auto proxy type, you can enter a proxy autoconfiguration (PAC) URL. Available in iOS 5.0 and later, and on all versions of macOS.",
+      "pfm_ios_min": "5.0",
+      "pfm_name": "ProxyType",
+      "pfm_range_list": ["None", "Manual", "Auto"],
+      "pfm_title": "Proxy Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            },
+            {
+              "pfm_present": true,
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The proxy server's network address.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyServer",
+      "pfm_title": "Proxy Server",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            },
+            {
+              "pfm_present": true,
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The proxy server's port number.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyServerPort",
+      "pfm_range_max": 65535,
+      "pfm_range_min": 0,
+      "pfm_title": "Proxy Server Port",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The user name used to authenticate to the proxy server.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyUsername",
+      "pfm_title": "Proxy Username",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password used to authenticate to the proxy server.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Manual"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyPassword",
+      "pfm_sensitive": true,
+      "pfm_title": "Proxy Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The URL of the PAC file that defines the proxy configuration.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Auto"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyPACURL",
+      "pfm_title": "Proxy PAC URL",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', allows connecting directly to the destination if the PAC file is unreachable.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": ["Auto"],
+              "pfm_target": "ProxyType"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "ProxyPACFallbackAllowed",
+      "pfm_title": "Proxy PAC Fallback Allowed",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": "Any",
+      "pfm_description": "The encryption type for the network.\nIf set to anything except 'None', the payload may contain the following three keys: 'Password', 'PayloadCertificateUUID', or 'EAPClientConfiguration'.\nAs of iOS 16, tvOS 16, watchOS 9, and macOS 13:\n* 'WPA' allows joining WPA or WPA2 networks\n* 'WPA2' allows joining WPA2 or WPA3 networks\n* 'WPA3' allows joining WPA3 networks only\n* 'Any' allows joining WPA, WPA2, WPA3, and WEP networks\nPrior to iOS 16, tvOS 16, and watchOS 9, specifying 'WPA', 'WPA2', and 'WPA3' were equivalent and would allow joining any WPA network.\nPrior to macOS 13, the encryption type, if specified explicitly, needed to match the encryption type of the network exactly.",
+      "pfm_ios_min": "4.0",
+      "pfm_name": "EncryptionType",
+      "pfm_range_list": ["WEP", "WPA", "WPA2", "WPA3", "Any", "None"],
+      "pfm_range_list_titles": [
+        "WEP",
+        "WPA and WPA2",
+        "WPA2 and WPA3",
+        "WPA3",
+        "Any",
+        "None"
+      ],
+      "pfm_title": "Encryption Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The password for the access point.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["None"],
+              "pfm_target": "EncryptionType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "EAPClientConfiguration"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "Password",
+      "pfm_sensitive": true,
+      "pfm_title": "Password",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The operator name to display when connected to this network. Used only with Wi-Fi Hotspot 2.0 access points. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "DisplayedOperatorName",
+      "pfm_title": "Displayed Operator Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The primary domain of the tunnel. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "DomainName",
+      "pfm_title": "Domain Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', allows connection to roaming service providers. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "ServiceProviderRoamingEnabled",
+      "pfm_title": "Roaming Enable",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array of Roaming Consortium Organization Identifiers used for Wi-Fi Hotspot 2.0 negotiation. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "RoamingConsortiumOIs",
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^([0-9A-Za-z]{6})|([0-9A-Za-z]{9})$",
+          "pfm_name": "RoamingConsortiumOI",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Roaming OIs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of Network Access Identifier Realm names used for Wi-Fi Hotspot 2.0 negotiation. Available in iOS 7.0 and later, and in macOS 10.9 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_macos_min": "10.9",
+      "pfm_name": "NAIRealmNames",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "NAIRealmName",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "Realm Names",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "An array of Mobile Country Code/Mobile Network Code (MCC/MNC) pairs used for Wi-Fi Hotspot 2.0 negotiation. Each string must contain exactly six digits. Available in iOS 7.0 and later. This feature isn't supported in macOS.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "MCCAndMNCs",
+      "pfm_platforms": ["iOS", "tvOS"],
+      "pfm_subkeys": [
+        {
+          "pfm_format": "^[0-9]{6}$",
+          "pfm_name": "MCCAndMNC",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "MCC/MNCs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_description": "The HESSID used for Wi-Fi Hotspot 2.0 negotiation.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": [false],
+              "pfm_target": "IsHotspot"
+            },
+            {
+              "pfm_present": false,
+              "pfm_target": "DomainName"
+            },
+            {
+              "pfm_n_range_list": ["Hotspot2"],
+              "pfm_target": "PFC_InterfaceSelector"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "HESSID",
+      "pfm_title": "Homogenous Extended Service Set Identifier (HESSID)",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "An array of strings that contain the type of connection mode to attach.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "EAPClientConfiguration"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.7",
+      "pfm_name": "SetupModes",
+      "pfm_platforms": ["macOS"],
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A type of connection mode.",
+          "pfm_name": "SetupModesItem",
+          "pfm_range_list": ["System", "Loginwindow"],
+          "pfm_range_list_titles": ["System", "Login Window"],
+          "pfm_require": "always",
+          "pfm_title": "Setup Mode",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_title": "EAP Setup Modes",
+      "pfm_type": "array",
+      "pfm_type_input": "boolean"
+    },
+    {
+      "pfm_description": "The enterprise network configuration.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_range_list": ["None"],
+              "pfm_target": "EncryptionType"
+            }
+          ]
+        },
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": true,
+              "pfm_target": "Password"
+            }
+          ]
+        }
+      ],
+      "pfm_name": "EAPClientConfiguration",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The EAP types that the system accepts. Allowed values:\n\n* 13: TLS\n* 17: LEAP\n* 18: EAP-SIM\n* 21: TTLS\n* 23: EAP-AKA\n* 25: PEAP\n* 43: EAP-FAST\n\nFor EAP-TLS authentication without a network payload, install the necessary identity certificates and have your users select EAP-TLS mode in the 802.1X credentials dialog that appears when they connect to the network. For other EAP types, a network payload is necessary and must specify the correct settings for the network.",
+          "pfm_name": "AcceptEAPTypes",
+          "pfm_note": "For EAP-TLS authentication without a network payload, install the necessary identity certificates and have your users select EAP-TLS mode in the 802.1X credentials dialog that appears when they connect to the network.",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "An integer representing an EAP type, inside of the Accept EAP Types array.",
+              "pfm_name": "EAPType",
+              "pfm_range_list": [13, 17, 18, 21, 23, 25, 43],
+              "pfm_range_list_titles": [
+                "TLS",
+                "LEAP",
+                "EAP-SIM",
+                "TTLS",
+                "EAP-AKA",
+                "PEAP",
+                "EAP-FAST"
+              ],
+              "pfm_title": "EAP Type",
+              "pfm_type": "integer"
+            }
+          ],
+          "pfm_title": "Accept EAP Types",
+          "pfm_type": "array",
+          "pfm_type_input": "boolean"
+        },
+        {
+          "pfm_description": "The user name for the account. If you don't specify a value, the system prompts the user during login.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "UserName",
+          "pfm_title": "Username",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "push",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                },
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.OneTimeUserPassword"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "The user's password. If you don't specify a value, the system prompts the user during login.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.OneTimeUserPassword"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "UserPassword",
+          "pfm_sensitive": true,
+          "pfm_title": "Password",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the user receives a prompt for a password each time they connect to the network.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [17, 21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "8.0",
+          "pfm_macos_min": "10.8",
+          "pfm_name": "OneTimeUserPassword",
+          "pfm_title": "Per-Connection Password",
+          "pfm_tvos_min": "9.0",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "An array of the UUID of a certificate payloads in the same profile to trust for authentication. Use this key to prevent the device from asking the user whether to trust the listed certificates. Dynamic trust (the certificate dialogue) is in a disabled state if you specify this property without also enabling 'TLSAllowTrustExceptions'.",
+          "pfm_name": "PayloadCertificateAnchorUUID",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A UUID for a trusted certificate",
+              "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+              "pfm_name": "CertificateAnchorUUID",
+              "pfm_title": "Individual Certificate Anchor UUID",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Certificate Anchor UUID",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The list of accepted server certificate common names. If a server presents a certificate that isn't in this list, the system doesn't trust it.\nIf you specify this property, the system disables dynamic trust (the certificate dialog) unless you also specify 'TLSAllowTrustExceptions' with the value 'true'.\nIf necessary, use wildcards to specify the name, such as 'wpa.*.example.com'.",
+          "pfm_name": "TLSTrustedServerNames",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "An item in the TLS Trusted Server Names array representing a Common Name of a server certificate.",
+              "pfm_name": "TLSTrustedServerName",
+              "pfm_title": "Individual Trusted TLS Server Name",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "TLS Trusted Server Names",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true', allows a dynamic trust decision by the user. The dynamic trust is the certificate dialogue that appears when the system doesn't trust a certificate.\nIf 'false', the authentication fails if the system doesn't already trust the certificate.\nAs of iOS 8, Apple no longer supports this key.",
+          "pfm_ios_deprecated": "7.1.2",
+          "pfm_ios_max": "7.1.2",
+          "pfm_name": "TLSAllowTrustExceptions",
+          "pfm_title": "Allow Trust Exceptions",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [21],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_default": "MSCHAPv2",
+          "pfm_description": "The inner authentication that the TTLS module uses.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "TTLSInnerAuthentication",
+          "pfm_range_list": ["PAP", "EAP", "CHAP", "MSCHAP", "MSCHAPv2"],
+          "pfm_title": "TTLS Inner Authentication",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_range_list": ["1.3"],
+                  "pfm_target": "EAPClientConfiguration.TLSMinimumVersion"
+                }
+              ]
+            }
+          ],
+          "pfm_description": "A name that hides the user's true name. The user's actual name appears only inside the encrypted tunnel. For example, you might set this to anonymous or anon, or anon@mycompany.net. It can increase security because an attacker can't see the authenticating user's name in the clear.\nThis key is only relevant to TTLS, PEAP, and EAP-FAST.\nThis field is required if 'TLSMinimumVersion' is '1.3'.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "OuterIdentity",
+          "pfm_title": "Outer Identity",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "1.0",
+          "pfm_description": "The minimum TLS version for EAP authentication.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "11.0",
+          "pfm_macos_min": "10.13",
+          "pfm_name": "TLSMinimumVersion",
+          "pfm_range_list": ["1.0", "1.1", "1.2", "1.3"],
+          "pfm_title": "TLS Minimum Version",
+          "pfm_tvos_min": "11.0",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": "1.2",
+          "pfm_description": "The maximum TLS version for EAP authentication.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [21, 25, 43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "11.0",
+          "pfm_macos_min": "10.13",
+          "pfm_name": "TLSMaximumVersion",
+          "pfm_range_list": ["1.0", "1.1", "1.2", "1.3"],
+          "pfm_title": "TLS Maximum Version",
+          "pfm_tvos_min": "11.0",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the device uses an existing PAC if it's present. Otherwise, the server must present its identity using a certificate.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTUsePAC",
+          "pfm_title": "Use PAC",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_conditionals": [
+            {
+              "pfm_require": "always",
+              "pfm_target_conditions": [
+                {
+                  "pfm_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                },
+                {
+                  "pfm_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTUsePAC"
+                }
+              ]
+            }
+          ],
+          "pfm_default": false,
+          "pfm_description": "If 'true', allows PAC provisioning.\n\nThis value is only applicable if 'EAPFASTUsePAC' is 'true'. This value must be 'true' for EAP-FAST PAC usage to succeed because there's no other way to provision a PAC.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTUsePAC"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTProvisionPAC",
+          "pfm_title": "Provision PAC",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', provisions the device anonymously. Note that there are known machine-in-the-middle attacks for anonymous provisioning.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [43],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            },
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_range_list": [true],
+                  "pfm_target": "EAPClientConfiguration.EAPFASTProvisionPAC"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "EAPFASTProvisionPACAnonymously",
+          "pfm_title": "Provision PAC Anonymously",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": 3,
+          "pfm_description": "The minimum number of RAND values to accept from the server.\nFor use with EAP-SIM only.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [18],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "8.0",
+          "pfm_name": "EAPSIMNumberOfRANDs",
+          "pfm_range_list": [2, 3],
+          "pfm_title": "Allow Two RANDs",
+          "pfm_type": "integer"
+        },
+        {
+          "pfm_description": "Set this string to 'ActiveDirectory' to use the AD computer name and password credentials.\nIf using this property, you can't use 'SystemModeUseOpenDirectoryCredentials'.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_present": true,
+                  "pfm_target": "EAPClientConfiguration.SystemModeUseOpenDirectoryCredentials"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "SystemModeCredentialsSource",
+          "pfm_range_list": ["ActiveDirectory"],
+          "pfm_range_list_titles": ["Active Directory"],
+          "pfm_title": "System Profile Credentials Source",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', the system mode connection tries to use the Open Directory credentials.\nIf using this property, you can't use 'SystemModeCredentialsSource'.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_present": true,
+                  "pfm_target": "EAPClientConfiguration.SystemModeCredentialsSource"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "SystemModeUseOpenDirectoryCredentials",
+          "pfm_title": "Use OpenDirectory System Profile Credentials",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "An array of trusted certificates. Each entry in the array must contain certificate data that represents an anchor certificate used for verifying the server certificate.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [13],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_name": "TLSTrustedCertificates",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "A certificate identifier.",
+              "pfm_name": "TLSTrustedCertificatesItem",
+              "pfm_require": "always",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "TLS Trusted Certificates",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_default": false,
+          "pfm_description": "If 'true', allows for two-factor authentication for EAP-TTLS, PEAP, or EAP-FAST. If 'false', allows for zero-factor authentication for EAP-TLS.\nIf you don't specify a value, the default is 'true' for EAP-TLS, and 'false' for other EAP types.",
+          "pfm_exclude": [
+            {
+              "pfm_target_conditions": [
+                {
+                  "pfm_n_contains_any": [13],
+                  "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+                }
+              ]
+            }
+          ],
+          "pfm_ios_min": "7.0",
+          "pfm_name": "TLSCertificateIsRequired",
+          "pfm_type": "boolean"
+        }
+      ],
+      "pfm_title": "EAP Client Configuration",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_description": "A dictionary that contains the list of apps that the system allows to benefit from L2 and L3 marking. When this dictionary isn't present, the system allows all apps to use L2 and L3 marking when the Wi-Fi network supports Cisco QoS fast lane. Available in iOS 10.0 and later, and in macOS 10.13 and later.",
+      "pfm_ios_min": "10.0",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "QoSMarkingPolicy",
+      "pfm_subkeys": [
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true', disables L3 marking and only uses L2 marking for traffic that goes to the Wi-Fi network.\n\nIf 'false', the system behaves as if Wi-Fi doesn't have an association with a Cisco QoS fast lane network.",
+          "pfm_name": "QoSMarkingEnabled",
+          "pfm_title": "Allow QoS marking",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_default": true,
+          "pfm_description": "If 'true', adds audio and video traffic of built-in audio/video services, such as FaceTime and Wi-Fi Calling, to the allow list for L2 and L3 marking for traffic that goes to the Wi-Fi network.",
+          "pfm_name": "QoSMarkingAppleAudioVideoCalls",
+          "pfm_title": "QoS marking for audio/video calls",
+          "pfm_type": "boolean"
+        },
+        {
+          "pfm_description": "An array of app bundle identifiers that defines the allow list for L2 and L3 marking for traffic that goes to the Wi-Fi network. If the array isn't present, but the 'QoSMarkingPolicy' key is present — even empty — no apps can use L2 and L3 marking.",
+          "pfm_ios_min": "14.5",
+          "pfm_macos_min": "14.0",
+          "pfm_name": "QoSMarkingAllowListAppIdentifiers",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "appBundleID",
+              "pfm_title": "Allowlisted App",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Allowlisted App Identifiers",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "Use 'QoSMarkingAllowListAppIdentifiers' instead.",
+          "pfm_ios_deprecated": "14.5",
+          "pfm_macos_deprecated": "14.0",
+          "pfm_name": "QoSMarkingWhitelistedAppIdentifiers",
+          "pfm_subkeys": [
+            {
+              "pfm_name": "appBundleID",
+              "pfm_title": "Allowlisted App",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "Whitelisted App Identifiers",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "QoS Marking Policy",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_conditionals": [
+        {
+          "pfm_require": "always",
+          "pfm_target_conditions": [
+            {
+              "pfm_contains_any": [13],
+              "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+            }
+          ]
+        }
+      ],
+      "pfm_description": "The UUID of the certificate payload within the same profile to use for the client credential.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_contains_any": [13, 21, 25, 43],
+              "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+            }
+          ]
+        }
+      ],
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadCertificateUUID",
+      "pfm_title": "Certificate UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', allows for two-factor authentication for EAP-TTLS, PEAP, or EAP-FAST. If 'false', allows for zero-factor authentication for EAP-TLS.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_contains_any": [13, 21, 25, 43],
+              "pfm_target": "EAPClientConfiguration.AcceptEAPTypes"
+            }
+          ]
+        }
+      ],
+      "pfm_ios_min": "7.0",
+      "pfm_name": "TLSCertificateRequired",
+      "pfm_title": "Certificate Required",
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Wi-Fi",
+  "pfm_tvos_min": "9.0",
+  "pfm_unique": false,
+  "pfm_version": 13
+}

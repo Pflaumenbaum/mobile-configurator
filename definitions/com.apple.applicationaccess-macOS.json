@@ -1,0 +1,1172 @@
+{
+  "pfm_description": "Use this section to define restrictions settings",
+  "pfm_description_reference": "The Restrictions payload is designated by specifying com.apple.applicationaccess as the PayloadType value. A Restrictions payload allows the administrator to restrict the user from doing certain things with the device, such as using the camera. The Restrictions payload is supported in iOS; some keys are also supported in macOS, as noted below.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/restrictions",
+  "pfm_domain": "com.apple.applicationaccess",
+  "pfm_format_version": 1,
+  "pfm_interaction": "combined",
+  "pfm_last_modified": "2025-04-04T13:24:55.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subdomain": "macOS",
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Use this section to define restrictions settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Restrictions",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.applicationaccess",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_name": "PFC_SegmentedControl_0",
+      "pfm_range_list_titles": [
+        "General",
+        "AI and Siri",
+        "AirDrop",
+        "AirPlay",
+        "AirPrint",
+        "iCloud",
+        "Media",
+        "Passwords and Unlock",
+        "Classroom",
+        "Updates"
+      ],
+      "pfm_require": "always",
+      "pfm_segments": {
+        "AI and Siri": [
+          "allowAssistant",
+          "forceAssistantProfanityFilter",
+          "allowGenmoji",
+          "allowImagePlayground",
+          "allowWritingTools",
+          "allowMailSummary",
+          "allowMailSmartReplies",
+          "allowExternalIntelligenceIntegrations",
+          "allowExternalIntelligenceIntegrationsSignIn",
+          "allowedExternalIntelligenceWorkspaceIDs",
+          "allowNotesTranscriptionSummary",
+          "allowNotesTranscription",
+          "allowAppleIntelligenceReport",
+          "allowSafariSummary"
+        ],
+        "AirDrop": ["allowAirDrop"],
+        "AirPlay": ["allowAirPlayIncomingRequests"],
+        "AirPrint": [
+          "allowAirPrintiBeaconDiscovery",
+          "forceAirPrintTrustedTLSRequirement"
+        ],
+        "Classroom": [
+          "forceClassroomAutomaticallyJoinClasses",
+          "forceClassroomRequestPermissionToLeaveClasses",
+          "forceClassroomUnpromptedAppAndDeviceLock",
+          "forceClassroomUnpromptedScreenObservation"
+        ],
+        "General": [
+          "allowAccountModification",
+          "allowApplePersonalizedAdvertising",
+          "allowActivityContinuation",
+          "allowAddingGameCenterFriends",
+          "allowARDRemoteManagementModification",
+          "allowBluetoothSharingModification",
+          "allowCamera",
+          "allowContentCaching",
+          "allowDefinitionLookup",
+          "allowDeprecatedWebKitTLS",
+          "allowDeviceNameModification",
+          "allowDictation",
+          "allowEraseContentAndSettings",
+          "allowFindMyDevice",
+          "allowFindMyFriends",
+          "allowFileSharingModification",
+          "allowBookstore",
+          "allowGameCenter",
+          "allowMultiplayerGaming",
+          "allowInternetSharingModification",
+          "allowLocalUserCreation",
+          "forceOnDeviceOnlyTranslation",
+          "allowMailPrivacyProtection",
+          "allowPrinterSharingModification",
+          "allowUniversalControl",
+          "allowMusicService",
+          "allowRemoteAppleEventsModification",
+          "allowRemoteScreenObservation",
+          "allowScreenShot",
+          "allowStartupDiskModification",
+          "allowTimeMachineBackup",
+          "allowUIConfigurationProfileInstallation",
+          "allowSpotlightInternetResults",
+          "allowiTunesFileSharing",
+          "allowUSBRestrictedMode",
+          "allowWallpaperModification",
+          "forceOnDeviceOnlyDictation",
+          "safariAllowAutoFill",
+          "allowiPhoneMirroring",
+          "allowMediaSharingModification",
+          "forceBypassScreenCaptureAlert"
+        ],
+        "Media": [
+          "allowBookstoreErotica",
+          "allowExplicitContent",
+          "ratingApps",
+          "ratingMovies",
+          "ratingRegion",
+          "ratingTVShows"
+        ],
+        "Passwords and Unlock": [
+          "allowAutoUnlock",
+          "allowFingerprintForUnlock",
+          "allowFingerprintModification",
+          "allowPasscodeModification",
+          "allowPasswordAutoFill",
+          "allowPasswordProximityRequests",
+          "allowPasswordSharing",
+          "enforcedFingerprintTimeout"
+        ],
+        "Updates": [
+          "enforcedSoftwareUpdateDelay",
+          "enforcedSoftwareUpdateMajorOSDeferredInstallDelay",
+          "enforcedSoftwareUpdateMinorOSDeferredInstallDelay",
+          "enforcedSoftwareUpdateNonOSDeferredInstallDelay",
+          "forceDelayedAppSoftwareUpdates",
+          "forceDelayedMajorSoftwareUpdates",
+          "forceDelayedSoftwareUpdates",
+          "allowRapidSecurityResponseInstallation",
+          "allowRapidSecurityResponseRemoval"
+        ],
+        "iCloud": [
+          "allowCloudAddressBook",
+          "allowCloudBTMM",
+          "allowCloudBookmarks",
+          "allowCloudCalendar",
+          "allowCloudDesktopAndDocuments",
+          "allowCloudDocumentSync",
+          "allowCloudFMM",
+          "allowCloudFreeform",
+          "allowCloudKeychainSync",
+          "allowCloudMail",
+          "allowCloudNotes",
+          "allowCloudPhotoLibrary",
+          "allowCloudPrivateRelay",
+          "allowCloudReminders"
+        ]
+      },
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables AirDrop. Requires a supervised device. Available in iOS 7 and later, and macOS 10.13 and later.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/restrictions",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowAirDrop",
+      "pfm_supervised": true,
+      "pfm_title": "Allow AirDrop",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables incoming AirPlay requests. Available in macOS 12.3 and later, and tvOS 10.2 and later. Requires a supervised device in tvOS.",
+      "pfm_macos_min": "12.3",
+      "pfm_name": "allowAirPlayIncomingRequests",
+      "pfm_supervised": true,
+      "pfm_title": "Allow incoming AirPlay requests",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables:\n* The AutoFill Passwords feature in iOS, with Keychain and third-party password managers\n* Prompting the user to use a saved password in Safari or in apps\n* Automatic strong passwords\n* Suggesting strong passwords to users\nHowever, if 'false', the system doesn't prevent AutoFill for contact info and credit cards in Safari.\nAvailable in iOS 12 and later, and macOS 10.14 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "allowPasswordAutoFill",
+      "pfm_supervised": true,
+      "pfm_title": "Allow password AutoFill",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disallows auto unlock. Available in macOS 10.12 and later, and iOS 14.5 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowAutoUnlock",
+      "pfm_title": "Allow Apple Watch to auto unlock device",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the camera and removes its icon from the Home screen, and users are unable to take photographs. Available in iOS 4 and later, macOS 10.11 and later, and tvOS 17 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "allowCamera",
+      "pfm_title": "Allow Camera Use",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables content caching. Available in macOS 10.13 and later.",
+      "pfm_macos_deprecated": "10.13.4",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowContentCaching",
+      "pfm_title": "Allow Content Caching",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_macos_min": "14.0",
+      "pfm_name": "forceOnDeviceOnlyTranslation",
+      "pfm_title": "Force on-device only translation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system limits Apple personalized advertising. Available in iOS 14 and later, and macOS 12 and later.",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "allowApplePersonalizedAdvertising",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_macos_min": "12",
+      "pfm_name": "allowMailPrivacyProtection",
+      "pfm_title": "Allow mail privacy protection",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying Printer Sharing settings in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowPrinterSharingModification",
+      "pfm_title": "Allow modifying Printer Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Universal Control. Available in macOS 13 and later.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowUniversalControl",
+      "pfm_title": "Allow Universal Control",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iTunes file sharing services. Available in macOS 10.13 and later.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowiTunesFileSharing",
+      "pfm_title": "Allow iTunes File Sharing",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables modification of accounts such as Apple Accounts and Internet-based accounts such as Mail, Contacts, and Calendar. Available in iOS 7 and later, macOS 14 and later, and watchOS 10 and later. Requires a supervised device in iOS and watchOS.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowAccountModification",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables activity continuation. Available in iOS 8 and later, and macOS 10.15 and later. Support for this restriction on unsupervised devices and with Managed Apple Accounts is deprecated. In a future release, this restriction will begin requiring supervision and will apply to personal Apple Accounts only.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "allowActivityContinuation",
+      "pfm_title": "Allow Handoff",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the device from automatically submitting diagnostic reports to Apple. Available in iOS 6 and later, and macOS 10.13 and later. Also available for user enrollment.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/restrictions",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowDiagnosticSubmission",
+      "pfm_title": "Allow diagnostic submission",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Music service, and the Music app reverts to classic mode. Requires a supervised device. Available in iOS 9.3 and later, and macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowMusicService",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Apple Music",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying Remote Apple Events Sharing settings in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowRemoteAppleEventsModification",
+      "pfm_title": "Allow modifying Remote Apple Events Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "",
+      "pfm_description_reference": "Optional. When false, disallows macOS Back to My Mac iCloud service. Availability: Available in macOS 10.12 and 10.13.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudBTMM",
+      "pfm_title": "Allow iCloud Back to My Mac",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Bookmark sync. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudBookmarks",
+      "pfm_title": "Allow iCloud Bookmarks",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Calendar services. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudCalendar",
+      "pfm_title": "Allow iCloud Calendar",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Address Book services. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudAddressBook",
+      "pfm_title": "Allow iCloud Contacts",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables document and key-value syncing to iCloud. Available in iOS 5 and later, and macOS 10.11 and later. Requires a supervised device in iOS 13 and later, and Shared iPad doesn't support it. Support for this restriction on unsupervised devices and with Managed Apple Accounts is deprecated.",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "allowCloudDocumentSync",
+      "pfm_supervised": true,
+      "pfm_title": "Allow iCloud Document Sync",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Desktop and Document services. Available in macOS 10.12.4 and later.",
+      "pfm_macos_min": "10.12.4",
+      "pfm_name": "allowCloudDesktopAndDocuments",
+      "pfm_title": "Allow iCloud Desktop & Documents",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "",
+      "pfm_description_reference": "Optional. When false, disallows macOS Find My Mac iCloud service. Availability: Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudFMM",
+      "pfm_title": "Allow iCloud Find My Mac",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disallows iCloud Freeform services. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowCloudFreeform",
+      "pfm_title": "Allow Cloud Freeform",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud keychain synchronization. Available in iOS 7 and later, and macOS 10.12 and later. Support for this restriction on unsupervised devices and with Managed Apple Accounts is deprecated.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudKeychainSync",
+      "pfm_title": "Allow iCloud Keychain",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Mail services. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudMail",
+      "pfm_title": "Allow iCloud Mail",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Notes services. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudNotes",
+      "pfm_title": "Allow iCloud Notes",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Photo Library. The system removes any photos from local storage that aren't fully downloaded from iCloud Photo Library to the device. Available in iOS 9 and later, and macOS 10.12 and later. Support for this restriction on unsupervised devices and with Managed Apple Accounts is deprecated.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudPhotoLibrary",
+      "pfm_title": "Allow iCloud Photo Library",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Reminder services. Available in macOS 10.12 and later.",
+      "pfm_macos_min": "10.12",
+      "pfm_name": "allowCloudReminders",
+      "pfm_title": "Allow iCloud Reminders",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables iCloud Private Relay. Available in iOS 15 and later, and in macOS 12 and later. Requires a supervised device in iOS. Support for this restriction on unsupervised devices and with Managed Apple Accounts is deprecated.",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "allowCloudPrivateRelay",
+      "pfm_supervised": true,
+      "pfm_title": "Allow iCloud Private Relay",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Spotlight Internet search results in Siri Suggestions. Available in iOS 8 and later, and macOS 10.11 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "allowSpotlightInternetResults",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Siri Suggestions",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the Erase All Content and Settings option in the Reset UI. Available in iOS 8 and later, and macOS 12 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "allowEraseContentAndSettings",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Erase All Content and Settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying File Sharing setting in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowFileSharingModification",
+      "pfm_title": "Allow modifying File Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents Touch ID or Face ID from unlocking a device. Available in iOS 7 and later, and macOS 10.12.4 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "10.12.4",
+      "pfm_name": "allowFingerprintForUnlock",
+      "pfm_title": "Allow Touch ID / Face ID to unlock device",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from modifying Touch ID or Face ID. Available in iOS 8.3 and later, and macOS 14 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowFingerprintModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Modifying Touch ID Fingerprints",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables definition lookup. Available in iOS 8.1.3 and later, and macOS 10.11 and later. Requires a supervised device on iOS.",
+      "pfm_macos_min": "10.11",
+      "pfm_name": "allowDefinitionLookup",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Define",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "Allow websites that use TLS 1.0 and TLS 1.1 to be accessed using Safari.",
+      "pfm_documentation_url": "https://docs.jamf.com/10.20.0/jamf-pro/release-notes/What%27s_New.html",
+      "pfm_macos_min": "10.15.4",
+      "pfm_name": "allowDeprecatedWebKitTLS",
+      "pfm_title": "Allow accessing websites using TLS 1.0 and 1.1",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from changing the device name. Available in iOS 9 and later, macOS 14 and later, and tvOS 11.0 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowDeviceNameModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Modifying Device Name",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Game Center, and the system removes its icon from the Home screen. Available in iOS 6 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowGameCenter",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Game Center",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prohibits multiplayer gaming. Available in iOS 4.1 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowMultiplayerGaming",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Multiplayer Gaming",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying the Internet Sharing setting in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowInternetSharingModification",
+      "pfm_title": "Allow modifying Internet Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents creating new users in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowLocalUserCreation",
+      "pfm_title": "Allow creating users in System Settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prohibits adding friends to Game Center. Available in iOS 4.2.1 and later, and macOS 10.13 and later. Requires a supervised device in iOS 13 and later.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowAddingGameCenterFriends",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Adding Game Center Friends",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The two-letter key that profile tools use to display the proper ratings for the given region. The client doesn't recognize or report this data. Available in iOS 4.0 and later, macOS 10.7 and later, and tvOS 9 and later.",
+      "pfm_name": "ratingRegion",
+      "pfm_range_list": ["us", "au", "ca", "de", "fr", "ie", "jp", "nz", "gb"],
+      "pfm_range_list_titles": [
+        "United States",
+        "Australia",
+        "Canada",
+        "Germany",
+        "France",
+        "Ireland",
+        "Japan",
+        "New Zealand",
+        "United Kingdom"
+      ],
+      "pfm_title": "Ratings region",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of app content allowed on the device. Preinstalled (first party) apps ignore this restriction. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later.  Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '600': 17+\n* '300': 12+\n* '200': 9+\n* '100': 4+\n* '0': None",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "ratingApps",
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "Apps Ranking Number",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of movie content allowed on the device. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later.  Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '500': NC-17\n* '400': R\n* '300': PG-13\n* '200': PG\n* '100': G\n* '0': None",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "ratingMovies",
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "Movies Ranking Number",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": 1000,
+      "pfm_description": "The maximum level of TV content allowed on the device. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later. Support for this restriction on unsupervised devices is deprecated.\nPossible values, with the US description of the rating level:\n* '1000': All\n* '600': TV-MA\n* '500': TV-14\n* '400': TV-PG\n* '300': TV-G\n* '200': TV-Y7\n* '100': TV-Y\n* '0': None",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "ratingTVShows",
+      "pfm_range_max": 1000,
+      "pfm_range_min": 0,
+      "pfm_title": "TV Shows Ranking Number",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system hides explicit music or video content purchased from the iTunes Store. The system marks explicit content as such by content providers, such as record labels, when sold through the iTunes Store. Explicit content in the News and Podcast apps is also hidden.\nAvailable in iOS 4.0 and later, macOS 15 and later, and tvOS 11.3 and later. Requires a supervised device in iOS 13 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowExplicitContent",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Explicit Content",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system removes the Book Store tab from the Books app. Requires a supervised device. Available in iOS 6 and later and macOS 15 and later.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowBookstore",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Bookstore",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents the user from downloading Apple Books media that's tagged as erotica. Available in iOS 4.0 and later, macOS 15 and later, and tvOS 17 and later. Support for this restriction on unsupervised devices is deprecated.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowBookstoreErotica",
+      "pfm_title": "Allow Bookstore Erotica",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying the Remote Management Sharing setting in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowARDRemoteManagementModification",
+      "pfm_title": "Allow modifying Remote Management Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modifying Bluetooth settings in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowBluetoothSharingModification",
+      "pfm_title": "Allow modifying Bluetooth Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables sharing passwords with the Airdrop Passwords feature. Available in iOS 12 and later, and macOS 10.14 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "allowPasswordSharing",
+      "pfm_supervised": true,
+      "pfm_title": "Allow password sharing",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "",
+      "pfm_description_reference": "Supervised only. If set to false, disables iBeacon discovery of AirPrint printers. This prevents spurious AirPrint Bluetooth beacons from phishing for network traffic. Defaults to true. Availability: Available in iOS 11.0 and later and macOS 10.13.",
+      "pfm_macos_min": "10.13.0",
+      "pfm_name": "allowAirPrintiBeaconDiscovery",
+      "pfm_note": "Apple documentation does not indicate that this preference is supported on macOS, but Jamf includes it with a min macOS of 10.13.",
+      "pfm_supervised": true,
+      "pfm_title": "Allow discovery of AirPrint printers using iBeacons",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "",
+      "pfm_description_reference": "Supervised only. If set to true, requires trusted certificates for TLS printing communication. Defaults to false. Availability: Available in iOS 11.0 and later and macOS 10.13 and later.",
+      "pfm_macos_min": "10.13.0",
+      "pfm_name": "forceAirPrintTrustedTLSRequirement",
+      "pfm_note": "Apple documentation does not indicate that this preference is supported on macOS, but Jamf includes it with a min macOS of 10.13.",
+      "pfm_supervised": true,
+      "pfm_title": "Disallow AirPrint to destinations with untrusted certificates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables saving a screenshot of the display and capturing a screen recording. It also disables the Classroom app from observing remote screens. Available in iOS 4 and later, and macOS 10.14.4 and later. Also available for user enrollment.",
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "allowScreenShot",
+      "pfm_title": "Allow Screenshots and Screen Recording",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modification of Startup Disk settings in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowStartupDiskModification",
+      "pfm_title": "Allow modifying Startup Disk settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modification of Time Machine settings in System Settings. Available in macOS 14 and later.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowTimeMachineBackup",
+      "pfm_title": "Allow modifying Time Machine settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prohibits the user from installing configuration profiles and certificates interactively. Available in iOS 6 and later, and macOS 13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowUIConfigurationProfileInstallation",
+      "pfm_supervised": true,
+      "pfm_title": "Allow UI Configuration Profile Installation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables remote screen observation by the Classroom app. Nest this key beneath 'allowScreenShot' as a subrestriction. If 'allowScreenShot' is 'false', the Classroom app doesn't observe remote screens. Available in iOS 12 and later, and macOS 10.14.4 and later. Requires a supervised device until iOS 13 and macOS 10.15. Allowed for user enrollments in macOS 12 and later.",
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "allowRemoteScreenObservation",
+      "pfm_note": "As of iOS 13 and macOS 10.15, this preference requires the device to be supervised.",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Remote Screen Observation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true' and 'ScreenObservationPermissionModificationAllowed' is also 'true' in the Education payload, a student enrolled in a managed course through the Classroom app automatically gives permission to that course teacher's requests to observe the student's screen without prompting the student. Requires a supervised device. Available in iOS 11 and later, and macOS 10.14.4 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_domain": "com.apple.education",
+              "pfm_present": false,
+              "pfm_target": "ScreenObservationPermissionModificationAllowed"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "forceClassroomUnpromptedScreenObservation",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Classroom app to perform AirPlay and View Screen without prompting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system allows the teacher to lock apps or the device without prompting the student. Requires a supervised device. Available in iOS 11 and later, and macOS 10.14.4 and later.",
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "forceClassroomUnpromptedAppAndDeviceLock",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Classroom to lock apps or the device without prompting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system automatically gives permission to the teacher's requests without prompting the student. Requires a supervised device. Available in iOS 11 and later, and macOS 10.14.4 and later.",
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "forceClassroomAutomaticallyJoinClasses",
+      "pfm_supervised": true,
+      "pfm_title": "Automatically join Classroom classes without prompting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', a student enrolled in an unmanaged course through Classroom needs to request permission from the teacher to leave the course. Requires a supervised device. Available in iOS 11.3 and later, and macOS 10.14.4 and later.",
+      "pfm_macos_min": "10.14.4",
+      "pfm_name": "forceClassroomRequestPermissionToLeaveClasses",
+      "pfm_supervised": true,
+      "pfm_title": "Require teacher permission to leave Classroom app unmanaged classes",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents modification of Bluetooth settings. Requires a supervised device. Available in iOS 11 and later, and macOS 13.0 and later.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowBluetoothModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow modifying Bluetooth settings",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables requesting passwords from nearby devices. Available in iOS 12 and later, macOS 10.14 and later, and tvOS 12 and later. Requires a supervised device in iOS and tvOS. Deprecated on tvOS 17.4 or later as guest password sharing is no longer supported.",
+      "pfm_macos_min": "10.14",
+      "pfm_name": "allowPasswordProximityRequests",
+      "pfm_supervised": true,
+      "pfm_title": "Allow proximity based password sharing requests",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents adding, changing, or removing the passcode. The system ignores this restriction on Shared iPad. Available in iOS 9 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowPasscodeModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Modifying Passcode",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prevents changing the wallpaper. Available in iOS 9 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowWallpaperModification",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Modifying Wallpaper",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system allows iOS devices to always connect to USB accessories while locked. On macOS, allows new USB and Thunderbolt accessories and SD cards to connect without authorization. If the system has Lockdown mode enabled, it ignores this value. Available in iOS 11.4.1 and later, and macOS 13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowUSBRestrictedMode",
+      "pfm_supervised": true,
+      "pfm_title": "Allow USB Restricted Mode",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Siri. Available in iOS 5 and later, and macOS 14 and later. Also available for user enrollment.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "allowAssistant",
+      "pfm_title": "Allow Siri",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system forces the use of the profanity filter for Siri and dictation. Available in iOS 11 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "forceAssistantProfanityFilter",
+      "pfm_supervised": true,
+      "pfm_title": "Enable Siri Profanity Filter",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system delays user visibility of software updates. In macOS, the system allows seed build updates without delay. The delay is 30 days unless you set 'enforcedSoftwareUpdateDelay' to another value. Available in iOS 11.3 and later, macOS 10.13 and later, and tvOS 12.2 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "forceDelayedSoftwareUpdates",
+      "pfm_note": "The delay is 30 days unless enforcedSoftwareUpdateDelay is set to another value.",
+      "pfm_supervised": true,
+      "pfm_title": "Defer OS Software Updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prohibits installation of rapid security responses. Available in iOS 16 and later, and macOS 13 and later.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowRapidSecurityResponseInstallation",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Rapid Security Response Installation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system prohibits removal of rapid security responses. Available in iOS 16 and later, and macOS 13 and later.",
+      "pfm_macos_min": "13.0",
+      "pfm_name": "allowRapidSecurityResponseRemoval",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Rapid Security Response Removal",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 30,
+      "pfm_description": "This restriction allows the administrator to set how many days to delay a minor OS software update on the device. When this restriction is in place, the user see a software update only after the specified delay after the release of the software update. This value controls the delay for 'forceDelayedSoftwareUpdates'. Available in macOS 11.3 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "11.3",
+      "pfm_name": "enforcedSoftwareUpdateMinorOSDeferredInstallDelay",
+      "pfm_range_max": 90,
+      "pfm_range_min": 1,
+      "pfm_title": "Deferred Minor Software Updates Delay",
+      "pfm_type": "integer",
+      "pfm_value_unit": "days"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system delays user visibility of non-OS software updates. Requires a supervised device. Control visibility of operating system updates through 'forceDelayedSoftwareUpdates'. The delay is 30 days unless you set 'enforcedSoftwareUpdateDelay' to another value. Available in macOS 11 and later.",
+      "pfm_macos_min": "11.0",
+      "pfm_name": "forceDelayedAppSoftwareUpdates",
+      "pfm_note": "The delay is 30 days unless enforcedSoftwareUpdateDelay is set to another value.",
+      "pfm_supervised": true,
+      "pfm_title": "Defer non-OS Software Updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 30,
+      "pfm_description": "How many days to delay a software update on the device. With this restriction in place, the user doesn't see a software update until the specified number of days after the software update release date. The restrictions 'forceDelayedAppSoftwareUpdates' and 'forceDelayedSoftwareUpdates' use this value. Available in iOS 11.3 and later, macOS 10.13.4 and later, and tvOS 12.2 and later. Requires a supervised device in iOS and tvOS.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedSoftwareUpdates"
+            },
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedAppSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.13.4",
+      "pfm_name": "enforcedSoftwareUpdateDelay",
+      "pfm_range_max": 90,
+      "pfm_range_min": 1,
+      "pfm_supervised": true,
+      "pfm_title": "Deferred Software Updates Delay",
+      "pfm_type": "integer",
+      "pfm_value_unit": "days"
+    },
+    {
+      "pfm_default": 30,
+      "pfm_description": "This restriction allows the administrator to set how many days to delay an app software update on the device. When this restriction is in place, the user sees a non-OS software update only after the specified delay after the release of the software. This value controls the delay for 'forceDelayedAppSoftwareUpdates'. Available in macOS 11.3 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedAppSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "11.3",
+      "pfm_name": "enforcedSoftwareUpdateNonOSDeferredInstallDelay",
+      "pfm_range_max": 90,
+      "pfm_range_min": 1,
+      "pfm_title": "Deferred non-OS Software Updates Delay",
+      "pfm_type": "integer",
+      "pfm_value_unit": "days"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system delays user visibility of major OS updates. Available in macOS 11.3 and later.",
+      "pfm_macos_min": "11.3",
+      "pfm_name": "forceDelayedMajorSoftwareUpdates",
+      "pfm_note": "The delay is 30 days unless enforcedSoftwareUpdateMajorOSDeferredInstallDelay is set to another value.",
+      "pfm_title": "Defer Major OS Software Updates",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": 30,
+      "pfm_description": "This restriction allows the administrator to set how many days to delay a major software upgrade on the device. When this restriction is in place, the user sees a software upgrade only after the specified delay after the release of the software upgrade. This value controls the delay for 'forceDelayedMajorSoftwareUpdates'. Available in macOS 11.3 and later.",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_n_range_list": [true],
+              "pfm_target": "forceDelayedMajorSoftwareUpdates"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "11.3",
+      "pfm_name": "enforcedSoftwareUpdateMajorOSDeferredInstallDelay",
+      "pfm_range_max": 90,
+      "pfm_range_min": 1,
+      "pfm_title": "Deferred Major Software Updates Delay",
+      "pfm_type": "integer",
+      "pfm_value_unit": "days"
+    },
+    {
+      "pfm_default": 172800,
+      "pfm_description": "The value, in seconds, after which the fingerprint unlock requires a password to authenticate. The default value is 48 hours. Available in macOS 12 and later.",
+      "pfm_macos_min": "12.0",
+      "pfm_name": "enforcedFingerprintTimeout",
+      "pfm_title": "Enforced Fingerprint Timeout",
+      "pfm_type": "integer",
+      "pfm_value_unit": "seconds"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disallows dictation input. Available in iOS 10.3 and later, and macOS 10.13 and later. Requires a supervised device in iOS.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "allowDictation",
+      "pfm_supervised": true,
+      "pfm_title": "Allow dictation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', the system disables connections to Siri servers for the purposes of dictation. Available in iOS 14.5 and later, macOS 14 and later, and watchOS 10 and later. Also available for user enrollment.",
+      "pfm_macos_min": "14.0",
+      "pfm_name": "forceOnDeviceOnlyDictation",
+      "pfm_title": "Force On-Device Only Dictation",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Safari AutoFill for passwords, contact info, and credit cards and also prevents using the Keychain for AutoFill. As of iOS 13, requires a supervised device. Available in iOS 4 and later, and macOS 10.13 and later.\nThe system still allows third-party password managers, and apps can use AutoFill.",
+      "pfm_macos_min": "10.13",
+      "pfm_name": "safariAllowAutoFill",
+      "pfm_supervised": true,
+      "pfm_title": "Allow AutoFill in Safari",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Find My Device in the Find My app. Requires a supervised device. Available in iOS 13 and later, and macOS 10.15 and later.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "allowFindMyDevice",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Find My Devices",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Find My Friends in the Find My app. Requires a supervised device. Available in iOS 13 and later, and macOS 10.15 and later.",
+      "pfm_macos_min": "10.15",
+      "pfm_name": "allowFindMyFriends",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Find My Friends",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', prohibits creating new Genmoji. Requires a supervised device. Available in iOS 18 and later.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowGenmoji",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Genmoji",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', prohibits the use of image generation. Requires a supervised device. Available in iOS 18 and later and macOS 15 and later.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowImagePlayground",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Image Playground",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', prohibits the use of iPhone Mirroring. When used on macOS, this prevents the Mac from mirroring any iPhone. When used on iOS, this prevents the iPhone from mirroring to any Mac. Requires a supervised device. Available in iOS 18 and later and macOS 15 and later.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowiPhoneMirroring",
+      "pfm_supervised": true,
+      "pfm_title": "Allow iPhone mirroring",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables Apple Intelligence writing tools. Requires a supervised device. Available in iOS 18 and later and macOS 15 and later.",
+      "pfm_macos_min": "15.0",
+      "pfm_name": "allowWritingTools",
+      "pfm_supervised": true,
+      "pfm_title": "Allow writing tools",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables the ability to create summaries of email messages manually. This doesn't affect automatic summary generation. Available in iOS 18.1 and later.",
+      "pfm_macos_min": "15.1",
+      "pfm_name": "allowMailSummary",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables smart replies in Mail. Available in iOS 18.2 and later, and macOS 15.2 and later.",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "allowMailSmartReplies",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', prevents modification of Media Sharing settings. Available in macOS 15.1 and later.",
+      "pfm_macos_min": "15.1",
+      "pfm_name": "allowMediaSharingModification",
+      "pfm_title": "Allow modifying Media Sharing setting",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If 'true', then the system bypasses the presentation of a screen capture alert. Available in macOS 15.1 and later.",
+      "pfm_macos_min": "15.1",
+      "pfm_name": "forceBypassScreenCaptureAlert",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables the use of external, cloud-based intelligence services with Siri. On iOS, this restriction is temporarily allowed on unsupervised and user enrollments. In a future release, this restriction will require supervision, and will be ignored on non-supervised devices. Available in iOS 18.2 and later, and macOS 15.2 and later.",
+      "pfm_macos_min": "15.2",
+      "pfm_name": "allowExternalIntelligenceIntegrations",
+      "pfm_title": "Allow external intelligence integrations",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', forces external intelligence providers into anonymous mode. If a user is already signed in to an external intelligence provider, applying this restriction will cause them to be signed out when the next request is attempted. Available in iOS 18.2 and later, and macOS 15.2 and later.",
+      "pfm_macos_min": "15.2",
+      "pfm_name": "allowExternalIntelligenceIntegrationsSignIn",
+      "pfm_supervised": true,
+      "pfm_title": "Allow external intelligence integrations sign-in",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "An array of strings, but currently restricted to a single element. If present, Apple Intelligence only allows the given external integration workspace ID to be used, and requires a sign-in to make requests; the user will be required to sign in to integrations that support signing in. Multiple payloads combine using an intersect operation. This means the allowed set of workspace IDs can become the empty set if conflicting values are specified in multiple payloads.",
+      "pfm_macos_min": "15.3",
+      "pfm_name": "allowedExternalIntelligenceWorkspaceIDs",
+      "pfm_subkeys": [
+        {
+          "pfm_name": "allowedWorkspaceID",
+          "pfm_repetition_max": 1,
+          "pfm_title": "Allowed Workspace ID",
+          "pfm_type": "string"
+        }
+      ],
+      "pfm_supervised": true,
+      "pfm_title": "Allowed External Intelligence Workspace IDs",
+      "pfm_type": "array"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables transcription summarization in Notes. Available in iOS 18.3 and later, and macOS 15.3 and later.",
+      "pfm_macos_min": "15.3",
+      "pfm_name": "allowNotesTranscriptionSummary",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', disables transcription in Notes. Available in iOS 18.2 and later, and macOS 15.2 and later.",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "allowNotesTranscription",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables Apple Intelligence reports. Available in iOS 18.4 and later, and macOS 15.4 and later.",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "allowAppleIntelligenceReport",
+      "pfm_supervised": true,
+      "pfm_title": "Allow Apple Intelligence Report",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If 'false', the system disables the ability to summarize content in Safari. Available in iOS 18.2 and later, and macOS 15.2 and later.",
+      "pfm_macos_min": "15.4",
+      "pfm_name": "allowSafariSummary",
+      "pfm_supervised": true,
+      "pfm_type": "boolean"
+    }
+  ],
+  "pfm_targets": ["system", "user"],
+  "pfm_title": "Restrictions",
+  "pfm_unique": false,
+  "pfm_version": 19
+}

@@ -1,0 +1,255 @@
+{
+  "pfm_description": "Printing settings",
+  "pfm_description_reference": "The payload for configuring printers. Removing this profile from a device does not automatically remove printers from the device.",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+  "pfm_domain": "com.apple.mcxprinting",
+  "pfm_format_version": 1,
+  "pfm_interaction": "exlusive",
+  "pfm_last_modified": "2023-08-15T08:00:00.000Z",
+  "pfm_macos_min": "10.7",
+  "pfm_platforms": ["macOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Configures Printing settings",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_description_reference": "Optional. A human-readable description of this payload. This description is shown on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Printing",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_description_reference": "A human-readable name for the profile payload. This name is displayed on the Detail screen. It does not have to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.mcxprinting",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A reverse-DNS-style identifier for the specific payload. It is usually the same identifier as the root-level PayloadIdentifier value with an additional component appended.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.mcxprinting",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_description_reference": "The payload type.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_description_reference": "A globally unique identifier for the payload. The actual content is unimportant, but it must be globally unique. In macOS, you can use uuidgen to generate reasonable UUIDs.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_description_reference": "The version number of the individual payload.\nA profile can consist of payloads with different version numbers. For example, changes to the VPN software in iOS might introduce a new payload version to support additional features, but Mail payload versions would not necessarily change in the same release.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_description_reference": "Optional. A human-readable string containing the name of the organization that provided the profile.\nThe payload organization for a payload need not match the payload organization in the enclosing profile.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If true, allows printers that connect directly to a user's computer.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "AllowLocalPrinters",
+      "pfm_title": "Allow Local Printers",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The default printer for the user. This information should match one of the printers in the Printer List.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_exclude": [
+        {
+          "pfm_target_conditions": [
+            {
+              "pfm_present": false,
+              "pfm_target": "UserPrinterList"
+            }
+          ]
+        }
+      ],
+      "pfm_macos_min": "10.7",
+      "pfm_name": "DefaultPrinter",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "The printer display name. This should match one of the printers in the Printer List.",
+          "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing/defaultprinter",
+          "pfm_macos_min": "10.7",
+          "pfm_name": "DisplayName",
+          "pfm_require": "always",
+          "pfm_title": "Display Name",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "printer.example.com"
+        },
+        {
+          "pfm_description": "The device URI. This should match one of the printers in the Printer List.",
+          "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing/defaultprinter",
+          "pfm_macos_min": "10.7",
+          "pfm_name": "DeviceURI",
+          "pfm_require": "always",
+          "pfm_title": "Device URI",
+          "pfm_type": "string",
+          "pfm_value_placeholder": "ipp://printer.example.com/"
+        }
+      ],
+      "pfm_title": "Default Printer",
+      "pfm_type": "dictionary"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If true, prints the page footer (including the user name and date).",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "PrintFooter",
+      "pfm_title": "Footer",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The font to use when printing a footer.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "FooterFontName",
+      "pfm_title": "Footer Font Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "The font size to use when printing a footer.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "FooterFontSize",
+      "pfm_title": "Footer Font Size",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If true, includes the MAC address.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "PrintMACAddress",
+      "pfm_title": "Print MAC Address",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": true,
+      "pfm_description": "If true, requires an administrator password to add printers.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "RequireAdminToAddPrinters",
+      "pfm_title": "Require Admin To Add Printers",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If true, requires an administrator password to print locally.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "RequireAdminToPrintLocally",
+      "pfm_title": "Require Admin To Print Locally",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_default": false,
+      "pfm_description": "If true, shows only managed printers.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "ShowOnlyManagedPrinters",
+      "pfm_title": "Show Only Managed Printers",
+      "pfm_type": "boolean"
+    },
+    {
+      "pfm_description": "The printers available to a user.",
+      "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/printing",
+      "pfm_macos_min": "10.7",
+      "pfm_name": "UserPrinterList",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "A printer item in the printer list",
+          "pfm_hidden": "container",
+          "pfm_name": "Printer",
+          "pfm_require": "always",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "The printer display name.",
+              "pfm_name": "DisplayName",
+              "pfm_require": "always",
+              "pfm_title": "Display Name",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "Printer Name"
+            },
+            {
+              "pfm_description": "The device URI.",
+              "pfm_name": "DeviceURI",
+              "pfm_require": "always",
+              "pfm_title": "IP / Hostname",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "ipp://printer.example.com/"
+            },
+            {
+              "pfm_description": "The printer's location.",
+              "pfm_name": "Location",
+              "pfm_require": "always",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "Receptionist"
+            },
+            {
+              "pfm_description": "The printer's model.",
+              "pfm_name": "Model",
+              "pfm_require": "always",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "HP LaserJet"
+            },
+            {
+              "pfm_description": "The printer's PPDURL.",
+              "pfm_name": "PPDURL",
+              "pfm_require": "always",
+              "pfm_title": "PPD Location",
+              "pfm_type": "string",
+              "pfm_value_placeholder": "file://localhost/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Resources/Generic.ppd"
+            },
+            {
+              "pfm_default": false,
+              "pfm_description": "If true, locks the printer.",
+              "pfm_name": "PrinterLocked",
+              "pfm_require": "always",
+              "pfm_title": "Locked?",
+              "pfm_type": "boolean"
+            }
+          ],
+          "pfm_title": "Printer",
+          "pfm_type": "dictionary"
+        }
+      ],
+      "pfm_title": "User Printer List",
+      "pfm_type": "array"
+    }
+  ],
+  "pfm_targets": ["user", "system"],
+  "pfm_title": "Printing",
+  "pfm_unique": true,
+  "pfm_version": 1
+}

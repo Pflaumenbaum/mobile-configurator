@@ -1,0 +1,136 @@
+{
+  "pfm_description": "Single Sign-On Account Payload",
+  "pfm_documentation_url": "https://developer.apple.com/documentation/devicemanagement/singlesignon",
+  "pfm_domain": "com.apple.sso",
+  "pfm_format_version": 1,
+  "pfm_ios_min": "7.0",
+  "pfm_last_modified": "2020-11-22T08:25:36.000Z",
+  "pfm_platforms": ["iOS"],
+  "pfm_subkeys": [
+    {
+      "pfm_default": "Single Sign-On Account Payload",
+      "pfm_description": "The human-readable description of this payload. This description appears on the Detail screen.",
+      "pfm_name": "PayloadDescription",
+      "pfm_title": "Payload Description",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "Single Sign-On Account Payload",
+      "pfm_description": "The human-readable name for the profile payload. The name appears on the Detail screen and doesn't need to be unique.",
+      "pfm_name": "PayloadDisplayName",
+      "pfm_require": "always",
+      "pfm_title": "Payload Display Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.sso",
+      "pfm_description": "The reverse-DNS-style identifier for the payload. This identifier is usually the same as the TopLevel value, with an additional appended component. This string must be unique within the profile.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_name": "PayloadIdentifier",
+      "pfm_require": "always",
+      "pfm_title": "Payload Identifier",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "com.apple.sso",
+      "pfm_description": "The payload type, which each payload domain's reference page specifies.",
+      "pfm_name": "PayloadType",
+      "pfm_require": "always",
+      "pfm_title": "Payload Type",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": "",
+      "pfm_description": "The globally unique identifier for the payload. The actual content is unimportant, but must be globally unique. In macOS, use 'uuidgen' to generate UUIDs.\nDuring a profile replacement, the system updates payloads with the same 'PayloadIdentifier' and 'PayloadUUID' in the old and new profiles.",
+      "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+      "pfm_name": "PayloadUUID",
+      "pfm_require": "always",
+      "pfm_title": "Payload UUID",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_default": 1,
+      "pfm_description": "The version of this specific payload.",
+      "pfm_name": "PayloadVersion",
+      "pfm_range_list": [1],
+      "pfm_require": "always",
+      "pfm_title": "Payload Version",
+      "pfm_type": "integer"
+    },
+    {
+      "pfm_description": "The human-readable string containing the name of the organization that provides the profile. This value doesn't need to match the organization payload value in the enclosing dictionary.",
+      "pfm_name": "PayloadOrganization",
+      "pfm_title": "Payload Organization",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Human-readable name for the account",
+      "pfm_description_reference": "(Required) The human-readable name for the account.",
+      "pfm_name": "Name",
+      "pfm_require": "always",
+      "pfm_title": "Account Name",
+      "pfm_type": "string"
+    },
+    {
+      "pfm_description": "Kerberos-related information.",
+      "pfm_description_reference": "The Kerberos dictionary.",
+      "pfm_name": "Kerberos",
+      "pfm_subkeys": [
+        {
+          "pfm_description": "List of app identifiers that are allowed to use this login",
+          "pfm_name": "AppIdentifierMatches",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Exact or partial bundle ID match using the wildcard character eg com.apple.*",
+              "pfm_name": "AppIdentifierMatchesItem",
+              "pfm_repetition_min": 1,
+              "pfm_title": "App Bundle ID Item",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "App Identifiers",
+          "pfm_type": "array"
+        },
+        {
+          "pfm_description": "The PayloadUUID of an identity certificate payload for Kerberos credential renewal without user interaction.",
+          "pfm_format": "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$",
+          "pfm_name": "PayloadCertificateUUID",
+          "pfm_title": "Identity Certificate UUID",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "The Kerberos principal name. The user will be prompted for one during profile installation if not provided.",
+          "pfm_name": "PrincipalName",
+          "pfm_title": "Kerberos Principal Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "Properly capitalized Kerberos realm name",
+          "pfm_name": "Realm",
+          "pfm_require": "always",
+          "pfm_title": "Kerberos Realm Name",
+          "pfm_type": "string"
+        },
+        {
+          "pfm_description": "List of URLs prefixes that must be matched to use this account for Kerberos authentication over HTTP. Note that the URL postfixes must match as well.",
+          "pfm_name": "URLPrefixMatches",
+          "pfm_subkeys": [
+            {
+              "pfm_description": "Each entry in the URLPrefixMatches array must contain a URL prefix. Only URLs that begin with one of the strings in this account are allowed to access the Kerberos ticket.",
+              "pfm_name": "URLPrefixMatchesItem",
+              "pfm_title": "URL Matching Item",
+              "pfm_type": "string"
+            }
+          ],
+          "pfm_title": "URLs Prefix Matches",
+          "pfm_type": "array"
+        }
+      ],
+      "pfm_title": "Kerberos-Related Information",
+      "pfm_type": "dictionary"
+    }
+  ],
+  "pfm_targets": ["system"],
+  "pfm_title": "Single Sign-On",
+  "pfm_unique": true,
+  "pfm_version": 4
+}
