@@ -55,7 +55,7 @@ const DownloadModal: React.FC<Props> = ({
   plist,
   config,
 }) => {
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const theme = useTheme();
   const formattedPlist = formatXml(plist, "\t");
   const { bottom } = useSafeAreaInsets();
